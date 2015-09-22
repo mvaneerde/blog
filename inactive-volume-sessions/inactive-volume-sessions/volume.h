@@ -1,0 +1,3 @@
+// volume.h
+
+HRESULT ListVolumesForDevices();
