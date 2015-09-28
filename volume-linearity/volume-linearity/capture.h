@@ -1,0 +1,3 @@
+// capture.h
+
+HRESULT Capture();

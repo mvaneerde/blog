@@ -1,0 +1,3 @@
+// endpoint.h
+
+HRESULT Endpoint();
