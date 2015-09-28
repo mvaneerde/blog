@@ -1,0 +1,3 @@
+// acmenum.h
+
+MMRESULT EnumerateACMDrivers();
