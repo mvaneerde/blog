@@ -1,0 +1,3 @@
+// dmoenum.h
+
+HRESULT EnumerateDMOs();
