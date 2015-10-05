@@ -1,4 +1,4 @@
-// silence.h
+// loopback-capture.h
 
 // call CreateThread on this function
 // feed it the address of a LoopbackCaptureThreadFunctionArguments
