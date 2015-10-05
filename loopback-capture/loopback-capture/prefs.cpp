@@ -1,12 +1,6 @@
 // prefs.cpp
 
-#include <windows.h>
-#include <mmsystem.h>
-#include <stdio.h>
-#include <mmdeviceapi.h>
-#include <functiondiscoverykeys_devpkey.h>
-
-#include "prefs.h"
+#include "common.h"
 
 #define DEFAULT_FILE L"loopback-capture.wav"
 
@@ -17,16 +11,16 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice);
 HRESULT open_file(LPCWSTR szFileName, HMMIO *phFile);
 
 void usage(LPCWSTR exe) {
-    printf(
-        "%ls -?\n"
-        "%ls --list-devices\n"
-        "%ls [--device \"Device long name\"] [--file \"file name\"] [--int-16]\n"
-        "\n"
-        "    -? prints this message.\n"
-        "    --list-devices displays the long names of all active playback devices.\n"
-        "    --device captures from the specified device (default if omitted)\n"
-        "    --file saves the output to a file (%ls if omitted)\n"
-        "    --int-16 attempts to coerce data to 16-bit integer format\n",
+    LOG(
+        L"%ls -?\n"
+        L"%ls --list-devices\n"
+        L"%ls [--device \"Device long name\"] [--file \"file name\"] [--int-16]\n"
+        L"\n"
+        L"    -? prints this message.\n"
+        L"    --list-devices displays the long names of all active playback devices.\n"
+        L"    --device captures from the specified device (default if omitted)\n"
+        L"    --file saves the output to a file (%ls if omitted)\n"
+        L"    --int-16 attempts to coerce data to 16-bit integer format",
         exe, exe, exe, DEFAULT_FILE
     );
 }
@@ -64,13 +58,13 @@ CPrefs::CPrefs(int argc, LPCWSTR argv[], HRESULT &hr)
                 // --device
                 if (0 == _wcsicmp(argv[i], L"--device")) {
                     if (NULL != m_pMMDevice) {
-                        printf("Only one --device switch is allowed\n");
+                        ERR(L"%s", L"Only one --device switch is allowed");
                         hr = E_INVALIDARG;
                         return;
                     }
 
                     if (i++ == argc) {
-                        printf("--device switch requires an argument\n");
+                        ERR(L"%s", L"--device switch requires an argument");
                         hr = E_INVALIDARG;
                         return;
                     }
@@ -86,13 +80,13 @@ CPrefs::CPrefs(int argc, LPCWSTR argv[], HRESULT &hr)
                 // --file
                 if (0 == _wcsicmp(argv[i], L"--file")) {
                     if (NULL != m_szFilename) {
-                        printf("Only one --file switch is allowed\n");
+                        ERR(L"%s", L"Only one --file switch is allowed");
                         hr = E_INVALIDARG;
                         return;
                     }
 
                     if (i++ == argc) {
-                        printf("--file switch requires an argument\n");
+                        ERR(L"%s", L"--file switch requires an argument");
                         hr = E_INVALIDARG;
                         return;
                     }
@@ -104,7 +98,7 @@ CPrefs::CPrefs(int argc, LPCWSTR argv[], HRESULT &hr)
                 // --int-16
                 if (0 == _wcsicmp(argv[i], L"--int-16")) {
                     if (m_bInt16) {
-                        printf("Only one --int-16 switch is allowed\n");
+                        ERR(L"%s", L"Only one --int-16 switch is allowed");
                         hr = E_INVALIDARG;
                         return;
                     }
@@ -113,7 +107,7 @@ CPrefs::CPrefs(int argc, LPCWSTR argv[], HRESULT &hr)
                     continue;
                 }
 
-                printf("Invalid argument %ls\n", argv[i]);
+                ERR(L"Invalid argument %ls", argv[i]);
                 hr = E_INVALIDARG;
                 return;
             }
@@ -164,7 +158,7 @@ HRESULT get_default_device(IMMDevice **ppMMDevice) {
         (void**)&pMMDeviceEnumerator
     );
     if (FAILED(hr)) {
-        printf("CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x\n", hr);
+        ERR(L"CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -172,7 +166,7 @@ HRESULT get_default_device(IMMDevice **ppMMDevice) {
     hr = pMMDeviceEnumerator->GetDefaultAudioEndpoint(eRender, eConsole, ppMMDevice);
     pMMDeviceEnumerator->Release();
     if (FAILED(hr)) {
-        printf("IMMDeviceEnumerator::GetDefaultAudioEndpoint failed: hr = 0x%08x\n", hr);
+        ERR(L"IMMDeviceEnumerator::GetDefaultAudioEndpoint failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -191,7 +185,7 @@ HRESULT list_devices() {
         (void**)&pMMDeviceEnumerator
     );
     if (FAILED(hr)) {
-        printf("CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x\n", hr);
+        ERR(L"CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -203,7 +197,7 @@ HRESULT list_devices() {
     );
     pMMDeviceEnumerator->Release();
     if (FAILED(hr)) {
-        printf("IMMDeviceEnumerator::EnumAudioEndpoints failed: hr = 0x%08x\n", hr);
+        ERR(L"IMMDeviceEnumerator::EnumAudioEndpoints failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -211,10 +205,10 @@ HRESULT list_devices() {
     hr = pMMDeviceCollection->GetCount(&count);
     if (FAILED(hr)) {
         pMMDeviceCollection->Release();
-        printf("IMMDeviceCollection::GetCount failed: hr = 0x%08x\n", hr);
+        ERR(L"IMMDeviceCollection::GetCount failed: hr = 0x%08x", hr);
         return hr;
     }
-    printf("Active render endpoints found: %u\n", count);
+    LOG(L"Active render endpoints found: %u", count);
 
     for (UINT i = 0; i < count; i++) {
         IMMDevice *pMMDevice;
@@ -223,7 +217,7 @@ HRESULT list_devices() {
         hr = pMMDeviceCollection->Item(i, &pMMDevice);
         if (FAILED(hr)) {
             pMMDeviceCollection->Release();
-            printf("IMMDeviceCollection::Item failed: hr = 0x%08x\n", hr);
+            ERR(L"IMMDeviceCollection::Item failed: hr = 0x%08x", hr);
             return hr;
         }
 
@@ -233,7 +227,7 @@ HRESULT list_devices() {
         pMMDevice->Release();
         if (FAILED(hr)) {
             pMMDeviceCollection->Release();
-            printf("IMMDevice::OpenPropertyStore failed: hr = 0x%08x\n", hr);
+            ERR(L"IMMDevice::OpenPropertyStore failed: hr = 0x%08x", hr);
             return hr;
         }
 
@@ -243,19 +237,19 @@ HRESULT list_devices() {
         pPropertyStore->Release();
         if (FAILED(hr)) {
             pMMDeviceCollection->Release();
-            printf("IPropertyStore::GetValue failed: hr = 0x%08x\n", hr);
+            ERR(L"IPropertyStore::GetValue failed: hr = 0x%08x", hr);
             return hr;
         }
 
         if (VT_LPWSTR != pv.vt) {
-            printf("PKEY_Device_FriendlyName variant type is %u - expected VT_LPWSTR", pv.vt);
+            ERR(L"PKEY_Device_FriendlyName variant type is %u - expected VT_LPWSTR", pv.vt);
 
             PropVariantClear(&pv);
             pMMDeviceCollection->Release();
             return E_UNEXPECTED;
         }
 
-        printf("    %ls\n", pv.pwszVal);
+        LOG(L"    %ls", pv.pwszVal);
         
         PropVariantClear(&pv);
     }    
@@ -278,7 +272,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
         (void**)&pMMDeviceEnumerator
     );
     if (FAILED(hr)) {
-        printf("CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x\n", hr);
+        ERR(L"CoCreateInstance(IMMDeviceEnumerator) failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -290,7 +284,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
     );
     pMMDeviceEnumerator->Release();
     if (FAILED(hr)) {
-        printf("IMMDeviceEnumerator::EnumAudioEndpoints failed: hr = 0x%08x\n", hr);
+        ERR(L"IMMDeviceEnumerator::EnumAudioEndpoints failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -298,7 +292,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
     hr = pMMDeviceCollection->GetCount(&count);
     if (FAILED(hr)) {
         pMMDeviceCollection->Release();
-        printf("IMMDeviceCollection::GetCount failed: hr = 0x%08x\n", hr);
+        ERR(L"IMMDeviceCollection::GetCount failed: hr = 0x%08x", hr);
         return hr;
     }
 
@@ -309,7 +303,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
         hr = pMMDeviceCollection->Item(i, &pMMDevice);
         if (FAILED(hr)) {
             pMMDeviceCollection->Release();
-            printf("IMMDeviceCollection::Item failed: hr = 0x%08x\n", hr);
+            ERR(L"IMMDeviceCollection::Item failed: hr = 0x%08x", hr);
             return hr;
         }
 
@@ -319,7 +313,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
         if (FAILED(hr)) {
             pMMDevice->Release();
             pMMDeviceCollection->Release();
-            printf("IMMDevice::OpenPropertyStore failed: hr = 0x%08x\n", hr);
+            ERR(L"IMMDevice::OpenPropertyStore failed: hr = 0x%08x", hr);
             return hr;
         }
 
@@ -330,12 +324,12 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
         if (FAILED(hr)) {
             pMMDevice->Release();
             pMMDeviceCollection->Release();
-            printf("IPropertyStore::GetValue failed: hr = 0x%08x\n", hr);
+            ERR(L"IPropertyStore::GetValue failed: hr = 0x%08x", hr);
             return hr;
         }
 
         if (VT_LPWSTR != pv.vt) {
-            printf("PKEY_Device_FriendlyName variant type is %u - expected VT_LPWSTR", pv.vt);
+            ERR(L"PKEY_Device_FriendlyName variant type is %u - expected VT_LPWSTR", pv.vt);
 
             PropVariantClear(&pv);
             pMMDevice->Release();
@@ -350,7 +344,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
                 *ppMMDevice = pMMDevice;
                 pMMDevice->AddRef();
             } else {
-                printf("Found (at least) two devices named %ls\n", szLongName);
+                ERR(L"Found (at least) two devices named %ls", szLongName);
                 PropVariantClear(&pv);
                 pMMDevice->Release();
                 pMMDeviceCollection->Release();
@@ -364,7 +358,7 @@ HRESULT get_specific_device(LPCWSTR szLongName, IMMDevice **ppMMDevice) {
     pMMDeviceCollection->Release();
     
     if (NULL == *ppMMDevice) {
-        printf("Could not find a device named %ls\n", szLongName);
+        ERR(L"Could not find a device named %ls", szLongName);
         return HRESULT_FROM_WIN32(ERROR_NOT_FOUND);
     }
 
@@ -383,7 +377,7 @@ HRESULT open_file(LPCWSTR szFileName, HMMIO *phFile) {
     );
 
     if (NULL == *phFile) {
-        printf("mmioOpen(\"%ls\", ...) failed. wErrorRet == %u\n", szFileName, mi.wErrorRet);
+        ERR(L"mmioOpen(\"%ls\", ...) failed. wErrorRet == %u", szFileName, mi.wErrorRet);
         return E_FAIL;
     }
 

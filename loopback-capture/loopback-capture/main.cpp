@@ -1,12 +1,6 @@
 // main.cpp
 
-#include <windows.h>
-#include <stdio.h>
-#include <mmsystem.h>
-#include <mmdeviceapi.h>
-
-#include "prefs.h"
-#include "loopback-capture.h"
+#include "common.h"
 
 int do_everything(int argc, LPCWSTR argv[]);
 
@@ -15,7 +9,7 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
 
     hr = CoInitialize(NULL);
     if (FAILED(hr)) {
-        printf("CoInitialize failed: hr = 0x%08x", hr);
+        ERR(L"CoInitialize failed: hr = 0x%08x", hr);
         return -__LINE__;
     }
 
@@ -31,7 +25,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     // parse command line
     CPrefs prefs(argc, argv, hr);
     if (FAILED(hr)) {
-        printf("CPrefs::CPrefs constructor failed: hr = 0x%08x\n", hr);
+        ERR(L"CPrefs::CPrefs constructor failed: hr = 0x%08x", hr);
         return -__LINE__;
     }
     if (S_FALSE == hr) {
@@ -42,14 +36,14 @@ int do_everything(int argc, LPCWSTR argv[]) {
     // create a "loopback capture has started" event
     HANDLE hStartedEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (NULL == hStartedEvent) {
-        printf("CreateEvent failed: last error is %u\n", GetLastError());
+        ERR(L"CreateEvent failed: last error is %u", GetLastError());
         return -__LINE__;
     }
 
     // create a "stop capturing now" event
     HANDLE hStopEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (NULL == hStopEvent) {
-        printf("CreateEvent failed: last error is %u\n", GetLastError());
+        ERR(L"CreateEvent failed: last error is %u", GetLastError());
         CloseHandle(hStartedEvent);
         return -__LINE__;
     }
@@ -70,7 +64,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
         0, NULL
     );
     if (NULL == hThread) {
-        printf("CreateThread failed: last error is %u\n", GetLastError());
+        ERR(L"CreateThread failed: last error is %u", GetLastError());
         CloseHandle(hStopEvent);
         CloseHandle(hStartedEvent);
         return -__LINE__;
@@ -85,7 +79,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     );
 
     if (WAIT_OBJECT_0 + 1 == dwWaitResult) {
-        printf("Thread aborted before starting to loopback capture: hr = 0x%08x\n", threadArgs.hr);
+        ERR(L"Thread aborted before starting to loopback capture: hr = 0x%08x", threadArgs.hr);
         CloseHandle(hStartedEvent);
         CloseHandle(hThread);
         CloseHandle(hStopEvent);
@@ -93,7 +87,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     }
 
     if (WAIT_OBJECT_0 != dwWaitResult) {
-        printf("Unexpected WaitForMultipleObjects return value %u", dwWaitResult);
+        ERR(L"Unexpected WaitForMultipleObjects return value %u", dwWaitResult);
         CloseHandle(hStartedEvent);
         CloseHandle(hThread);
         CloseHandle(hStopEvent);
@@ -105,7 +99,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
 
     if (INVALID_HANDLE_VALUE == hStdIn) {
-        printf("GetStdHandle returned INVALID_HANDLE_VALUE: last error is %u\n", GetLastError());
+        ERR(L"GetStdHandle returned INVALID_HANDLE_VALUE: last error is %u", GetLastError());
         SetEvent(hStopEvent);
         WaitForSingleObject(hThread, INFINITE);
         CloseHandle(hStartedEvent);
@@ -114,7 +108,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
         return -__LINE__;
     }
 
-    printf("Press Enter to quit...\n");
+    LOG(L"%s", L"Press Enter to quit...");
 
     // wait for the thread to terminate early
     // or for the user to press (and release) Enter
@@ -128,7 +122,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
         switch (dwWaitResult) {
 
             case WAIT_OBJECT_0: // hThread
-                printf("The thread terminated early - something bad happened\n");
+                ERR(L"%s", L"The thread terminated early - something bad happened");
                 bKeepWaiting = false;
                 break;
 
@@ -137,7 +131,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
                 INPUT_RECORD rInput[128];
                 DWORD nEvents;
                 if (!ReadConsoleInput(hStdIn, rInput, ARRAYSIZE(rInput), &nEvents)) {
-                    printf("ReadConsoleInput failed: last error is %u\n", GetLastError());
+                    ERR(L"ReadConsoleInput failed: last error is %u", GetLastError());
                     SetEvent(hStopEvent);
                     WaitForSingleObject(hThread, INFINITE);
                     bKeepWaiting = false;
@@ -148,7 +142,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
                             VK_RETURN == rInput[i].Event.KeyEvent.wVirtualKeyCode &&
                             !rInput[i].Event.KeyEvent.bKeyDown
                          ) {
-                            printf("Stopping capture...\n");
+                            LOG(L"%s", L"Stopping capture...");
                             SetEvent(hStopEvent);
                             WaitForSingleObject(hThread, INFINITE);
                             bKeepWaiting = false;
@@ -161,7 +155,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
                 break;
 
             default:
-                printf("WaitForMultipleObjects returned unexpected value 0x%08x\n", dwWaitResult);
+                ERR(L"WaitForMultipleObjects returned unexpected value 0x%08x", dwWaitResult);
                 SetEvent(hStopEvent);
                 WaitForSingleObject(hThread, INFINITE);
                 bKeepWaiting = false;
@@ -171,21 +165,21 @@ int do_everything(int argc, LPCWSTR argv[]) {
 
     DWORD exitCode;
     if (!GetExitCodeThread(hThread, &exitCode)) {
-        printf("GetExitCodeThread failed: last error is %u\n", GetLastError());
+        ERR(L"GetExitCodeThread failed: last error is %u", GetLastError());
         CloseHandle(hThread);
         CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
     if (0 != exitCode) {
-        printf("Loopback capture thread exit code is %u; expected 0\n", exitCode);
+        ERR(L"Loopback capture thread exit code is %u; expected 0", exitCode);
         CloseHandle(hThread);
         CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
     if (S_OK != threadArgs.hr) {
-        printf("Thread HRESULT is 0x%08x\n", threadArgs.hr);
+        ERR(L"Thread HRESULT is 0x%08x", threadArgs.hr);
         CloseHandle(hThread);
         CloseHandle(hStopEvent);
         return -__LINE__;
@@ -198,7 +192,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     MMRESULT result = mmioClose(prefs.m_hFile, 0);
     prefs.m_hFile = NULL;
     if (MMSYSERR_NOERROR != result) {
-        printf("mmioClose failed: MMSYSERR = %u\n", result);
+        ERR(L"mmioClose failed: MMSYSERR = %u", result);
         return -__LINE__;
     }
 
@@ -206,7 +200,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     MMIOINFO mi = {0};
     prefs.m_hFile = mmioOpen(const_cast<LPWSTR>(prefs.m_szFilename), &mi, MMIO_READWRITE);
     if (NULL == prefs.m_hFile) {
-        printf("mmioOpen(\"%ls\", ...) failed. wErrorRet == %u\n", prefs.m_szFilename, mi.wErrorRet);
+        ERR(L"mmioOpen(\"%ls\", ...) failed. wErrorRet == %u", prefs.m_szFilename, mi.wErrorRet);
         return -__LINE__;
     }
 
@@ -215,7 +209,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     ckRIFF.ckid = MAKEFOURCC('W', 'A', 'V', 'E'); // this is right for mmioDescend
     result = mmioDescend(prefs.m_hFile, &ckRIFF, NULL, MMIO_FINDRIFF);
     if (MMSYSERR_NOERROR != result) {
-        printf("mmioDescend(\"WAVE\") failed: MMSYSERR = %u\n", result);
+        ERR(L"mmioDescend(\"WAVE\") failed: MMSYSERR = %u", result);
         return -__LINE__;
     }
 
@@ -224,7 +218,7 @@ int do_everything(int argc, LPCWSTR argv[]) {
     ckFact.ckid = MAKEFOURCC('f', 'a', 'c', 't');
     result = mmioDescend(prefs.m_hFile, &ckFact, &ckRIFF, MMIO_FINDCHUNK);
     if (MMSYSERR_NOERROR != result) {
-        printf("mmioDescend(\"fact\") failed: MMSYSERR = %u\n", result);
+        ERR(L"mmioDescend(\"fact\") failed: MMSYSERR = %u", result);
         return -__LINE__;
     }
 
@@ -235,14 +229,14 @@ int do_everything(int argc, LPCWSTR argv[]) {
         sizeof(threadArgs.nFrames)
     );
     if (lBytesWritten != sizeof(threadArgs.nFrames)) {
-        printf("Updating the fact chunk wrote %u bytes; expected %u\n", lBytesWritten, (UINT32)sizeof(threadArgs.nFrames));
+        ERR(L"Updating the fact chunk wrote %u bytes; expected %u", lBytesWritten, (UINT32)sizeof(threadArgs.nFrames));
         return -__LINE__;
     }
 
     // ascend out of the fact chunk
     result = mmioAscend(prefs.m_hFile, &ckFact, 0);
     if (MMSYSERR_NOERROR != result) {
-        printf("mmioAscend(\"fact\") failed: MMSYSERR = %u\n", result);
+        ERR(L"mmioAscend(\"fact\") failed: MMSYSERR = %u", result);
         return -__LINE__;
     }
 
