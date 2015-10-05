@@ -180,7 +180,7 @@ HRESULT LoopbackCapture(
     
     // register with MMCSS
     DWORD nTaskIndex = 0;
-    HANDLE hTask = AvSetMmThreadCharacteristics(L"Capture", &nTaskIndex);
+    HANDLE hTask = AvSetMmThreadCharacteristics(L"Audio", &nTaskIndex);
     if (NULL == hTask) {
         DWORD dwErr = GetLastError();
         printf("AvSetMmThreadCharacteristics failed: last error = %u\n", dwErr);
