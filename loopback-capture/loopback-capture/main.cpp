@@ -12,11 +12,9 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
         ERR(L"CoInitialize failed: hr = 0x%08x", hr);
         return -__LINE__;
     }
+    CoUninitializeOnExit cuoe;
 
-    int result = do_everything(argc, argv);
-    
-    CoUninitialize();
-    return result;
+    return do_everything(argc, argv);
 }
 
 int do_everything(int argc, LPCWSTR argv[]) {
@@ -39,14 +37,15 @@ int do_everything(int argc, LPCWSTR argv[]) {
         ERR(L"CreateEvent failed: last error is %u", GetLastError());
         return -__LINE__;
     }
+    CloseHandleOnExit closeStartedEvent(hStartedEvent);
 
     // create a "stop capturing now" event
     HANDLE hStopEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
     if (NULL == hStopEvent) {
         ERR(L"CreateEvent failed: last error is %u", GetLastError());
-        CloseHandle(hStartedEvent);
         return -__LINE__;
     }
+    CloseHandleOnExit closeStopEvent(hStopEvent);
 
     // create arguments for loopback capture thread
     LoopbackCaptureThreadFunctionArguments threadArgs;
@@ -65,10 +64,9 @@ int do_everything(int argc, LPCWSTR argv[]) {
     );
     if (NULL == hThread) {
         ERR(L"CreateThread failed: last error is %u", GetLastError());
-        CloseHandle(hStopEvent);
-        CloseHandle(hStartedEvent);
         return -__LINE__;
     }
+    CloseHandleOnExit closeThread(hThread);
 
     // wait for either capture to start or the thread to end
     HANDLE waitArray[2] = { hStartedEvent, hThread };
@@ -80,46 +78,36 @@ int do_everything(int argc, LPCWSTR argv[]) {
 
     if (WAIT_OBJECT_0 + 1 == dwWaitResult) {
         ERR(L"Thread aborted before starting to loopback capture: hr = 0x%08x", threadArgs.hr);
-        CloseHandle(hStartedEvent);
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
     if (WAIT_OBJECT_0 != dwWaitResult) {
         ERR(L"Unexpected WaitForMultipleObjects return value %u", dwWaitResult);
-        CloseHandle(hStartedEvent);
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
-    CloseHandle(hStartedEvent);
+    // at this point capture is running
+    // wait for the user to press a key or for capture to error out
+    {
+        WaitForSingleObjectOnExit waitForThread(hThread);
+        SetEventOnExit setStopEvent(hStopEvent);
+        HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
 
-    HANDLE hStdIn = GetStdHandle(STD_INPUT_HANDLE);
+        if (INVALID_HANDLE_VALUE == hStdIn) {
+            ERR(L"GetStdHandle returned INVALID_HANDLE_VALUE: last error is %u", GetLastError());
+            return -__LINE__;
+        }
 
-    if (INVALID_HANDLE_VALUE == hStdIn) {
-        ERR(L"GetStdHandle returned INVALID_HANDLE_VALUE: last error is %u", GetLastError());
-        SetEvent(hStopEvent);
-        WaitForSingleObject(hThread, INFINITE);
-        CloseHandle(hStartedEvent);
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
-        return -__LINE__;
-    }
+        LOG(L"%s", L"Press Enter to quit...");
 
-    LOG(L"%s", L"Press Enter to quit...");
+        HANDLE rhHandles[2] = { hThread, hStdIn };
 
-    // wait for the thread to terminate early
-    // or for the user to press (and release) Enter
-    HANDLE rhHandles[2] = { hThread, hStdIn };
+        bool bKeepWaiting = true;
+        while (bKeepWaiting) {
 
-    bool bKeepWaiting = true;
-    while (bKeepWaiting) {
+            dwWaitResult = WaitForMultipleObjects(2, rhHandles, FALSE, INFINITE);
 
-        dwWaitResult = WaitForMultipleObjects(2, rhHandles, FALSE, INFINITE);
-
-        switch (dwWaitResult) {
+            switch (dwWaitResult) {
 
             case WAIT_OBJECT_0: // hThread
                 ERR(L"%s", L"The thread terminated early - something bad happened");
@@ -132,19 +120,16 @@ int do_everything(int argc, LPCWSTR argv[]) {
                 DWORD nEvents;
                 if (!ReadConsoleInput(hStdIn, rInput, ARRAYSIZE(rInput), &nEvents)) {
                     ERR(L"ReadConsoleInput failed: last error is %u", GetLastError());
-                    SetEvent(hStopEvent);
-                    WaitForSingleObject(hThread, INFINITE);
                     bKeepWaiting = false;
-                } else {
+                }
+                else {
                     for (DWORD i = 0; i < nEvents; i++) {
                         if (
                             KEY_EVENT == rInput[i].EventType &&
                             VK_RETURN == rInput[i].Event.KeyEvent.wVirtualKeyCode &&
                             !rInput[i].Event.KeyEvent.bKeyDown
-                         ) {
+                            ) {
                             LOG(L"%s", L"Stopping capture...");
-                            SetEvent(hStopEvent);
-                            WaitForSingleObject(hThread, INFINITE);
                             bKeepWaiting = false;
                             break;
                         }
@@ -156,37 +141,29 @@ int do_everything(int argc, LPCWSTR argv[]) {
 
             default:
                 ERR(L"WaitForMultipleObjects returned unexpected value 0x%08x", dwWaitResult);
-                SetEvent(hStopEvent);
-                WaitForSingleObject(hThread, INFINITE);
                 bKeepWaiting = false;
                 break;
-        }
-    }
+            } // switch
+        } // while
+    } // naked scope
+
+    // at this point the thread is definitely finished
 
     DWORD exitCode;
     if (!GetExitCodeThread(hThread, &exitCode)) {
         ERR(L"GetExitCodeThread failed: last error is %u", GetLastError());
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
     if (0 != exitCode) {
         ERR(L"Loopback capture thread exit code is %u; expected 0", exitCode);
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
         return -__LINE__;
     }
 
     if (S_OK != threadArgs.hr) {
         ERR(L"Thread HRESULT is 0x%08x", threadArgs.hr);
-        CloseHandle(hThread);
-        CloseHandle(hStopEvent);
         return -__LINE__;
     }
-
-    CloseHandle(hThread);
-    CloseHandle(hStopEvent);
 
     // everything went well... fixup the fact chunk in the file
     MMRESULT result = mmioClose(prefs.m_hFile, 0);

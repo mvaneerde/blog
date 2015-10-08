@@ -23,6 +23,7 @@ DWORD WINAPI LoopbackCaptureThreadFunction(LPVOID pContext) {
         ERR(L"CoInitialize failed: hr = 0x%08x", pArgs->hr);
         return 0;
     }
+    CoUninitializeOnExit cuoe;
 
     pArgs->hr = LoopbackCapture(
         pArgs->pMMDevice,
@@ -33,7 +34,6 @@ DWORD WINAPI LoopbackCaptureThreadFunction(LPVOID pContext) {
         &pArgs->nFrames
     );
 
-    CoUninitialize();
     return 0;
 }
 
@@ -58,13 +58,13 @@ HRESULT LoopbackCapture(
         ERR(L"IMMDevice::Activate(IAudioClient) failed: hr = 0x%08x", hr);
         return hr;
     }
+    ReleaseOnExit releaseAudioClient(pAudioClient);
     
     // get the default device periodicity
     REFERENCE_TIME hnsDefaultDevicePeriod;
     hr = pAudioClient->GetDevicePeriod(&hnsDefaultDevicePeriod, NULL);
     if (FAILED(hr)) {
         ERR(L"IAudioClient::GetDevicePeriod failed: hr = 0x%08x", hr);
-        pAudioClient->Release();
         return hr;
     }
 
@@ -73,10 +73,9 @@ HRESULT LoopbackCapture(
     hr = pAudioClient->GetMixFormat(&pwfx);
     if (FAILED(hr)) {
         ERR(L"IAudioClient::GetMixFormat failed: hr = 0x%08x", hr);
-        CoTaskMemFree(pwfx);
-        pAudioClient->Release();
         return hr;
     }
+    CoTaskMemFreeOnExit freeMixFormat(pwfx);
 
     if (bInt16) {
         // coerce int-16 wave format
@@ -102,8 +101,6 @@ HRESULT LoopbackCapture(
                         pwfx->nAvgBytesPerSec = pwfx->nBlockAlign * pwfx->nSamplesPerSec;
                     } else {
                         ERR(L"%s", L"Don't know how to coerce mix format to int-16");
-                        CoTaskMemFree(pwfx);
-                        pAudioClient->Release();
                         return E_UNEXPECTED;
                     }
                 }
@@ -111,8 +108,6 @@ HRESULT LoopbackCapture(
 
             default:
                 ERR(L"Don't know how to coerce WAVEFORMATEX with wFormatTag = 0x%08x to int-16", pwfx->wFormatTag);
-                CoTaskMemFree(pwfx);
-                pAudioClient->Release();
                 return E_UNEXPECTED;
         }
     }
@@ -122,8 +117,6 @@ HRESULT LoopbackCapture(
     hr = WriteWaveHeader(hFile, pwfx, &ckRIFF, &ckData);
     if (FAILED(hr)) {
         // WriteWaveHeader does its own logging
-        CoTaskMemFree(pwfx);
-        pAudioClient->Release();
         return hr;
     }
 
@@ -132,10 +125,9 @@ HRESULT LoopbackCapture(
     if (NULL == hWakeUp) {
         DWORD dwErr = GetLastError();
         ERR(L"CreateWaitableTimer failed: last error = %u", dwErr);
-        CoTaskMemFree(pwfx);
-        pAudioClient->Release();
         return HRESULT_FROM_WIN32(dwErr);
     }
+    CloseHandleOnExit closeWakeUp(hWakeUp);
 
     UINT32 nBlockAlign = pwfx->nBlockAlign;
     *pnFrames = 0;
@@ -152,11 +144,8 @@ HRESULT LoopbackCapture(
     );
     if (FAILED(hr)) {
         ERR(L"IAudioClient::Initialize failed: hr = 0x%08x", hr);
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return hr;
     }
-    CoTaskMemFree(pwfx);
 
     // activate an IAudioCaptureClient
     IAudioCaptureClient *pAudioCaptureClient;
@@ -166,10 +155,9 @@ HRESULT LoopbackCapture(
     );
     if (FAILED(hr)) {
         ERR(L"IAudioClient::GetService(IAudioCaptureClient) failed: hr = 0x%08x", hr);
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return hr;
     }
+    ReleaseOnExit releaseAudioCaptureClient(pAudioCaptureClient);
     
     // register with MMCSS
     DWORD nTaskIndex = 0;
@@ -177,11 +165,9 @@ HRESULT LoopbackCapture(
     if (NULL == hTask) {
         DWORD dwErr = GetLastError();
         ERR(L"AvSetMmThreadCharacteristics failed: last error = %u", dwErr);
-        pAudioCaptureClient->Release();
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return HRESULT_FROM_WIN32(dwErr);
-    }    
+    }
+    AvRevertMmThreadCharacteristicsOnExit unregisterMmcss(hTask);
 
     // set the waitable timer
     LARGE_INTEGER liFirstFire;
@@ -196,23 +182,18 @@ HRESULT LoopbackCapture(
     if (!bOK) {
         DWORD dwErr = GetLastError();
         ERR(L"SetWaitableTimer failed: last error = %u", dwErr);
-        AvRevertMmThreadCharacteristics(hTask);
-        pAudioCaptureClient->Release();
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return HRESULT_FROM_WIN32(dwErr);
     }
+    CancelWaitableTimerOnExit cancelWakeUp(hWakeUp);
     
     // call IAudioClient::Start
     hr = pAudioClient->Start();
     if (FAILED(hr)) {
         ERR(L"IAudioClient::Start failed: hr = 0x%08x", hr);
-        AvRevertMmThreadCharacteristics(hTask);
-        pAudioCaptureClient->Release();
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return hr;
     }
+    AudioClientStopOnExit stopAudioClient(pAudioClient);
+
     SetEvent(hStartedEvent);
     
     // loopback capture loop
@@ -243,12 +224,6 @@ HRESULT LoopbackCapture(
                 );
             if (FAILED(hr)) {
                 ERR(L"IAudioCaptureClient::GetBuffer failed on pass %u after %u frames: hr = 0x%08x", nPasses, *pnFrames, hr);
-                pAudioClient->Stop();
-                CancelWaitableTimer(hWakeUp);
-                AvRevertMmThreadCharacteristics(hTask);
-                pAudioCaptureClient->Release();
-                CloseHandle(hWakeUp);
-                pAudioClient->Release();
                 return hr;
             }
 
@@ -256,23 +231,11 @@ HRESULT LoopbackCapture(
                 LOG(L"%s", L"Probably spurious glitch reported on first packet");
             } else if (0 != dwFlags) {
                 LOG(L"IAudioCaptureClient::GetBuffer set flags to 0x%08x on pass %u after %u frames", dwFlags, nPasses, *pnFrames);
-                pAudioClient->Stop();
-                CancelWaitableTimer(hWakeUp);
-                AvRevertMmThreadCharacteristics(hTask);
-                pAudioCaptureClient->Release();
-                CloseHandle(hWakeUp);
-                pAudioClient->Release();
                 return E_UNEXPECTED;
             }
 
             if (0 == nNumFramesToRead) {
                 ERR(L"IAudioCaptureClient::GetBuffer said to read 0 frames on pass %u after %u frames", nPasses, *pnFrames);
-                pAudioClient->Stop();
-                CancelWaitableTimer(hWakeUp);
-                AvRevertMmThreadCharacteristics(hTask);
-                pAudioCaptureClient->Release();
-                CloseHandle(hWakeUp);
-                pAudioClient->Release();
                 return E_UNEXPECTED;
             }
 
@@ -281,12 +244,6 @@ HRESULT LoopbackCapture(
             LONG lBytesWritten = mmioWrite(hFile, reinterpret_cast<PCHAR>(pData), lBytesToWrite);
             if (lBytesToWrite != lBytesWritten) {
                 ERR(L"mmioWrite wrote %u bytes on pass %u after %u frames: expected %u bytes", lBytesWritten, nPasses, *pnFrames, lBytesToWrite);
-                pAudioClient->Stop();
-                CancelWaitableTimer(hWakeUp);
-                AvRevertMmThreadCharacteristics(hTask);
-                pAudioCaptureClient->Release();
-                CloseHandle(hWakeUp);
-                pAudioClient->Release();
                 return E_UNEXPECTED;
             }
             *pnFrames += nNumFramesToRead;
@@ -294,12 +251,6 @@ HRESULT LoopbackCapture(
             hr = pAudioCaptureClient->ReleaseBuffer(nNumFramesToRead);
             if (FAILED(hr)) {
                 ERR(L"IAudioCaptureClient::ReleaseBuffer failed on pass %u after %u frames: hr = 0x%08x", nPasses, *pnFrames, hr);
-                pAudioClient->Stop();
-                CancelWaitableTimer(hWakeUp);
-                AvRevertMmThreadCharacteristics(hTask);
-                pAudioCaptureClient->Release();
-                CloseHandle(hWakeUp);
-                pAudioClient->Release();
                 return hr;
             }
 
@@ -308,12 +259,6 @@ HRESULT LoopbackCapture(
 
         if (FAILED(hr)) {
             ERR(L"IAudioCaptureClient::GetNextPacketSize failed on pass %u after %u frames: hr = 0x%08x", nPasses, *pnFrames, hr);
-            pAudioClient->Stop();
-            CancelWaitableTimer(hWakeUp);
-            AvRevertMmThreadCharacteristics(hTask);
-            pAudioCaptureClient->Release();
-            CloseHandle(hWakeUp);
-            pAudioClient->Release();
             return hr;
         }
 
@@ -330,12 +275,6 @@ HRESULT LoopbackCapture(
 
         if (WAIT_OBJECT_0 + 1 != dwWaitResult) {
             ERR(L"Unexpected WaitForMultipleObjects return value %u on pass %u after %u frames", dwWaitResult, nPasses, *pnFrames);
-            pAudioClient->Stop();
-            CancelWaitableTimer(hWakeUp);
-            AvRevertMmThreadCharacteristics(hTask);
-            pAudioCaptureClient->Release();
-            CloseHandle(hWakeUp);
-            pAudioClient->Release();
             return E_UNEXPECTED;
         }
     } // capture loop
@@ -343,22 +282,9 @@ HRESULT LoopbackCapture(
     hr = FinishWaveFile(hFile, &ckData, &ckRIFF);
     if (FAILED(hr)) {
         // FinishWaveFile does it's own logging
-        pAudioClient->Stop();
-        CancelWaitableTimer(hWakeUp);
-        AvRevertMmThreadCharacteristics(hTask);
-        pAudioCaptureClient->Release();
-        CloseHandle(hWakeUp);
-        pAudioClient->Release();
         return hr;
     }
     
-    pAudioClient->Stop();
-    CancelWaitableTimer(hWakeUp);
-    AvRevertMmThreadCharacteristics(hTask);
-    pAudioCaptureClient->Release();
-    CloseHandle(hWakeUp);
-    pAudioClient->Release();
-
     return hr;
 }
 
