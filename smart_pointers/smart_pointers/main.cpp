@@ -60,6 +60,9 @@ int _cdecl wmain()
 
         // comptr->AddRef(); compile error, Microsoft::WRL::RemoveIUnknownBase<T>::AddRef is inaccessible
 
+        // static_cast<IUnknown *>(comptr)->AddRef(); compile error, no suitable conversion
+        // static_cast<IUnknown *>(comptr)->Release(); compile error, no suitable conversion
+
         comptr.Get()->AddRef();
         comptr.Get()->Release();
     }
@@ -73,13 +76,16 @@ int _cdecl wmain()
 
         // ccomptr->AddRef(); compile error, ATL::_NoAddRefReleaseOnCComPtr<T>::AddRef is inaccessible
 
+        static_cast<IUnknown *>(ccomptr)->AddRef();
+        static_cast<IUnknown *>(ccomptr)->Release();
+
         ccomptr.p->AddRef();
         ccomptr.p->Release();
     }
 
-    // _comptr_t
+    // _com_ptr_t
     {
-        UnknownTest u(L"_comptr_t");
+        UnknownTest u(L"_com_ptr_t");
         // or _COM_SMARTPTR_TYPEDEF(IUnknown, __uuidof(IUnknown)) and use IUnknownPtr
         _com_ptr_t< _com_IIID<IUnknown, &__uuidof(IUnknown)> > com_ptr_t(&u);
 
@@ -88,6 +94,9 @@ int _cdecl wmain()
 
         com_ptr_t->AddRef();
         com_ptr_t->Release();
+
+        static_cast<IUnknown *>(com_ptr_t)->AddRef();
+        static_cast<IUnknown *>(com_ptr_t)->Release();
 
         com_ptr_t.GetInterfacePtr()->AddRef();
         com_ptr_t.GetInterfacePtr()->Release();
@@ -108,6 +117,9 @@ int _cdecl wmain()
 
         unique_ptr->AddRef();
         unique_ptr->Release();
+
+        // static_cast<IUnknown *>(unique_ptr)->AddRef(); compile error, no suitable conversion
+        // static_cast<IUnknown *>(unique_ptr)->Release(); compile error, no suitable conversion
 
         unique_ptr.get()->AddRef();
         unique_ptr.get()->Release();
