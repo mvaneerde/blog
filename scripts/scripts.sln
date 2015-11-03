@@ -1,18 +1,25 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30501.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{448DFED1-8F08-4726-943D-6351053913B7}"
 	ProjectSection(SolutionItems) = preProject
+		-remote.bat = -remote.bat
 		adtsaudioheader.pl = adtsaudioheader.pl
 		create-shortcut.vbs = create-shortcut.vbs
 		ding.adts = ding.adts
 		ding.mpeg = ding.mpeg
+		guid.bat = guid.bat
 		mpegaudioheader.pl = mpegaudioheader.pl
 		name.pl = name.pl
 		never-expire-admin-password.vbs = never-expire-admin-password.vbs
+		prepend.bat = prepend.bat
+		time-this.bat = time-this.bat
+		touch.bat = touch.bat
+		update-path.bat = update-path.bat
 		xargs.bat = xargs.bat
+		xyzzy.bat = xyzzy.bat
 	EndProjectSection
 EndProject
 Global
