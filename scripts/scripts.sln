@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{448DFED1-8F08-4726-943D-6351053913B7}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,6 +14,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ding.adts = ding.adts
 		ding.mpeg = ding.mpeg
 		guid.bat = guid.bat
+		install-visual-studio-community-2015.bat = install-visual-studio-community-2015.bat
+		install-visual-studio-community-2015.ps1 = install-visual-studio-community-2015.ps1
 		mpegaudioheader.pl = mpegaudioheader.pl
 		name.bat = name.bat
 		name.pl = name.pl
