@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		time-this.bat = time-this.bat
 		touch.bat = touch.bat
 		update-path.bat = update-path.bat
+		winpe.bat = winpe.bat
 		xargs.bat = xargs.bat
 		xyzzy.bat = xyzzy.bat
 	EndProjectSection
