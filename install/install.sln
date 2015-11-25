@@ -11,8 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		office-2013.bat = office-2013.bat
 		scope-studio.bat = scope-studio.bat
 		scope-studio.ps1 = scope-studio.ps1
+		shares.bat = shares.bat
+		source-depot.bat = source-depot.bat
 		visual-studio-community-2015.bat = visual-studio-community-2015.bat
 		visual-studio-community-2015.ps1 = visual-studio-community-2015.ps1
+		windows-latest-branch.bat = windows-latest-branch.bat
 	EndProjectSection
 EndProject
 Global
