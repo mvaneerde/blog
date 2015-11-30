@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		_everything.bat = _everything.bat
 		activestate-perl.bat = activestate-perl.bat
 		activestate-perl.ps1 = activestate-perl.ps1
+		codeflow.bat = codeflow.bat
+		diagtrack-scenario-editor.bat = diagtrack-scenario-editor.bat
+		media-experience-analyzer.bat = media-experience-analyzer.bat
 		office-2013-config.xml = office-2013-config.xml
 		office-2013.bat = office-2013.bat
 		scope-studio.bat = scope-studio.bat
@@ -17,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		visual-studio-community-2015.bat = visual-studio-community-2015.bat
 		visual-studio-community-2015.ps1 = visual-studio-community-2015.ps1
 		windows-latest-branch.bat = windows-latest-branch.bat
+		wpshift.bat = wpshift.bat
 	EndProjectSection
 EndProject
 Global
