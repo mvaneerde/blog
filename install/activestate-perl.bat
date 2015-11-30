@@ -1,4 +1,6 @@
 @echo off
+setlocal
 
-powershell.exe -executionpolicy bypass %~dp0activestate-perl.ps1
-
+if not exist C:\Perl\bin (
+	powershell.exe -executionpolicy bypass %~dp0activestate-perl.ps1
+)
