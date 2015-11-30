@@ -1,13 +1,13 @@
 @echo off
+setlocal
 
 set branch=%1
 
 if (%branch%)==() (
-	echo Please specify a branch
-	goto END
+	set branch=rs1_onecore_mqsigma1_dev01
 )
 
-set sdxroot=%userprofile%\source\%branch%
-call \\glacier\sdx\sdx enlist rs1 %branch% +avcore -q -allowlongsdxroot
-
-:END
+if not exist %userprofile%\source\%branch% (
+	set sdxroot=%userprofile%\source\%branch%
+	call \\glacier\sdx\sdx enlist rs1 %branch% +avcore -q -allowlongsdxroot
+)

@@ -5,6 +5,7 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AE26B6C-CE95-454B-9C5F-E5E02C66A439}"
 	ProjectSection(SolutionItems) = preProject
+		_everything.bat = _everything.bat
 		activestate-perl.bat = activestate-perl.bat
 		activestate-perl.ps1 = activestate-perl.ps1
 		office-2013-config.xml = office-2013-config.xml
