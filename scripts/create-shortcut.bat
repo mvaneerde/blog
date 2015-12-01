@@ -1,4 +1,4 @@
 @echo off
 setlocal
 
-call cscript %~dp0create-shortcut.vbs %*
+call cscript //Nologo %~dp0create-shortcut.vbs %*
