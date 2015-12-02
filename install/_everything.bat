@@ -12,4 +12,5 @@ call scope-studio.bat
 call shares.bat
 call source-depot.bat
 call visual-studio-community-2015.bat
+call windows-performance-tools.bat
 call wpshift.bat
