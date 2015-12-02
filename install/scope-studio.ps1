@@ -1,4 +1,4 @@
-# download and install ActiveState Perl
+# download and install Scope Studio
 
 $setup = $env:temp + "\scopestudio.msi";
 
