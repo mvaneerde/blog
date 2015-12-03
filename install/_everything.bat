@@ -1,5 +1,6 @@
 @echo off
 
+call 7zip.bat
 call activestate-perl.bat
 call codeflow.bat
 call debugger.bat
