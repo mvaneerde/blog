@@ -1,4 +1,4 @@
-t@echo off
+@echo off
 setlocal
 
 if not exist "%ProgramFiles(x86)%\Microsoft Office\Office16" (
