@@ -1,0 +1,11 @@
+<Configuration Product="ProPlus">
+	<!-- Show the "Office is installing" dialog but don't require any user input -->
+	<Display Level="basic" CompletionNotice="No" SuppressModal="no" AcceptEula="Yes" />
+
+	<USERNAME Value="Matthew van Eerde" />
+	<USERINITIALS Value="MvE" />
+	<COMPANYNAME Value="Microsoft" />
+
+	<!-- we'll reboot manually -->
+	<Setting Id="SETUP_REBOOT" Value="Never" />
+</Configuration>
