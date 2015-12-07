@@ -18,6 +18,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		office-2013.bat = office-2013.bat
 		office-2016-config.xml = office-2016-config.xml
 		office-2016.bat = office-2016.bat
+		phone-latest-branch.bat = phone-latest-branch.bat
 		project-my-phone-screen.bat = project-my-phone-screen.bat
 		project-my-phone-screen.ps1 = project-my-phone-screen.ps1
 		research-v2.bat = research-v2.bat
