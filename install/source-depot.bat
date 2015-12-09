@@ -3,7 +3,7 @@ setlocal
 
 rem only enlist on certain machines
 if /i "%computername%"=="mateer-d" goto ENLIST
-if /i "%computername%"=="mateer-m" goto ENLIST
+if /i "%computername%"=="mateer-v" goto ENLIST
 
 goto END
 
