@@ -3,7 +3,7 @@ setlocal
 
 rem only enlist on certain machines
 if /i "%computername%"=="mateer-d" goto ENLIST
-if /i "%computername%"=="mateer-m" goto ENLIST
+if /i "%computername%"=="mateer-v" goto ENLIST
 
 goto END
 
@@ -15,6 +15,8 @@ if (%branch%)==() (
 )
 
 if not exist %userprofile%\source\%branch% (
+	echo Enlisting in %branch%...
+
 	set sdxroot=%userprofile%\source\%branch%
 	call \\glacier\sdx\sdx enlist rs1 %branch% +avcore -q -allowlongsdxroot
 )
