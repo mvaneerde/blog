@@ -15,6 +15,8 @@ if (%branch%)==() (
 )
 
 if not exist %userprofile%\source\%branch% (
+	echo Enlisting in %branch%...
+
 	set sdxroot=%userprofile%\source\%branch%
 	call \\glacier\sdx\sdx enlist rs1 %branch% +avcore -q -allowlongsdxroot
 )

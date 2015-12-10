@@ -7,6 +7,6 @@ if (!(Test-Path $setup)) {
 	Invoke-WebRequest -Uri $uri -OutFile $setup;
 }
 
-& $setup /norestart /passive | echo "Installing...";
+& $setup /norestart /passive /installselectableitems | echo "Installing...";
 
 Remove-Item $setup;

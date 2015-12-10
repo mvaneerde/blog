@@ -20,6 +20,8 @@ if (!(Test-Path $setup)) {
 	Invoke-WebRequest -Uri $uri -OutFile $setup;
 }
 
+Write-Output "Installing Windows Performance Toolkit..."
+
 & $setup /quiet /norestart /features OptionId.WindowsPerformanceToolkit | echo "Installing...";
 
 Remove-Item $setup;
