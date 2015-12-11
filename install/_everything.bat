@@ -18,3 +18,6 @@ call %~dp0shares.bat
 call %~dp0visual-studio-community-2015.bat
 call %~dp0windows-performance-tools.bat
 call %~dp0wpshift.bat
+
+call %~dp0git-for-windows.bat
+call %~dp0enlist-blog.bat
