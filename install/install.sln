@@ -14,6 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		copy-music.bat = copy-music.bat
 		debugger.bat = debugger.bat
 		diagtrack-scenario-editor.bat = diagtrack-scenario-editor.bat
+		enlist-baconit.bat = enlist-baconit.bat
 		enlist-blog.bat = enlist-blog.bat
 		enlist-isperf.bat = enlist-isperf.bat
 		enlist-windows.bat = enlist-windows.bat
