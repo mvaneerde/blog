@@ -1,6 +1,8 @@
 @echo off
 setlocal
 
+set path=%path%;%~dp0..\scripts;\\redmond\win\users\mateer\path
+
 call %~dp07zip.bat
 call %~dp0activestate-perl.bat
 call %~dp0babaschess.bat
