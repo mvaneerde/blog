@@ -9,4 +9,4 @@ if (!(Test-Path $setup)) {
  
 & $setup /norestart /silent | echo "Installing..."; 
 
-# Remove-Item $setup; 
+Remove-Item $setup; 

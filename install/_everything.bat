@@ -3,6 +3,7 @@ setlocal
 
 call %~dp07zip.bat
 call %~dp0activestate-perl.bat
+call %~dp0babaschess.bat
 call %~dp0codeflow.bat
 call %~dp0copy-music.bat
 call %~dp0debugger.bat
