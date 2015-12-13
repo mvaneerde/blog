@@ -12,6 +12,7 @@ call %~dp0debugger.bat
 call %~dp0diagtrack-scenario-editor.bat
 call %~dp0enlist-isperf.bat
 call %~dp0enlist-windows.bat
+call %~dp0google-chrome.bat
 call %~dp0media-experience-analyzer.bat
 call %~dp0office-2016.bat
 call %~dp0project-my-phone-screen.bat
