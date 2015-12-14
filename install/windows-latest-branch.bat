@@ -29,7 +29,7 @@ echo No %setup_path% found in the last %max_builds% builds for %branch%
 goto END
 
 :FOUNDLATEST
-echo %builds%\%latest%\%setup_path% /auto upgrade
+%builds%\%latest%\%setup_path% /auto upgrade
 goto END
 
 :AUTO
