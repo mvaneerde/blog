@@ -20,6 +20,7 @@ call %~dp0research-v2.bat
 call %~dp0scope-studio.bat
 call %~dp0shares.bat
 call %~dp0visual-studio-community-2015.bat
+call %~dp0vlc-player.bat
 call %~dp0windows-performance-tools.bat
 call %~dp0wpshift.bat
 

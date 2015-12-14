@@ -1,8 +1,8 @@
 @echo off
 setlocal enabledelayedexpansion
 
-if (%1) == () goto USAGE
 set branch=%1
+if (%branch%) == () call :AUTO
 
 set builds=\\ntdev\release\%branch%
 set setup_path=amd64fre\media\enterprise_en-us_vl\setup.exe
@@ -32,9 +32,12 @@ goto END
 %builds%\%latest%\%setup_path% /auto upgrade
 goto END
 
-:USAGE
-echo install-latest-branch.bat winmain
-echo    Installs latest build from the winmain branch
+:AUTO
+for /f "usebackq skip=2 tokens=4 delims=." %%b in (
+	`reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion" /v BuildLabEx`
+) do (
+	set branch=%%b
+) 
 goto END
 
 :END
