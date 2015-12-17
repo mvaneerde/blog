@@ -11,7 +11,7 @@ goto END
 set branch=%1
 
 if (%branch%)==() (
-	set branch=rs1_onecore_mqsigma1_dev01
+	set branch=rs1_onecore_sigma_media_dev01
 )
 
 if not exist %userprofile%\source\%branch% (
