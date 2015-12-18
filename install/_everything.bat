@@ -11,6 +11,7 @@ call %~dp0copy-music.bat
 call %~dp0debugger.bat
 call %~dp0diagtrack-scenario-editor.bat
 call %~dp0enlist-isperf.bat
+call %~dp0enlist-projecteuler.bat
 call %~dp0enlist-windows.bat
 call %~dp0google-chrome.bat
 call %~dp0media-experience-analyzer.bat
