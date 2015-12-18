@@ -19,6 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		enlist-baconit.bat = enlist-baconit.bat
 		enlist-blog.bat = enlist-blog.bat
 		enlist-isperf.bat = enlist-isperf.bat
+		enlist-projecteuler.bat = enlist-projecteuler.bat
 		enlist-windows.bat = enlist-windows.bat
 		git-for-windows.bat = git-for-windows.bat
 		git-for-windows.ps1 = git-for-windows.ps1

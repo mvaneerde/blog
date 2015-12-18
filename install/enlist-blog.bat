@@ -1,5 +1,5 @@
 @echo off 
-setlocal 
+rem intentionally not using setlocal because we're updating the path
 
 if not exist %userprofile%\source\Repos\blog ( 
 	echo Enlisting in blog... 
