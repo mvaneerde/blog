@@ -7,6 +7,17 @@ if (!(Test-Path $setup)) {
 	Invoke-WebRequest -Uri $uri -OutFile $setup;
 }
 
-& $setup /norestart /passive /installselectableitems | echo "Installing...";
+# for cl.exe
+# to get a complete list:
+# vs_community.exe /createadminfile adminfile.xml
+# then look at the XML
+$selectable_items = "NativeLanguageSupport_VCV1";
+
+& $setup `
+	/ceipconsent `
+	/installselectableitems $selectable_items `
+	/norestart `
+	/passive `
+	| echo "Installing...";
 
 Remove-Item $setup;
