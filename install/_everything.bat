@@ -1,7 +1,14 @@
 @echo off
 setlocal
 
-set path=%path%;%~dp0..\scripts;\\redmond\win\users\mateer\path
+rem TEMPORARILY add ..\scripts to the path
+rem this goes away when this batch file ends
+set path=%path%;%~dp0..\scripts
+
+rem create a local path and pull down common utilities
+call %~dp0..\scripts\refresh-path.bat
+
+rem actually install things
 
 call %~dp07zip.bat
 call %~dp0activestate-perl.bat
