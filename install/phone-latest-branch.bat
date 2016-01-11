@@ -12,24 +12,27 @@ if not "%ffu%" == "" (
 	goto FLASHFFU
 )
 
-rem defaults
-if "%branch%" == "" set branch=winmain
-if "%buildtype%" == "" set buildtype=fre
-if "%flavor%" == "" set flavor=Selfhost
+rem required arguments
+set requiredok=yes
 if "%image%" == "" (
-	echo Specify what image you want ^(e.g. image:qrd8x26_HIRES_720x1280 or image:8226MoneyPenny_3G_480x800^)
+	echo Specify what image you want
+	set requiredok=no
+)
+
+if "%branch%" == "" (
+	echo Specify what branch you want
+	set requiredok=no
+)
+
+if not "%requiredok%" == "yes" (
 	goto END
 )
 
-if "%proc%" == "" (
-	if /i "%image%" == "Hapanero_1440x2560" (
-		set proc=arm64
-	) else if /i "%image%" == "8994MTP_1080x1920" (
-		set proc=arm64
-	) else (
-		set proc=arm
-	)
-)
+rem defaults
+
+if "%buildtype%" == "" set buildtype=fre
+if "%flavor%" == "" set flavor=Selfhost
+if "%proc%" == "" set proc=arm
 
 if /i "%buildtype%" == "random" (
 	set /a flip=%random% %% 2
@@ -107,8 +110,8 @@ if "%1" == "" (
 	echo     [ proc:^<proc^> ]
 	echo.
 	echo ^<ffu^>: specific .ffu file
-	echo ^<image^>: qrd8x26_HIRES_720x1280 ^| 8226MoneyPenny_3G_480x800 ^| ...
-	echo ^<branch^>: winmain ^| fbl_mediacore_dev01 ^| wpmain ^| ...
+	echo ^<image^>: model of phone ^| ...
+	echo ^<branch^>: build branch ^| ...
 	echo ^<buildtype^>: random ^| fre ^| chk ^| coverage (random chooses fre or chk^)
 	echo ^<flavor^>: random ^| Selfhost ^| Test ^| ...
 	echo ^<language^>: random ^| en-us ^| qps-ploc ^| qps-plocm ^| de-de ^| ...
@@ -145,12 +148,6 @@ if not "%arg:branch:=%" == "%arg%" (
 	set ffu=%arg:ffu:=%
 ) else if not "%arg:image:=%" == "%arg%" (
 	set image=%arg:image:=%
-	if /i "!image!"=="8916" set image=8909QRD_Emu_480x800
-	if /i "!image!"=="cityman" set image=cityman_LTE_AMERICAS_1440x2560
-	if /i "!image!"=="hapanero" set image=Hapanero_1440x2560
-	if /i "!image!"=="hapanero32" set image=Hapanero_32_1440x2560
-	if /i "!image!"=="moneypenny" set image=8226MoneyPenny_3G_480x800
-	if /i "!image!"=="qrd" set image=qrd8x26_HIRES_720x1280
 ) else if not "%arg:proc:=%" == "%arg%" (
 	set proc=%arg:proc:=%
 ) else if not "%arg:language:=%" == "%arg%" (
