@@ -33,7 +33,7 @@ call %~dp0wpshift.bat
 rem things with dependencies
 
 call %~dp0visual-studio-community-2015.bat
-	call %~dp0scope-studio.bat
+	call %~dp0scope-studio-beta.bat
 
 call %~dp0git-for-windows.bat
 	call %~dp0enlist-baconit.bat
