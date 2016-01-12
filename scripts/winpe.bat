@@ -41,7 +41,7 @@ dism /image:%mountdir% /set-scratchspace:512
 
 if "%customize%" == "yes" (
 	echo Go ahead and apply any customizations you like to the image mounted at %mountdir%
-	echo For example, dism /image:%mountdir /add-driver:^<drivers-directory^> /recurse
+	echo For example, dism /image:%mountdir% /add-driver:^<drivers-directory^> /recurse
 	pause
 )
 
