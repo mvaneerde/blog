@@ -3,8 +3,14 @@ setlocal enabledelayedexpansion
 
 if "%2" == "" (
 	echo Specify the drive letter of the USB thumb drive to format ^(e.g. F:^)
-	echo and the build root ^(e.g. \\ntdev\release\FBL_RELEASE\9834.0.140904-1330^)
+	echo and the build root ^(e.g. \\ntdev\release\^<branch^>\^<build^>^)
+	echo Optionally specify a third argument "customize"
+	echo to allow editing the image before unmounting
 	goto END
+)
+
+if /i "%3" == "customize" (
+	set customize=yes
 )
 
 set driveletter=%1
@@ -32,6 +38,12 @@ set mountdir=%scratchdir%\mount
 dism /mount-wim /wimfile:%scratchdir%\media\sources\boot.wim /index:1 /mountdir:%mountdir%
 
 dism /image:%mountdir% /set-scratchspace:512
+
+if "%customize%" == "yes" (
+	echo Go ahead and apply any customizations you like to the image mounted at %mountdir%
+	echo For example, dism /image:%mountdir /add-driver:^<drivers-directory^> /recurse
+	pause
+)
 
 dism /unmount-wim /mountdir:%mountdir% /commit
 
