@@ -9,4 +9,4 @@ if (!(Test-Path $setup)) {
 
 & msiexec /package $setup /norestart /passive | echo "Installing...";
 
-# Remove-Item $setup;
+Remove-Item $setup;
