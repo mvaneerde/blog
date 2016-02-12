@@ -16,16 +16,35 @@ if /i "%3" == "customize" (
 set driveletter=%1
 set build=%2
 
+rem verify USB drive letter exists
+if not exist "%driveletter%" (
+	echo Drive %driveletter% does not exist
+	goto END
+)
+
+rem verify build exists and has an Other\kit_content subdirectory
+if not exist "%build%\Other\kit_content" (
+	echo %build%\Other\kit_content does not exist
+	goto END
+)
+
 set tooldir=C:\temp\tools
 
 if exist %tooldir% rmdir /s /q %tooldir%
 mkdir %tooldir%
 cd /d %tooldir%
 
-xcopy /deqy %build%\Other\kit_content\x86fre\WinPERoot
-xcopy /deqy %build%\Other\kit_content\x86fre\DeploymentToolsContentRoot
-xcopy /deqy %build%\Other\kit_content\amd64fre\WinPERoot
-xcopy /deqy %build%\Other\kit_content\amd64fre\DeploymentToolsContentRoot
+rem verify the Other\kit_content subdirectory has the necessary pieces
+for %%s in (x86fre amd64fre) do (
+	for %%t in (WinPERoot DeploymentToolsContentRoot) do (
+		if not exist "%build%\Other\kit_content\%%s\%%t" (
+			echo %build%\Other\kit_content\%%s\%%t does not exist
+			goto END
+		)
+
+		xcopy /deqy %build%\Other\kit_content\%%s\%%t
+	)
+)
 
 set scratchdir=C:\temp\scratch
 if exist %scratchdir% rmdir /s /q %scratchdir%
