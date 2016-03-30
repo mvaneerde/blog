@@ -8,7 +8,12 @@ if /i "%computername%"=="mateer-v" goto ENLIST
 goto END
 
 :ENLIST
-set branch=%1
+set codebase=%1
+set branch=%2
+
+if (%codebase%)==() (
+	set codebase=rs1
+)
 
 if (%branch%)==() (
 	set branch=rs1_onecore_sigma_media_dev01
@@ -18,7 +23,9 @@ if not exist %userprofile%\source\%branch% (
 	echo Enlisting in %branch%...
 
 	set sdxroot=%userprofile%\source\%branch%
-	call \\glacier\sdx\sdx enlist rs1 %branch% +avcore -q -allowlongsdxroot
+	set depots=+avcore
+	set options=-q -allowlongsdxroot -nofastenlist
+	call \\glacier\sdx\sdx enlist %codebase% %branch% %depots% %options%
 )
 
 :END
