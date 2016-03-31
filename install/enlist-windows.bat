@@ -23,7 +23,7 @@ if not exist %userprofile%\source\%branch% (
 	echo Enlisting in %branch%...
 
 	set sdxroot=%userprofile%\source\%branch%
-	set depots=+avcore
+	set depots=+avcore +en-us +loctools +multi
 	set options=-q -allowlongsdxroot -nofastenlist
 	call \\glacier\sdx\sdx enlist %codebase% %branch% %depots% %options%
 )
