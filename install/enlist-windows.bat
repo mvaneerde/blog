@@ -16,7 +16,7 @@ if (%codebase%)==() (
 )
 
 if (%branch%)==() (
-	set branch=rs1_onecore_sigma_media_dev01
+	set branch=rs_onecore_sigma_media_dev
 )
 
 if not exist %userprofile%\source\%branch% (
