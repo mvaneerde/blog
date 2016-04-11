@@ -12,7 +12,7 @@ set codebase=%1
 set branch=%2
 
 if (%codebase%)==() (
-	set codebase=rs1
+	set codebase=rs2
 )
 
 if (%branch%)==() (
