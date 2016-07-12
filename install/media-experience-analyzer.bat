@@ -5,7 +5,7 @@ if exist "%programfiles(x86)%\Windows Kits\10\Media eXperience Analyzer\xa.exe" 
 
 echo Installing Media eXperience Analyzer...
 
-set branch=rs1_onecore_sigma_media_dev01
+set branch=rs1_release
 set builds=\\ntdev\release\%branch%
 set adk_setup_path=Other\kit_bundles\adk\adksetup.exe
 set max_builds=10
@@ -31,6 +31,7 @@ echo No %adk_setup_path% found in the last %max_builds% builds for %branch%
 goto END
 
 :FOUNDLATEST
+echo Installing Media eXperience Analyzer from %builds%\%latest%\%adk_setup_path%
 call %builds%\%latest%\%adk_setup_path% /features OptionId.MediaeXperienceAnalyzer /quiet /norestart
 
 :END
