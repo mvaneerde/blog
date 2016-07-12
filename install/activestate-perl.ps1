@@ -3,7 +3,7 @@
 $setup = $env:temp + "\activeperl.msi";
 
 if (!(Test-Path $setup)) {
-	$uri = "http://downloads.activestate.com/ActivePerl/releases/5.20.2.2002/ActivePerl-5.20.2.2002-MSWin32-x86-64int-299195.msi";
+	$uri = "http://downloads.activestate.com/ActivePerl/releases/5.22.1.2201/ActivePerl-5.22.1.2201-MSWin32-x86-64int-299574.msi";
 	Invoke-WebRequest -Uri $uri -OutFile $setup;
 }
 
