@@ -5,8 +5,8 @@ if exist "%programfiles(x86)%\Windows Kits\10\Media eXperience Analyzer\xa.exe" 
 
 echo Installing Media eXperience Analyzer...
 
-set branch=rs1_release
-set builds=\\ntdev\release\%branch%
+set branch=rs_prerelease
+set builds=\\ntdev.corp.microsoft.com\release\%branch%
 set adk_setup_path=Other\kit_bundles\adk\adksetup.exe
 set max_builds=10
 
