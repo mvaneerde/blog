@@ -10,22 +10,28 @@ goto END
 :ENLIST
 set codebase=%1
 set branch=%2
+set sdxroot=%3
 
 if (%codebase%)==() (
-	set codebase=rs2
+    set codebase=rs2
 )
 
 if (%branch%)==() (
-	set branch=rs_onecore_sigma_media_dev
+    set branch=rs_onecore_sigma_media_dev
+    set sdxroot=C:\sd\d
 )
 
-if not exist %userprofile%\source\%branch% (
-	echo Enlisting in %branch%...
+if (%sdxroot%)==() (
+    echo Specify SDXROOT
+    goto END
+)
 
-	set sdxroot=%userprofile%\source\%branch%
-	set depots=+avcore +en-us +loctools +multi
-	set options=-q -allowlongsdxroot -nofastenlist
-	call \\glacier\sdx\sdx enlist !codebase! !branch! !depots! !options!
+if not exist %sdxroot% (
+    echo Enlisting in %branch%...
+
+    set depots=+avcore
+    set options=-q
+    call \\glacier\sdx\sdx enlist !codebase! !branch! !depots! !options!
 )
 
 :END

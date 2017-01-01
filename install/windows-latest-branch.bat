@@ -4,7 +4,7 @@ setlocal enabledelayedexpansion
 set branch=%1
 if (%branch%) == () call :AUTO
 
-set builds=\\ntdev\release\%branch%
+set builds=\\ntdev.corp.microsoft.com\release\%branch%
 set setup_path=amd64fre\media\enterprise_en-us_vl\setup.exe
 set max_builds=5
 
