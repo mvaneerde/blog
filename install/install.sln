@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26014.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AE26B6C-CE95-454B-9C5F-E5E02C66A439}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		sql-server-2012.bat = sql-server-2012.bat
 		visual-studio-community-2015.bat = visual-studio-community-2015.bat
 		visual-studio-community-2015.ps1 = visual-studio-community-2015.ps1
+		visual-studio-community-2017-rc.bat = visual-studio-community-2017-rc.bat
+		visual-studio-community-2017-rc.ps1 = visual-studio-community-2017-rc.ps1
 		vlc-player.bat = vlc-player.bat
 		vlc-player.ps1 = vlc-player.ps1
 		windows-latest-branch.bat = windows-latest-branch.bat
