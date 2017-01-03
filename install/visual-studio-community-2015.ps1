@@ -11,7 +11,7 @@ if (!(Test-Path $setup)) {
 # to get a complete list:
 # vs_community.exe /createadminfile adminfile.xml
 # then look at the XML
-$selectable_items = "NativeLanguageSupport_VCV1";
+$selectable_items = "";
 
 & $setup `
 	/ceipconsent `
