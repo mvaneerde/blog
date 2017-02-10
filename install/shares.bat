@@ -13,6 +13,12 @@ if not exist \\%computername%\scratch (
 	net share scratch=C:\scratch /grant:REDMOND\MatEer,FULL /grant:Everyone,READ
 )
 
+if not exist \\%computername%\sd (
+	if exist C:\sd (
+		net share sd=C:\sd /grant:REDMOND\MatEer,FULL
+	)
+)
+
 if not exist \\%computername%\source (
 	if not exist %userprofile%\source mkdir %userprofile%\source
 	net share source=%userprofile%\source /grant:REDMOND\MatEer,FULL
