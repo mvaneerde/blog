@@ -17,8 +17,8 @@ if (%codebase%)==() (
 )
 
 if (%branch%)==() (
-    set branch=rs_onecore_sigma_media_dev
-    set sdxroot=C:\sd\d
+    set branch=rs2_release
+    set sdxroot=C:\sd\2
 )
 
 if (%sdxroot%)==() (
