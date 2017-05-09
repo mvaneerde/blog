@@ -5,6 +5,12 @@ if not exist \\%computername%\music (
 	net share music=%userprofile%\music /grant:REDMOND\MatEer,READ
 )
 
+if not exist \\%computername%\os (
+	if exist D:\os (
+		net share os=D:\os /grant:REDMOND\MatEer,FULL
+	)
+)
+
 if not exist \\%computername%\scratch (
 	if not exist C:\scratch (
 		mkdir C:\scratch
