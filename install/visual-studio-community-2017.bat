@@ -8,6 +8,6 @@ if /i not "%1" == "force" (
 )
 
 echo Installing Visual Studio 2017 RC...
-powershell.exe -executionpolicy bypass %~dp0visual-studio-community-2017-rc.ps1
+powershell.exe -executionpolicy bypass %~dp0visual-studio-community-2017.ps1
 
 :END
