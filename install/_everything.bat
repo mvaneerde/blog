@@ -20,7 +20,7 @@ call %~dp0google-chrome.bat
 call %~dp0research-v2.bat
 call %~dp0shares.bat
 call %~dp0visual-studio-community-2017.bat
-call %~dp0windows-sdk-and-performance-tools.bat
+call %~dp0windows-performance-tools.bat
 call %~dp0wpshift.bat
 
 rem TODO: Scope Studio
