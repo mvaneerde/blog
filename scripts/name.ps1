@@ -1,20 +1,4 @@
-use strict;
-
-# prints a randomly chosen name
-
-sub read_words();
-
-my @words = read_words();
-print $words[ rand(@words) ];
-
-sub read_words() {
-    my @words = <DATA>;
-
-    chomp @words;
-
-    return @words;
-}
-__DATA__
+$names = @"
 Aaliyah (female)
 Aaron (male)
 Abby (female)
@@ -415,3 +399,7 @@ Xavier (male)
 Zachary (male)
 Zoe (female)
 Zoey (female)
+"@.Split("`n");
+
+$name = Get-Random -InputObject @($names);
+Write-Output $name;
