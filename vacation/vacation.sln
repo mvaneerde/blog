@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26014.0
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D370CAB-034D-4881-8B49-AFA37F9CC609}"
 	ProjectSection(SolutionItems) = preProject
-		vacation.pl = vacation.pl
+		vacation.ps1 = vacation.ps1
+		vacation.psm1 = vacation.psm1
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {106C9921-9AA2-412C-B7EF-2E36CC5D8F88}
 	EndGlobalSection
 EndGlobal
