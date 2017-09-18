@@ -6,6 +6,9 @@ Param(
     [double]$hoursAccrued,
 
     [Parameter(Mandatory=$True)]
+    [double]$targetHoursAtEndOfYear,
+
+    [Parameter(Mandatory=$True)]
     [int]$floatingHolidays,
 
     [Parameter(Mandatory=$True)]
@@ -70,7 +73,7 @@ $holidays | ForEach-Object {
 }
 
 # distribute the time off proportionally across the intervals
-$hoursOff = $hoursAccrued + ($floatingHolidays * 8) + ($payPeriodsRemaining * $accrualPerPayPeriod);
+$hoursOff = $hoursAccrued + ($floatingHolidays * 8) + ($payPeriodsRemaining * $accrualPerPayPeriod) - $targetHoursAtEndOfYear;
 $daysOff = [System.Math]::floor($hoursOff / 8);
 $leftover =  $hoursOff - $daysOff * 8;
 
