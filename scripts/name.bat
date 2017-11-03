@@ -1,2 +1,2 @@
 @echo off
-perl -w %~dp0name.pl %*
+powershell.exe -executionpolicy bypass -file %~dp0name.ps1 %*

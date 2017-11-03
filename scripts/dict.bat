@@ -1,2 +1,2 @@
 @echo off
-perl -w %~dp0dict.pl %*
+powershell.exe -executionpolicy bypass -file %~dp0dict.ps1 %*

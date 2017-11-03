@@ -145,7 +145,7 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
         FILE_ATTRIBUTE_NORMAL,
         nullptr
     );
-    if (nullptr == hFile) {
+    if (INVALID_HANDLE_VALUE == hFile) {
         ERR(L"CreateFile failed: err = %u", GetLastError());
         return -__LINE__;
     }
