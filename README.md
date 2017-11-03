@@ -1,5 +1,5 @@
 ﻿# Matthew van Eerde's blog
-http://blogs.msdn.com/b/matthew_van_eerde
+https://blogs.msdn.microsoft.com/matthew_van_eerde/
 
 | Project                                              | Blog posts |
 |------------------------------------------------------|------------|
@@ -12,6 +12,7 @@ http://blogs.msdn.com/b/matthew_van_eerde
 | [devenum](devenum)                                   | [How to enumerate DirectShow filters on your system](http://blogs.msdn.com/b/matthew_van_eerde/archive/2010/12/18/10014843.aspx) | 
 | [devicetopology](devicetopology)                     | [Walking the IDeviceTopology tree to see audio driver settings](http://blogs.msdn.com/b/matthew_van_eerde/archive/2014/11/20/walking-the-idevicetopology-tree-to-see-audio-driver-settings.aspx) | 
 | [dmoenum](dmoenum)                                   | [How to enumerate DirectSound DirectX Media Objects (DMOs) on your system](http://blogs.msdn.com/b/matthew_van_eerde/archive/2010/05/27/how-to-enumerate-directsound-directx-media-objects-dmos-on-your-system.aspx) | 
+| [dow-jones-by-president](dow-jones-by-president)                                   | [Some Dow Jones Industrial Average statistics, by United States President](https://blogs.msdn.microsoft.com/matthew_van_eerde/2017/11/02/some-dow-jones-industrial-average-statistics-by-united-states-president/) | 
 | [inactive-volume-sessions](inactive-volume-sessions) | [Enumerating inactive volume sessions](http://blogs.msdn.com/b/matthew_van_eerde/archive/2015/02/16/enumerating-inactive-volume-sessions.aspx) | 
 | [install](install)                                   | - |
 | [inplacehostingmanager](inplacehostingmanager)       | [Pulling ClickOnce applications from the client using a script](http://blogs.msdn.com/b/matthew_van_eerde/archive/2015/11/30/pulling-clickonce-applications-from-the-client-using-a-script.aspx) |
