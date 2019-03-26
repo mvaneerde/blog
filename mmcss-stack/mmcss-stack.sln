@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C4E3D072-291D-470F-87C9-CCEE8DA13873}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16B16E00-3400-4AA7-85E1-9B79628057DA}"
 	ProjectSection(SolutionItems) = preProject
-		audio-client-stack.wprp = audio-client-stack.wprp
+		mmcss-stack.wprp = mmcss-stack.wprp
 	EndProjectSection
 EndProject
 Global
@@ -13,6 +13,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {470AD747-F1F8-4042-B3B5-9E16AFBDBBA0}
+		SolutionGuid = {A7A201A3-9CDC-4501-94DF-D84DF85D2141}
 	EndGlobalSection
 EndGlobal
