@@ -223,7 +223,7 @@ HRESULT DisplayPropertyValue(const PROPERTYKEY &key, const PROPVARIANT &value) {
             return hr;
         }
         
-        LOG(L"%s: %s", name, static_cast<LPCWSTR>(strValue));
+        LOG(L"%s: %s", static_cast<LPCWSTR>(name), static_cast<LPCWSTR>(strValue));
         
         return S_OK;
     }
@@ -231,50 +231,50 @@ HRESULT DisplayPropertyValue(const PROPERTYKEY &key, const PROPVARIANT &value) {
     // the canonical way failed; log the raw value
     switch (value.vt) {
         case VT_EMPTY:
-            LOG(L"%s: VT_EMPTY", name);
+            LOG(L"%s: VT_EMPTY", static_cast<LPCWSTR>(name));
             return S_OK;
     
         case VT_LPWSTR:
-            LOG(L"%s: VT_LPWSTR %s", name, value.pwszVal);
+            LOG(L"%s: VT_LPWSTR %s", static_cast<LPCWSTR>(name), value.pwszVal);
             return S_OK;
             
         case VT_VECTOR | VT_LPWSTR:
-            LOG(L"%s: VT_VECTOR | VT_LPWSTR", name);
+            LOG(L"%s: VT_VECTOR | VT_LPWSTR", static_cast<LPCWSTR>(name));
             for (UINT i = 0; i < value.calpwstr.cElems; i++) {
                 LOG(L"    %u: %s", i + 1, value.calpwstr.pElems[i]);
             }
             return S_OK;
         
         case VT_BSTR:
-            LOG(L"%s: VT_BSTR %s", name, value.bstrVal);
+            LOG(L"%s: VT_BSTR %s", static_cast<LPCWSTR>(name), value.bstrVal);
             return S_OK;
         
         case VT_BOOL:
-            LOG(L"%s: VT_BOOL %s", name, (value.boolVal ? L"TRUE" : L"FALSE"));
+            LOG(L"%s: VT_BOOL %s", static_cast<LPCWSTR>(name), (value.boolVal ? L"TRUE" : L"FALSE"));
             return S_OK;
         
         case VT_I2:
-            LOG(L"%s: VT_I2 %d (0x%x)", name, value.iVal, value.iVal);
+            LOG(L"%s: VT_I2 %d (0x%x)", static_cast<LPCWSTR>(name), value.iVal, value.iVal);
             return S_OK;
 
         case VT_UI2:
-            LOG(L"%s: VT_UI2 %u (0x%x)", name, value.uiVal, value.uiVal);
+            LOG(L"%s: VT_UI2 %u (0x%x)", static_cast<LPCWSTR>(name), value.uiVal, value.uiVal);
             return S_OK;
 
         case VT_I4:
-            LOG(L"%s: VT_I4 %d (0x%x)", name, value.lVal, value.lVal);
+            LOG(L"%s: VT_I4 %d (0x%x)", static_cast<LPCWSTR>(name), value.lVal, value.lVal);
             return S_OK;
 
         case VT_UI4:
-            LOG(L"%s: VT_UI4 %u (0x%x)", name, value.ulVal, value.ulVal);
+            LOG(L"%s: VT_UI4 %u (0x%x)", static_cast<LPCWSTR>(name), value.ulVal, value.ulVal);
             return S_OK;
 
         case VT_I8:
-            LOG(L"%s: VT_I8 %I64d (0x%I64x)", name, value.hVal.QuadPart, value.hVal.QuadPart);
+            LOG(L"%s: VT_I8 %I64d (0x%I64x)", static_cast<LPCWSTR>(name), value.hVal.QuadPart, value.hVal.QuadPart);
             return S_OK;
 
         case VT_UI8:
-            LOG(L"%s: VT_UI8 %I64u (0x%I64x)", name, value.uhVal.QuadPart, value.uhVal.QuadPart);
+            LOG(L"%s: VT_UI8 %I64u (0x%I64x)", static_cast<LPCWSTR>(name), value.uhVal.QuadPart, value.uhVal.QuadPart);
             return S_OK;
         
         case VT_FILETIME: {
@@ -289,18 +289,18 @@ HRESULT DisplayPropertyValue(const PROPERTYKEY &key, const PROPVARIANT &value) {
             GetTimeFormat( LOCALE_USER_DEFAULT, 0, &st, NULL, szLocalTime, ARRAYSIZE(szLocalDate) );
             LOG(
                 L"%s: VT_FILETIME 0x%08x%08x (%s %s local time)",
-                name, value.filetime.dwHighDateTime, value.filetime.dwLowDateTime,
+                static_cast<LPCWSTR>(name), value.filetime.dwHighDateTime, value.filetime.dwLowDateTime,
                 szLocalDate, szLocalTime
             );
             return S_OK;
         }
         
         case VT_CLSID:
-            LOG(L"%s: VT_CLSID " GUID_FORMAT, name, GUID_VALUES(*(value.puuid)));
+            LOG(L"%s: VT_CLSID " GUID_FORMAT, static_cast<LPCWSTR>(name), GUID_VALUES(*(value.puuid)));
             return S_OK;
         
         default:
-            ERR(L"%s has unhandled variant type %u (0x%x)", name, value.vt, value.vt);
+            ERR(L"%s has unhandled variant type %u (0x%x)", static_cast<LPCWSTR>(name), value.vt, value.vt);
             return E_INVALIDARG;
     }
 }
