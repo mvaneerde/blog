@@ -21,13 +21,13 @@ HRESULT LogDetails(PAPO_REG_PROPERTIES pApo) {
         return E_POINTER;
     }
     
-    LPWSTR szGuid = NULL;
-    HRESULT hr = StringFromIID(pApo->clsid, &szGuid);
+    LPWSTR szClsid = NULL;
+    HRESULT hr = StringFromIID(pApo->clsid, &szClsid);
     if (FAILED(hr)) {
         ERR(L"StringFromIID failed: hr = 0x%08x", hr);
         return hr;
     }
-    CoTaskMemFreeOnExit freeGuid(szGuid);
+    CoTaskMemFreeOnExit freeClsid(szClsid);
     
     LOG(
         L"-- APO properties for %s --\n"
@@ -45,7 +45,7 @@ HRESULT LogDetails(PAPO_REG_PROPERTIES pApo) {
         L"    u32MaxInstances: %u\n"
         L"    u32NumAPOInterfaces: %u",
         pApo->szFriendlyName,
-        szGuid,
+        szClsid,
         pApo->Flags,
             DISPLAY_FLAG(APO_FLAG_INPLACE, pApo->Flags),
             DISPLAY_FLAG(APO_FLAG_SAMPLESPERFRAME_MUST_MATCH, pApo->Flags),
@@ -71,15 +71,15 @@ HRESULT LogDetails(PAPO_REG_PROPERTIES pApo) {
     );
     
     for (UINT32 i = 0; i < pApo->u32NumAPOInterfaces; i++) {
-        LPWSTR szGuid = NULL;
-        hr = StringFromIID(pApo->iidAPOInterfaceList[i], &szGuid);
+        LPWSTR szIid = NULL;
+        hr = StringFromIID(pApo->iidAPOInterfaceList[i], &szIid);
         if (FAILED(hr)) {
             ERR(L"StringFromIID failed: hr = 0x%08x", hr);
             return hr;
         }
-        CoTaskMemFreeOnExit freeGuid(szGuid);
+        CoTaskMemFreeOnExit freeIid(szIid);
         
-        LOG(L"    #%u: %s", i + 1, szGuid);
+        LOG(L"    #%u: %s", i + 1, szIid);
     }
     
     LOG(L""); // blank line

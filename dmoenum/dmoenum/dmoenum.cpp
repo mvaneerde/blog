@@ -87,7 +87,7 @@ HRESULT EnumerateDMOCategory(GUID category) {
         CoTaskMemFreeOnExit freeName(szName);
        
         LPWSTR szGuid = NULL;
-        HRESULT hr = StringFromIID(iid, &szGuid);
+        hr = StringFromIID(iid, &szGuid);
         if (FAILED(hr)) {
             ERR(L"StringFromIID failed: hr = 0x%08x", hr);
             return hr;

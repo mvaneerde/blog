@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "inactive-volume-sessions", "inactive-volume-sessions\inactive-volume-sessions.vcxproj", "{878FE550-FD6D-4562-B364-583F0A42FFB9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F6C567D5-2339-49E5-A2BA-8B2F0D044FCA}"
+	ProjectSection(SolutionItems) = preProject
+		inactive-volume-sessions.zip = inactive-volume-sessions.zip
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B36B6F6-3B07-446D-BD3A-AF7767A50CFA}
 	EndGlobalSection
 EndGlobal

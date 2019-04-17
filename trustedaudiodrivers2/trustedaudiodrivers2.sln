@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "trustedaudiodrivers2", "trustedaudiodrivers2\trustedaudiodrivers2.vcxproj", "{E3D28C78-7AB8-4B7D-A2AB-B59F3CF7BA02}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{428200DE-03EE-4D68-AAB2-888AB3BED8CD}"
+	ProjectSection(SolutionItems) = preProject
+		trustedaudiodrivers2.zip = trustedaudiodrivers2.zip
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B52B6D88-8FED-4E1D-9AB8-541F1D09D5A2}
 	EndGlobalSection
 EndGlobal

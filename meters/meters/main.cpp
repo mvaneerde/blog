@@ -120,20 +120,20 @@ int _cdecl wmain() {
             }
             
             // get the current audio peak meter level for this endpoint
-            CComPtr<IAudioMeterInformation> pAudioMeterInformation;
+            CComPtr<IAudioMeterInformation> pAudioMeterInformation_Endpoint;
             hr = pMMDevice->Activate(
                 __uuidof(IAudioMeterInformation),
                 CLSCTX_ALL,
                 NULL,
-                reinterpret_cast<void**>(&pAudioMeterInformation)
+                reinterpret_cast<void**>(&pAudioMeterInformation_Endpoint)
             );
             if (FAILED(hr)) {
                 LOG(L"IMMDevice::Activate(IAudioMeterInformation) failed: hr = 0x%08x", hr);
                 continue;
             }
             
-            float peak = 0.0f;
-            hr = pAudioMeterInformation->GetPeakValue(&peak);
+            float peak_endpoint = 0.0f;
+            hr = pAudioMeterInformation_Endpoint->GetPeakValue(&peak_endpoint);
             if (FAILED(hr)) {
                 LOG(L"IAudioMeterInformation::GetPeakValue() failed: hr = 0x%08x", hr);
                 continue;
@@ -189,20 +189,20 @@ int _cdecl wmain() {
                 L"    Volume range: 0%% to 100%% (%g dB to %g dB in steps of %g dB)\n"
                 L"    Master: %g%% (%g dB)",
                 v.pwszVal,
-                peak,
+                peak_endpoint,
                 mute,
                 dbMin, dbMax, dbStep,
                 pctMaster * 100.0f, dbMaster
             );
 
-            UINT nChannelCount;
-            hr = pAudioEndpointVolume->GetChannelCount(&nChannelCount);
+            UINT nChannelCount_Endpoint;
+            hr = pAudioEndpointVolume->GetChannelCount(&nChannelCount_Endpoint);
             if (FAILED(hr)) {
                 LOG(L"IAudioEndpointVolume::GetChannelCount failed: hr = 0x%08x", hr);
                 continue;
             }
             
-            for (UINT c = 0; c < nChannelCount; c++) {
+            for (UINT c = 0; c < nChannelCount_Endpoint; c++) {
                 float pctChannel;
                 hr = pAudioEndpointVolume->GetChannelVolumeLevelScalar(c, &pctChannel);
                 if (FAILED(hr)) {
@@ -217,7 +217,7 @@ int _cdecl wmain() {
                     continue;
                 }
 
-                LOG(L"    Channel %u of %u: %g%% (%g dB)", c + 1, nChannelCount, pctChannel * 100.0f, dbChannel);
+                LOG(L"    Channel %u of %u: %g%% (%g dB)", c + 1, nChannelCount_Endpoint, pctChannel * 100.0f, dbChannel);
             }
             
             LOG(L"");
@@ -332,15 +332,15 @@ int _cdecl wmain() {
                 bool bIsSystemSoundsSession = (S_OK == hr);
                 
                 // get the current audio peak meter level for this session
-                CComPtr<IAudioMeterInformation> pAudioMeterInformation;
-                hr = pAudioSessionControl->QueryInterface(IID_PPV_ARGS(&pAudioMeterInformation));
+                CComPtr<IAudioMeterInformation> pAudioMeterInformation_Session;
+                hr = pAudioSessionControl->QueryInterface(IID_PPV_ARGS(&pAudioMeterInformation_Session));
                 if (FAILED(hr)) {
                     LOG(L"IAudioSessionControl::QueryInterface(IAudioMeterInformation) failed: hr = 0x%08x", hr);
                     return -__LINE__;
                 }
                 
-                float peak = 0.0f;
-                hr = pAudioMeterInformation->GetPeakValue(&peak);
+                float peak_session = 0.0f;
+                hr = pAudioMeterInformation_Session->GetPeakValue(&peak_session);
                 if (FAILED(hr)) {
                     LOG(L"IAudioMeterInformation::GetPeakValue() failed: hr = 0x%08x", hr);
                     return -__LINE__;
@@ -358,7 +358,7 @@ int _cdecl wmain() {
                     L"        System sounds session: %s"
                     ,
                     active,
-                    peak,
+                    peak_session,
                     static_cast<LPCWSTR>(szIconPath),
                     static_cast<LPCWSTR>(szDisplayName),
                     GUID_VALUES(guidGroupingParam),
@@ -443,26 +443,26 @@ int _cdecl wmain() {
                     return -__LINE__;
                 }
                 
-                UINT32 nChannelCount;
-                hr = pChannelAudioVolume->GetChannelCount(&nChannelCount);
+                UINT32 nChannelCount_Session;
+                hr = pChannelAudioVolume->GetChannelCount(&nChannelCount_Session);
                 if (FAILED(hr)) {
                     LOG(L"IChannelAudioVolume::GetChannelCount failed: hr = 0x%08x", hr);
                     return -__LINE__;
                 }
                 
                 CComHeapPtr<float> fVolumes;
-                if (!fVolumes.Allocate(nChannelCount)) {
-                    LOG(L"Could not allocate %u floats to store channel volumes", nChannelCount);
+                if (!fVolumes.Allocate(nChannelCount_Session)) {
+                    LOG(L"Could not allocate %u floats to store channel volumes", nChannelCount_Session);
                     return -__LINE__;
                 }
                 
-                hr = pChannelAudioVolume->GetAllVolumes(nChannelCount, fVolumes);
+                hr = pChannelAudioVolume->GetAllVolumes(nChannelCount_Session, fVolumes);
                 if (FAILED(hr)) {
                     LOG(L"IChannelAudioVolume::GetAllVolumes failed: hr = 0x%08x", hr);
                     return -__LINE__;
                 }
 
-                for (UINT32 channel = 0; channel < nChannelCount; channel++) {
+                for (UINT32 channel = 0; channel < nChannelCount_Session; channel++) {
                     LOG(
                         L"        Channel #%u volume: %g (%g dB FS)",
                         channel + 1,

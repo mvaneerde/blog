@@ -366,7 +366,7 @@ void LogLineInfo(UINT dev, MIXERLINE line) {
                 }
                 
                 LOG(L"                -- Value --");
-                for (UINT i = 0; i < controls[i].Metrics.cbCustomData; i++) {
+                for (UINT j = 0; j < controls[i].Metrics.cbCustomData; j++) {
                     LOG(L"                    %02x", data[i]);
                 }
                 break;

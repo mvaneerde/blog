@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{16B16E00-3400-4AA7-85E1-9B79628057DA}"
+	ProjectSection(SolutionItems) = preProject
+		mmcss-stack.wprp = mmcss-stack.wprp
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A7A201A3-9CDC-4501-94DF-D84DF85D2141}
+	EndGlobalSection
+EndGlobal

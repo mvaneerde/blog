@@ -255,7 +255,7 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
                             ISpRecoResult *pSpRecoResult = reinterpret_cast<ISpRecoResult *>(event.lParam);
                             WCHAR *szText = nullptr;
                             BYTE attributes = 0;
-                            HRESULT hr = pSpRecoResult->GetText(
+                            hr = pSpRecoResult->GetText(
                                 (ULONG)SP_GETWHOLEPHRASE, (ULONG)SP_GETWHOLEPHRASE,
                                 TRUE, // replace symbols: e.g. "20 dollars" => "$20"
                                 &szText,

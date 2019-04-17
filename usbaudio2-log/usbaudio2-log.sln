@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.539
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{87ED1965-AB22-4D51-8B97-B3B8F91CE4F9}"
+	ProjectSection(SolutionItems) = preProject
+		usbaudio2-log.wprp = usbaudio2-log.wprp
+		usbaudio2-tmf-files.zip = usbaudio2-tmf-files.zip
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {86C29BD4-C9FA-4D6A-A17C-360FFFE66088}
+	EndGlobalSection
+EndGlobal
