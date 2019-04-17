@@ -5,12 +5,12 @@ set branch=%1
 if (%branch%) == () call :AUTO
 
 set builds=\\ntdev.corp.microsoft.com\release\%branch%
-set setup_path=amd64fre\media\enterprise_en-us_vl\setup.exe
+set setup_path=%PROCESSOR_ARCHITECTURE%fre\media\enterprise_en-us_vl\setup.exe
 set max_builds=5
 
 set latest=
 set count=0
-for /f "usebackq delims=" %%d in (`dir /a:d /b %builds% ^| shellsort.exe -reverse`) do (
+for /f "usebackq delims=" %%d in (`dir /a:d /o:-n /b %builds%`) do (
 	if "!count!" == "%max_builds%" (
 		goto BAIL
 	)
