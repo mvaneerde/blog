@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E71FDE11-28AF-4A4B-ACFA-E79611DAD14C}"
+	ProjectSection(SolutionItems) = preProject
+		audio-glitches-windows7.wprp = audio-glitches-windows7.wprp
+		code-integrity-windows7.wprp = code-integrity-windows7.wprp
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2ECBA70B-C55E-49A4-B641-78D432FECB80}
+	EndGlobalSection
+EndGlobal
