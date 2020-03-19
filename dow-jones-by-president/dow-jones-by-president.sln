@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9FF25A47-174A-4491-B494-3BAB3D17F88B}"
 	ProjectSection(SolutionItems) = preProject
+		calculate-statistics.ps1 = calculate-statistics.ps1
 		dow-jones-industrial-average.csv = dow-jones-industrial-average.csv
-		extract.ps1 = extract.ps1
+		format-tweets.ps1 = format-tweets.ps1
 		presidents.csv = presidents.csv
+		tweets.csv = tweets.csv
 	EndProjectSection
 EndProject
 Global
