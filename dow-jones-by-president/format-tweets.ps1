@@ -1,6 +1,6 @@
 Write-Output "<ul>"
 
-Import-Csv ".\tweets.csv" | ForEach-Object {
+Import-Csv ".\tweets.csv" -Encoding UTF8 | ForEach-Object {
     $row = $_;
     
     $htmlDate = [System.Net.WebUtility]::HtmlEncode((Get-Date ($row.Date)).ToString("yyyy-MM-dd"));
