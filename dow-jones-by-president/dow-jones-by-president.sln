@@ -10,6 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		extract-tweets.ps1 = extract-tweets.ps1
 		format-tweets.ps1 = format-tweets.ps1
 		presidents.csv = presidents.csv
+		readme.md = readme.md
+		trump-twitter-archive.json = trump-twitter-archive.json
+		trump-twitter-exceptions.csv = trump-twitter-exceptions.csv
 		tweets.csv = tweets.csv
 	EndProjectSection
 EndProject

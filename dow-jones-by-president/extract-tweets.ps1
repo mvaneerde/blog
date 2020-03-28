@@ -94,15 +94,17 @@ $all_tweets | ForEach-Object {
 		$dateStr = $matches[8] + "-" + $months[$matches[2]] + "-" + $matches[3] +
 			"T" + $matches[4] + ":" + $matches[5] + ":" + $matches[6] + $matches[7];
 		$date = [DateTime]::Parse($dateStr).ToUniversalTime();
+		$id = $tweet.id_str;
+		$text = [System.Net.WebUtility]::HtmlDecode($tweet.text);
 
-		If (TweetIsInteresting -date $date -id $tweet.id_str -text $tweet.text)
+		If (TweetIsInteresting -date $date -id $id -text $text)
 		{
 			# Convert back to Eastern Standard Time at the last minute for a pretty display
 			$tz = [TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time');
 			$date = EncodeCsv -value ([TimeZoneInfo]::ConvertTimeFromUtc($date, $tz).ToString("yyyy-MM-dd hh:mm tt"));
-			$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $tweet.id_str);
-			$text = EncodeCsv -value ([System.Net.WebUtility]::HtmlDecode($tweet.text));
-			$comment = EncodeCsv -value (CommentForTweet -id $tweet.id_str);
+			$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $id);
+			$text = EncodeCsv -value $text;
+			$comment = EncodeCsv -value (CommentForTweet -id $id);
 			$row = $date + "," + $link + "," + $text + "," + $comment;
 
 			Add-Content -Path ".\tweets.csv" $row;
