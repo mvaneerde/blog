@@ -58,33 +58,54 @@ Function CommentForTweet
 		If (($exception.Id -eq $id) -and ($exception.Interesting -eq "Yes"))
 		{
 			$comment = $exception.Comment;
-        }
-    }
+		}
+	}
 	
 	Return $comment;
 }
 
-$all_tweets = Import-Csv .\trump-twitter-archive.csv;
-$exceptions = Import-Csv .\trump-twitter-exceptions.csv;
+$months = @{
+	"Jan" = "01";
+	"Feb" = "02";
+	"Mar" = "03";
+	"Apr" = "04";
+	"May" = "05";
+	"Jun" = "06";
+	"Jul" = "07";
+	"Aug" = "08";
+	"Sep" = "09";
+	"Oct" = "10";
+	"Nov" = "11";
+	"Dec" = "12";
+};
 
-Write-Output "`"Date`",`"Link`",`"Tweet`",`"Comment`"";
+$all_tweets = Get-Content -Path ".\trump-twitter-archive.json" -Encoding UTF8 | Out-String | ConvertFrom-Json;
+$exceptions = Import-Csv .\trump-twitter-exceptions.csv;
+Set-Content -Path ".\tweets.csv" -Encoding UTF8 -Value "`"Date`",`"Link`",`"Tweet`",`"Comment`"";
 
 $all_tweets | ForEach-Object {
 	$tweet = $_;
-	
-	# Date is stored in UTC (good)
-	$date = Get-Date -Date $tweet.created_at;
 
-	If (TweetIsInteresting -date $date -id $tweet.id_str -text $tweet.text)
+	# dates are in rather a strange format
+	# Thu Mar 26 21:27:44 +0000 2020
+	If ($tweet.created_at -match "^(Sun|Mon|Tue|Wed|Thu|Fri|Sat) (\w{3}) (\d{2}) (\d{2}):(\d{2}):(\d{2}) ([+-]?\d{4}) (\d+)$")
 	{
-		# Convert back to Eastern Standard Time at the last minute for a pretty display
-		$tz = [TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time');
-		$date = EncodeCsv -value ([TimeZoneInfo]::ConvertTimeFromUtc($date, $tz).ToString("yyyy-MM-dd hh:mm tt"));
-		$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $tweet.id_str);
-		$text = EncodeCsv -value ([System.Net.WebUtility]::HtmlDecode($tweet.text));
-		$comment = EncodeCsv -value (CommentForTweet -id $tweet.id_str);
-		$row = $date + "," + $link + "," + $text + "," + $comment;
+		# Put it in 2020-03-26T21:27:44+0000 format instead
+		$dateStr = $matches[8] + "-" + $months[$matches[2]] + "-" + $matches[3] +
+			"T" + $matches[4] + ":" + $matches[5] + ":" + $matches[6] + $matches[7];
+		$date = [DateTime]::Parse($dateStr).ToUniversalTime();
 
-		Write-Output $row;
+		If (TweetIsInteresting -date $date -id $tweet.id_str -text $tweet.text)
+		{
+			# Convert back to Eastern Standard Time at the last minute for a pretty display
+			$tz = [TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time');
+			$date = EncodeCsv -value ([TimeZoneInfo]::ConvertTimeFromUtc($date, $tz).ToString("yyyy-MM-dd hh:mm tt"));
+			$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $tweet.id_str);
+			$text = EncodeCsv -value ([System.Net.WebUtility]::HtmlDecode($tweet.text));
+			$comment = EncodeCsv -value (CommentForTweet -id $tweet.id_str);
+			$row = $date + "," + $link + "," + $text + "," + $comment;
+
+			Add-Content -Path ".\tweets.csv" $row;
+		}
 	}
 }
