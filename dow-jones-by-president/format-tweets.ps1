@@ -1,4 +1,4 @@
-Write-Output "<ul>"
+Write-Output "<ol>"
 
 Import-Csv ".\tweets.csv" -Encoding UTF8 | ForEach-Object {
     $row = $_;
@@ -17,4 +17,4 @@ Import-Csv ".\tweets.csv" -Encoding UTF8 | ForEach-Object {
     Write-Output "<li>$html</li>";
 }
 
-Write-Output "</ul>"
+Write-Output "</ol>"
