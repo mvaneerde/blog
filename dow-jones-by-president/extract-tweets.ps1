@@ -42,7 +42,8 @@ Function TweetIsInteresting
 	Return ($text -match "\bDOW\b") -or
 		($text -match "\bNASDAQ\b") -or
 		($text -match "\bS&P\b") -or
-		($text -match "\bStock Market\b");
+		($text -match "\bStock Market\b") -or
+		($text -match "\bWall Street\b(?!\s+Journal)");
 }
 
 Function CommentForTweet
