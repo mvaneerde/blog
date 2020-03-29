@@ -5,7 +5,7 @@ Import-Csv ".\tweets.csv" -Encoding UTF8 | ForEach-Object {
     
     $htmlDate = [System.Net.WebUtility]::HtmlEncode((Get-Date ($row.Date)).ToString("yyyy-MM-dd"));
     $htmlLink = [System.Net.WebUtility]::HtmlEncode($row.Link);
-    $htmlTweet = [System.Net.WebUtility]::HtmlEncode($row.Tweet);
+    $htmlTweet = [System.Net.WebUtility]::HtmlEncode($row.Tweet).Replace("`n", "`n<br />");
     $html = "${htmlDate}: <a href=`"${htmlLink}`">${htmlTweet}</a>";
 
     If ($row.Comment)
