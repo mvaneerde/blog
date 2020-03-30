@@ -31,15 +31,16 @@ Function TweetIsInteresting
 		{
 			$isException = $true;
 			$isInteresting = ($exception.Interesting -eq "Yes");
-        }
-    }
+		}
+	}
 	
 	If ($isException)
 	{
 		Return $isInteresting;
-    }
+	}
 
-	Return ($text -match "\bDOW\b") -or
+	Return ($text -match "\b401[-\(]?ks?\b") -or
+		($text -match "\bDOW\b") -or
 		($text -match "\bNASDAQ\b") -or
 		($text -match "\bS&P\b") -or
 		($text -match "\bStock Market\b") -or
