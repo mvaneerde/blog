@@ -43,7 +43,7 @@ Function TweetIsInteresting
 		($text -match "\bDOW\b") -or
 		($text -match "\bNASDAQ\b") -or
 		($text -match "\bS&P\b") -or
-		($text -match "\bStock Market\b") -or
+		($text -match "\bStock Markets?\b") -or
 		($text -match "\bWall Street\b(?!\s+Journal)");
 }
 
@@ -81,12 +81,25 @@ $months = @{
 	"Dec" = "12";
 };
 
+Write-Host "Reading tweet archive...";
 $all_tweets = Get-Content -Path ".\trump-twitter-archive.json" -Encoding UTF8 | Out-String | ConvertFrom-Json;
+$tweet_count = $all_tweets.Count;
+
+Write-Host "Reading exceptions..."
 $exceptions = Import-Csv .\trump-twitter-exceptions.csv;
 Set-Content -Path ".\tweets.csv" -Encoding UTF8 -Value "`"Date`",`"Link`",`"Tweet`",`"Comment`"";
 
+Write-Host "Filtering tweets...";
+
+$i = 0;
 $all_tweets | ForEach-Object {
 	$tweet = $_;
+
+	$i++;
+	If ($i % 1000 -eq 0)
+	{
+		Write-Host "    $i of $tweet_count";
+    }
 
 	# dates are in rather a strange format
 	# Thu Mar 26 21:27:44 +0000 2020
