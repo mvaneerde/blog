@@ -5,6 +5,11 @@ VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "minidumpwritedump", "minidumpwritedump\minidumpwritedump.vcxproj", "{1A81863A-AE34-4091-9E39-D7391274B83C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C774AA1E-DEBD-4DA7-AC94-9FB57A22714F}"
+	ProjectSection(SolutionItems) = preProject
+		minidump_type.ps1 = minidump_type.ps1
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
