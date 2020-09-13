@@ -1,4 +1,4 @@
-# calcalate the average damage per turn for a given fast move and charge move
+# calculate the average damage per turn for a given fast move and charge move
 Function DPT {
 	Param($fast, $charge);
 
@@ -13,8 +13,8 @@ Function DPT {
 	Return $damageFast + $damageCharge;
 }
 
-$charges = Import-Csv -Path ".\Data\charge-moves.csv";
 $fasts = Import-Csv -Path ".\Data\fast-moves.csv";
+$charges = Import-Csv -Path ".\Data\charge-moves.csv";
 
 # consider all combinations of fast moves and charge moves
 # and calculate the total damage per turn
