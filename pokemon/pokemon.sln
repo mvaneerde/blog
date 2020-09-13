@@ -7,12 +7,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F0D9E670-E
 	ProjectSection(SolutionItems) = preProject
 		Data\charge-moves.csv = Data\charge-moves.csv
 		Data\fast-moves.csv = Data\fast-moves.csv
+		Data\pokemon-charge-move.csv = Data\pokemon-charge-move.csv
+		Data\pokemon-fast-move.csv = Data\pokemon-fast-move.csv
+		Data\pokemon.csv = Data\pokemon.csv
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91574CEC-EE55-442C-933A-83BAAA7B896E}"
 	ProjectSection(SolutionItems) = preProject
+		Pokemon.psm1 = Pokemon.psm1
 		pve-dps.ps1 = pve-dps.ps1
 		pvp-dpt.ps1 = pvp-dpt.ps1
+		show-pokemon.ps1 = show-pokemon.ps1
 	EndProjectSection
 EndProject
 Global
