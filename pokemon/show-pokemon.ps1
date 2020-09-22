@@ -102,4 +102,34 @@ Get-PokemonFastMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
     }
 }
 
-$combos | Format-Table;
+$combos | Sort-Object -Property "DamagePerSecond" -Descending | Select-Object -First 1 | ForEach-Object {
+    Write-Output (
+        "Highest damage per second: {0:n2} {1} / {2}" -f
+            $_.DamagePerSecond,
+            $_.Fast,
+            $_.Charge);
+}
+
+$combos | Sort-Object -Property "SecondsToCharge" | Select-Object -First 1  | ForEach-Object {
+    Write-Output (
+        "Fastest seconds to charge: {0:n2} {1} / {2}" -f
+            $_.SecondsToCharge,
+            $_.Fast,
+            $_.Charge);
+}
+
+$combos | Sort-Object -Property "DamagePerTurn" -Descending | Select-Object -First 1 | ForEach-Object {
+    Write-Output (
+        "Highest damage per turn: {0:n2} {1} / {2}" -f
+            $_.DamagePerTurn,
+            $_.Fast,
+            $_.Charge);
+}
+
+$combos | Sort-Object -Property "TurnsToCharge" | Select-Object -First 1 | ForEach-Object {
+    Write-Output (
+        "Fastest turns to charge: {0:n2} {1} / {2}" -f
+            $_.TurnsToCharge,
+            $_.Fast,
+            $_.Charge);
+}

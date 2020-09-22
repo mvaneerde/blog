@@ -123,14 +123,11 @@ Function Get-TurnsToCharge {
 	);
 
 	# fast moves generate energy per turn
-	# when enough energy has accumulated you can use a charge move
-	# (energy per turn) * (damage per charge) / (energy per charge)
-	$damageCharge = ([float]$fast.EnergyPvP / $fast.TurnsPvP) * $charge.DamagePvP / $charge.EnergyPvP;
-	If ($types -contains $charge.Type) {
-		$damageCharge *= 1.2;
-	}
+	$energyPerTurn = ([float]$fast.EnergyPvP / $fast.TurnsPvP);
 
-	Return $damageFast + $damageCharge;
+	# when enough energy has accumulated you can use a charge move
+	# turns per charge = (energy per charge) / (energy per turn)
+	Return [float]$charge.EnergyPvP / $energyPerTurn;
 }
 
 Export-ModuleMember -Function Get-ChargeMoves;

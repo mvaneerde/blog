@@ -142,11 +142,11 @@ Twister,Dragon,45,3,45,45,
 V-create,Fire,95,3,95,40,DEF -3
 Vise Grip,Normal,35,3,40,40,
 Water Pulse,Water,70,2,70,60,
-Weather Ball (Fire),Fire,60,3,60,35,
-Weather Ball (Ice),Ice,60,3,60,35,
-Weather Ball (Normal),Normal,60,3,60,35,
-Weather Ball (Water),Water,60,3,60,35,
-Wild Charge (Electric),Electric,90,2,100,45,DEF -2
+Weather Ball - Fire,Fire,60,3,60,35,
+Weather Ball - Ice,Ice,60,3,60,35,
+Weather Ball - Normal,Normal,60,3,60,35,
+Weather Ball - Water,Water,60,3,60,35,
+Wild Charge,Electric,90,2,100,45,DEF -2
 Wrap,Normal,60,3,60,45,
 X-Scissor,Bug,45,3,45,35,
 Zap Cannon,Electric,140,1,150,80,
