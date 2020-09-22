@@ -12,19 +12,12 @@ If ($p -eq $null) {
     Exit;
 }
 
-Write-Output ("#{0}: {1}" -f $p.Number, $p.Name);
-
 $types = @();
 Get-PokemonTypes | Where-Object Pokemon -eq $p.Name | ForEach-Object {
     $types += $_.Type;
 }
 
-If ($types.Count -eq 1) {
-    Write-Output ("Type: {0}" -f $types[0]);
-}
-Else {
-    Write-Output ("Types: {0}" -f ($types -join ", "));
-}
+Write-Output ("#{0}: {1} ({2})" -f $p.Number, $p.Name, ($types -join ", "));
 
 Write-Output "Fast moves:";
 $fasts = Get-FastMoves;
@@ -88,3 +81,25 @@ Get-PokemonChargeMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
 
     Write-Output ("        PvP: {0} damage for {1} energy" -f $damagePvP, $charge.EnergyPvP);
 }
+
+$combos = @();
+Get-PokemonFastMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
+    $f = $_;
+    $fast = $fasts | Where-Object Move -eq $f.Move;
+
+    Get-PokemonChargeMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
+        $c = $_;
+        $charge = $charges | Where-Object Move -eq $c.Move;
+
+        $combos += [PSCustomObject]@{
+            "Fast" = $fast.Move;
+            "Charge" = $charge.Move;
+            "DamagePerSecond" = Get-DamagePerSecond -Fast $fast -Charge $charge -Types $types;
+            "DamagePerTurn" = Get-DamagePerTurn -Fast $fast -Charge $charge -Types $types;
+            "SecondsToCharge" = Get-SecondsToCharge -Fast $fast -Charge $charge;
+            "TurnsToCharge" = Get-TurnsToCharge -Fast $fast -Charge $charge;
+        };
+    }
+}
+
+$combos | Format-Table;
