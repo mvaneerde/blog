@@ -48,7 +48,6 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         $fast = $_.Node.Value;
 
         $fasts[$fast] = "";
-        $all_fasts[$fast] = "";
     };
 
     Select-Xml -Xml $tds.td[8] -XPath "span[contains(concat(' ', @class, ' '), ' text-muted ')]" | ForEach-Object {
@@ -61,7 +60,6 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         }
 
         $fasts[$fast] = $qualifier;
-        $all_fasts[$fast] = "";
     };
 
     # [9] charge moves
@@ -81,13 +79,11 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         }
 
         $charges[$charge] = $qualifier;
-        $all_charges[$charge] = "";
     };
 
     Select-Xml -Xml $tds.td[9] -XPath "span[contains(concat(' ', @class, ' '), ' text-muted ')]" | ForEach-Object {
         $charge = $_.Node."#text";
         $charges[$charge] = "";
-        $all_charges[$charge] = "";
     };
 
     $fasts_display = $fasts.Keys | ForEach-Object {
