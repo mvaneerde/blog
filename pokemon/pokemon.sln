@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F0D9E670-E
 		Data\fast-moves.csv = Data\fast-moves.csv
 		Data\pokemon-charge-move.csv = Data\pokemon-charge-move.csv
 		Data\pokemon-fast-move.csv = Data\pokemon-fast-move.csv
+		Data\pokemon-type.csv = Data\pokemon-type.csv
 		Data\pokemon.csv = Data\pokemon.csv
 	EndProjectSection
 EndProject
