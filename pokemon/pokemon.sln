@@ -15,6 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{F0D9E670-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{91574CEC-EE55-442C-933A-83BAAA7B896E}"
 	ProjectSection(SolutionItems) = preProject
+		check-data.ps1 = check-data.ps1
 		Pokemon.psm1 = Pokemon.psm1
 		show-pokemon.ps1 = show-pokemon.ps1
 	EndProjectSection
