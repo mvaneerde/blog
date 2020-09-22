@@ -31,8 +31,6 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         $name = $_.Node."#text";
     };
 
-    $pokemon += [PSCustomObject]@{ "Number" = $number; "Name" = $name};
-
     # [2] type(s)
     $types = @();
     Select-Xml -Xml $tds.td[2] -XPath "a[contains(concat(' ', @class, ' '), ' type-icon ')]" | ForEach-Object {
@@ -43,10 +41,30 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
     };
 
     # [3] attack
+    $attack = "";
+    Select-Xml -Xml $tds.td[3] -XPath "text()" | ForEach-Object {
+        $attack = $_.Node.Value;
+    };
 
     # [4] defense
+    $defense = "";
+    Select-Xml -Xml $tds.td[4] -XPath "text()" | ForEach-Object {
+        $defense = $_.Node.Value;
+    };
 
     # [5] hp
+    $hp = "";
+    Select-Xml -Xml $tds.td[5] -XPath "text()" | ForEach-Object {
+        $hp = $_.Node.Value;
+    };
+
+    $pokemon += [PSCustomObject]@{
+        "Number" = $number;
+        "Name" = $name;
+        "Attack" = $attack;
+        "Defense" = $defense;
+        "HP" = $hp;
+    };
 
     # [6] catch
 
