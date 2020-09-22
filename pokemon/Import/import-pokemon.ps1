@@ -1,3 +1,9 @@
+# set up global lists
+$pokemon = @();
+$pokemon_type = @();
+$pokemon_fast_move = @();
+$pokemon_charge_move = @();
+
 # load the <table> from https://pokemondb.net/go/pokedex as HTML
 $html = Get-Content ".\from-pokemondb.html";
 
@@ -6,7 +12,7 @@ $xml = [xml]$html.
     Replace("<br>", "<br />").
     Replace("&mdash;", "—");
 
-# each row is a pokemon
+# each row is a pokemon - read the data and add it to the relevant list
 Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object {
     $tds = $_.Node;
 
@@ -25,11 +31,15 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         $name = $_.Node."#text";
     };
 
+    $pokemon += [PSCustomObject]@{ "Number" = $number; "Name" = $name};
+
     # [2] type(s)
     $types = @();
     Select-Xml -Xml $tds.td[2] -XPath "a[contains(concat(' ', @class, ' '), ' type-icon ')]" | ForEach-Object {
         $type = $_.Node."#text";
         $types += $type;
+
+        $pokemon_type += [PSCustomObject]@{ "Pokemon" = $name; "Type" = $type};
     };
 
     # [3] attack
@@ -57,10 +67,18 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
         If ($fast -Match "(.*) \((.*)\)") {
             $fast = $Matches[1];
             $qualifier = $Matches[2];
+
+            If ($qualifier -eq "Community Day") {
+                $qualifier = "Elite";
+            }
         }
 
         $fasts[$fast] = $qualifier;
     };
+
+    $pokemon_fast_move += $fasts.GetEnumerator() | ForEach-Object {
+        Return [PSCustomObject]@{ "Pokemon" = $name; "Move" = $_.Name; "Qualifier" = $_.Value };
+    }
 
     # [9] charge moves
     $charges = @{};
@@ -76,6 +94,10 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
             If (($charge -eq "Return") -and ($qualifier -eq "Shadow")) {
                 $qualifier = "Purified";
             }
+
+            If ($qualifier -eq "Community Day") {
+                $qualifier = "Elite";
+            }
         }
 
         $charges[$charge] = $qualifier;
@@ -83,31 +105,32 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
 
     Select-Xml -Xml $tds.td[9] -XPath "span[contains(concat(' ', @class, ' '), ' text-muted ')]" | ForEach-Object {
         $charge = $_.Node."#text";
-        $charges[$charge] = "";
+
+        $qualifier = "";
+        If ($charge -Match "(.*) \((.*)\)") {
+            $charge = $Matches[1];
+            $qualifier = $Matches[2];
+
+            # For some reason the database has Return as a shadow moves
+            If (($charge -eq "Return") -and ($qualifier -eq "Shadow")) {
+                $qualifier = "Purified";
+            }
+
+            If ($qualifier -eq "Community Day") {
+                $qualifier = "Elite";
+            }
+        }
+
+        $charges[$charge] = $qualifier;
     };
 
-    $fasts_display = $fasts.Keys | ForEach-Object {
-        $fast = $_;
-
-        If ($fasts[$fast] -eq "") {
-            Return $fast;
-        } Else {
-            Return "{0} ({1})" -f $fast, $fasts[$fast];
-        }
+    $pokemon_charge_move += $charges.GetEnumerator() | ForEach-Object {
+        Return [PSCustomObject]@{ "Pokemon" = $name; "Move" = $_.Name; "Qualifier" = $_.Value };
     }
-
-    $charges_display = $charges.Keys | ForEach-Object {
-        $charge = $_;
-
-        If ($charges[$charge] -eq "") {
-            Return $charge;
-        } Else {
-            Return "{0} ({1})" -f $charge, $charges[$charge];
-        }
-    }
-
-    Write-Output ("#{0} {1} ({2})" -f $number, $name, ($types -join ", "));
-    Write-Output ("    Fast: {0}" -f ($fasts_display -join ", "));
-    Write-Output ("    Charge: {0}" -f ($charges_display -join ", "));
-    Write-Output "";
 }
+
+# write the lists to disk
+$pokemon | Sort-Object -Property "Name" | Export-Csv -Path "..\Data\pokemon.csv" -NoTypeInformation;
+$pokemon_type | Sort-Object -Property "Pokemon", "Type" | Export-Csv -Path "..\Data\pokemon-type.csv" -NoTypeInformation;
+$pokemon_fast_move | Sort-Object -Property "Pokemon", "Move" | Export-Csv -Path "..\Data\pokemon-fast-move.csv" -NoTypeInformation;
+$pokemon_charge_move | Sort-Object -Property "Pokemon", "Move" | Export-Csv -Path "..\Data\pokemon-charge-move.csv" -NoTypeInformation;

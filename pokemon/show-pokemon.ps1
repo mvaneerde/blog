@@ -12,7 +12,7 @@ If ($p -eq $null) {
     Exit;
 }
 
-Write-Output ("Name: {0}" -f $p.Name);
+Write-Output ("#{0}: {1}" -f $p.Number, $p.Name);
 
 $types = @();
 Get-PokemonTypes | Where-Object Pokemon -eq $p.Name | ForEach-Object {
@@ -32,7 +32,11 @@ Get-PokemonFastMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
     $f = $_;
     $fast = $fasts | Where-Object Move -eq $f.Move;
 
-    Write-Output ("    {0}" -f $fast.Move);
+    If ($f.Qualifier) {
+        Write-Output ("    {0} ({1})" -f $fast.Move, $f.Qualifier);
+    } Else {
+        Write-Output ("    {0}" -f $fast.Move);
+    }
 
     # does the same-type attack bonus apply?
     $stab = $types -contains $fast.Type;
