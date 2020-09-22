@@ -57,8 +57,8 @@ Get-PokemonChargeMoves | Where-Object Pokemon -eq $p.Name | ForEach-Object {
     $c = $_;
     $charge = $charges | Where-Object Move -eq $c.Move;
 
-    If ($charge.Qualifier) {
-        Write-Output ("    {0} ({1})" -f $charge.Move, $charge.Qualifier);
+    If ($c.Qualifier) {
+        Write-Output ("    {0} ({1})" -f $charge.Move, $c.Qualifier);
     } Else {
         Write-Output ("    {0}" -f $charge.Move);
     }
