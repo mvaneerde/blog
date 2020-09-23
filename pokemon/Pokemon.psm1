@@ -130,6 +130,43 @@ Function Get-TurnsToCharge {
 	Return [float]$charge.EnergyPvP / $energyPerTurn;
 }
 
+# Highest damage per second for a given pokemon
+Function Get-HighestDamagePerSecond {
+	Param(
+		[Parameter(Mandatory)]
+		$pokemon
+	)
+
+	$pokemon_type = Get-PokemonTypes;
+	$pokemon_fast = Get-PokemonFastMoves;
+	$pokemon_charge = Get-PokemonChargeMoves;
+	$fasts = Get-FastMoves;
+	$charges = Get-ChargeMoves;
+
+	$types = @();
+	$pokemon_type | Where-Object "Pokemon" -eq $pokemon.Name | ForEach-Object {
+		$types += $_.Type;
+	}
+
+	$combos = @();
+	$pokemon_fast | Where-Object "Pokemon" -eq $pokemon.Name | ForEach-Object {
+		$f = $_.Move;
+		$fast = $fasts | Where-Object "Move" -eq $f;
+
+		$pokemon_charge | Where-Object "Pokemon" -eq $pokemon.Name | ForEach-Object {
+			$c = $_.Move;
+			$charge = $charges | Where-Object "Move" -eq $c;
+
+			$dps = Get-DamagePerSecond -Fast $fast -Charge $charge -Types $types;
+			$combos += [PSCustomObject]@{ "Fast" = $fast; "Charge" = $charge; "DamagePerSecond" = $dps; };
+		}
+	}
+
+	$best = $combos | Sort-Object -Property "DamagePerSecond" -Descending | Select-Object -First 1;
+
+	Return $best;
+}
+
 Export-ModuleMember -Function Get-ChargeMoves;
 Export-ModuleMember -Function Get-FastMoves;
 Export-ModuleMember -Function Get-Pokemon;
@@ -140,3 +177,4 @@ Export-ModuleMember -Function Get-DamagePerSecond;
 Export-ModuleMember -Function Get-DamagePerTurn;
 Export-ModuleMember -Function Get-SecondsToCharge;
 Export-ModuleMember -Function Get-TurnsToCharge;
+Export-ModuleMember -Function Get-HighestDamagePerSecond;
