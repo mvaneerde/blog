@@ -28,7 +28,9 @@ Select-Xml -Xml $xml -XPath "//table[@id = 'pokedex']/tbody/tr" | ForEach-Object
 
     # variations like Armored Mewtwo or Alolan Muk
     Select-Xml -Xml $tds.td[1] -XPath "small[@class = 'text-muted']" | ForEach-Object {
-        $name = $_.Node."#text";
+        $variant_name = $_.Node."#text";
+
+        $name = "{0} ({1})" -f $name, $variant_name;
     };
 
     # [2] type(s)
