@@ -32,17 +32,18 @@ While (!$done) {
 
         # This element is mobile if it is greater than the element it's looking at
         If (($j -ge 0) -and ($j -lt $n) -and ($p[$i] -gt $p[$j])) {
-            If ($done) {
-                # This is the first mobile element we found
+            If ($m -eq -1) {
+                # We found a mobile element!
                 $m = $i;
                 $done = $false;
             } ElseIf ($p[$i] -gt $p[$m]) {
+                # This mobile element is larger than the previous ones we found
                 $m = $i;
             }
         }
     }
 
-    # If there are no mobile elements we're done'
+    # If there are no mobile elements we're done
     If ($done) {
         Break;
     }
