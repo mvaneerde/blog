@@ -4,6 +4,7 @@ https://matthewvaneerde.wordpress.com/
 | Project                                              | Blog posts |
 |------------------------------------------------------|------------|
 | [acmenum](acmenum)                                   | [How to enumerate Audio Compression Manager (ACM) drivers on your system (spot the bug!)](https://matthewvaneerde.wordpress.com/2010/06/01/how-to-enumerate-audio-compression-manager-acm-drivers-on-your-system-spot-the-bug/) | 
+| [aks](aks)                                           | [Teaching someone to fish and the AKS primality test](https://matthewvaneerde.wordpress.com/2012/02/08/teaching-someone-to-fish-and-the-aks-primality-test/) | 
 | [apoenum](apoenum)                                   | [How to enumerate WASAPI Audio Processing Objects (APOs) on your system](https://matthewvaneerde.wordpress.com/2010/06/03/how-to-enumerate-wasapi-audio-processing-objects-apos-on-your-system/) |
 | [audioendpoints](audioendpoints)                     | [How to enumerate audio endpoint (IMMDevice) properties on your system](https://matthewvaneerde.wordpress.com/2011/06/13/how-to-enumerate-audio-endpoint-immdevice-properties-on-your-system/) | 
 | [beep](beep)                                         | [Beep sample](https://matthewvaneerde.wordpress.com/2011/10/12/beep-sample/) | 
@@ -41,6 +42,7 @@ https://matthewvaneerde.wordpress.com/
 | [speech-attributes](speech-attributes)               | [How to dump Speech API object properties](https://matthewvaneerde.wordpress.com/2012/11/21/how-to-dump-speech-api-object-properties/) | 
 | [swapmonitors](swapmonitors)                         | [Programmatically rearranging displays](https://matthewvaneerde.wordpress.com/2012/05/15/programmatically-rearranging-displays/) | 
 | [trustedaudiodrivers2](trustedaudiodrivers2)         | [How to turn on HDCP or SCMS in an audio playback app](https://matthewvaneerde.wordpress.com/2009/11/10/how-to-turn-on-hdcp-or-scms-in-an-audio-playback-app/) | 
+| [twelve-days](twelve-days)         | [Good Perl, Bad Perl](https://matthewvaneerde.wordpress.com/2008/12/02/good-perl-bad-perl/) | 
 | [usbaudio2-log](usbaudio2-log) | [How to gather and read logs for Microsoft's USB Audio 2.0 class driver](https://matthewvaneerde.wordpress.com/2017/10/23/how-to-gather-and-read-logs-for-microsofts-usb-audio-2-0-class-driver/) |
 | [volume-linearity](volume-linearity)                 | [Linearity of Windows volume APIs - IAudioMeterInformation and full-scale signals](https://matthewvaneerde.wordpress.com/2011/05/11/linearity-of-windows-volume-apis-iaudiometerinformation-and-full-scale-signals/) | 
 | [waveenum](waveenum)                                 | [Sample: how to enumerate waveIn and waveOut devices on your system](https://matthewvaneerde.wordpress.com/2012/03/13/sample-how-to-enumerate-wavein-and-waveout-devices-on-your-system/) | 
