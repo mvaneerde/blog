@@ -4,6 +4,7 @@ https://matthewvaneerde.wordpress.com/
 | Project                                              | Blog posts |
 |------------------------------------------------------|------------|
 | [acmenum](acmenum)                                   | [How to enumerate Audio Compression Manager (ACM) drivers on your system (spot the bug!)](https://matthewvaneerde.wordpress.com/2010/06/01/how-to-enumerate-audio-compression-manager-acm-drivers-on-your-system-spot-the-bug/) | 
+| [aks](aks)                                           | [Teaching someone to fish and the AKS primality test](https://matthewvaneerde.wordpress.com/2012/02/08/teaching-someone-to-fish-and-the-aks-primality-test/) | 
 | [apoenum](apoenum)                                   | [How to enumerate WASAPI Audio Processing Objects (APOs) on your system](https://matthewvaneerde.wordpress.com/2010/06/03/how-to-enumerate-wasapi-audio-processing-objects-apos-on-your-system/) |
 | [audioendpoints](audioendpoints)                     | [How to enumerate audio endpoint (IMMDevice) properties on your system](https://matthewvaneerde.wordpress.com/2011/06/13/how-to-enumerate-audio-endpoint-immdevice-properties-on-your-system/) | 
 | [beep](beep)                                         | [Beep sample](https://matthewvaneerde.wordpress.com/2011/10/12/beep-sample/) | 
