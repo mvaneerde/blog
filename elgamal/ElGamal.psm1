@@ -42,7 +42,18 @@ Function ModPow {
     Return $answer;
 }
 
+Function ModSub {
+    Param([Parameter(Mandatory)][int]$term1, [Parameter(Mandatory)][int]$term2, [Parameter(Mandatory)][int]$prime)
+
+    If ($term1 -ge $term2) {
+        Return ($term1 - $term2) % $prime;
+    } Else {
+        Return ($prime + $term1 - $term2) % $prime;
+    }
+}
+
 Export-ModuleMember -Function GCD;
 Export-ModuleMember -Function ModInv;
 Export-ModuleMember -Function ModMult;
 Export-ModuleMember -Function ModPow;
+Export-ModuleMember -Function ModSub;

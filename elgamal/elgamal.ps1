@@ -89,8 +89,13 @@ $s = ModMult `
     -term2 (ModInv -term $k -prime ($p - 1)) `
     -prime ($p - 1);
 Write-Host "A calculates and sends the signature (r, s) = ($r, $s)";
+Write-Host "These are calculated so g^m = y_A^r r^s mod p";
+Write-Host "Take r = g^k";
+Write-Host "Now we have g^m = g^(x_A r) g^(k s) mod p";
+Write-Host "Which is to say m = x_A r + k s mod (p - 1)";
+Write-Host "We want to solve for s - this is why we needed gcd(k, p - 1) is 1"
 Write-Host "    * r = (g = $g)^(k = $k) mod (p = $p) = $r"
-Write-Host ("    * s such that (x = {0}) * (r = $r) + (k = $k) * (s = $s) = (m = $m) mod (p - 1 = {1})" -f $xs[0], ($p - 1));
+Write-Host ("    * s which makes (m = $m) = (x = {0}) * (r = $r) + (k = $k) * (s = $s) mod (p - 1 = {1})" -f $xs[0], ($p - 1));
 # check
 $m_check = (
     (ModMult -term1 $xs[0] -term2 $r -prime ($p - 1)) +
