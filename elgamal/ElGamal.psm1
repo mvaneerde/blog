@@ -1,19 +1,3 @@
-# Given two numbers, return the greatest common divisor of those numbers
-Function Get-GreatestCommonDivisor {
-    Param(
-        [Parameter(Mandatory)][int]$term1,
-        [Parameter(Mandatory)][int]$term2
-    )
-
-    # TODO: use Stein's algorithm since these are binary numbers
-    While ($term2 -ne 0) {
-        ($term1, $term2) = ($term2, ($term1 % $term2));
-    }
-
-    Return $term1;
-}
-Export-ModuleMember -Function Get-GreatestCommonDivisor;
-
 #
 # Test functions
 #
@@ -48,6 +32,21 @@ Function Test-Equal {
     }
 }
 Export-ModuleMember -Function Test-Equal;
+
+# verify test >= min
+Function Test-GreaterThanOrEqual {
+    Param(
+        [Parameter(Mandatory)][int]$test,
+        [Parameter(Mandatory)][int]$min
+    )
+
+    If ($test -ge $min) {
+        # test passes
+    } Else {
+        Throw "$test >= $min check fails";
+    }
+}
+Export-ModuleMember -Function Test-Between;
 
 # verify a given number is prime
 Function Test-Prime {
@@ -92,6 +91,83 @@ Function Test-Generator {
     }
 }
 Export-ModuleMember -Function Test-Generator;
+
+# Given two numbers, return the greatest common divisor of those numbers
+Function Get-GreatestCommonDivisor {
+    Param(
+        [Parameter(Mandatory)][int]$term1,
+        [Parameter(Mandatory)][int]$term2
+    )
+
+    $original_term1 = $term1;
+    $original_term2 = $term2;
+
+    Test-GreaterThanOrEqual -test $term1 -min 0;
+    Test-GreaterThanOrEqual -test $term2 -min 0;
+
+    # Use Stein's algorithm for finding the GCD using binary operations
+    # https://en.wikipedia.org/wiki/Binary_GCD_algorithm
+
+    # gcd(a, 0) = a
+    If ($term2 -eq 0) {
+        Return $term1;
+    }
+
+    # likewise gcd(0, b) = b
+    If ($term1 -eq 0) {
+        Return $term2;
+    }
+
+    # from this point, term1 and term2 are nonzero
+
+    # count the number of common factors of two
+    $commonFactorsOfTwo = 0;
+    While ((($term1 -bor $term2) -band 1) -eq 0) {
+        $commonFactorsOfTwo++;
+        $term1 = ($term1 -shr 1);
+        $term2 = ($term2 -shr 1);
+    }
+
+    # throw away any extra factors of two in term1
+    While (($term1 -band 1) -eq 0) {
+        # this loop terminates because term1 is nonzero
+        # it doesn't affect the gcd because
+        # either term2 is already odd
+        # or the loop terminates immediately without doing anything
+        $term1 = ($term1 -shr 1);
+    }
+
+    # from this point, term1 is odd
+    Do {
+        # throw away any factors of 2 in term2
+        While (($term2 -band 1) -eq 0) {
+            # this loop terminates because term2 is nonzero
+            # it doesn't affect the gcd because term1 is odd
+            $term2 = ($term2 -shr 1);
+        }
+
+        # term1 and term2 are both odd
+        # swap them if necessary so term2 >= term1
+        If ($term1 -gt $term2) {
+            ($term1, $term2) = ($term2, $term1);
+        }
+
+        # term2 >= term1
+        # subtract term1 from term2
+        $term2 -= $term1;
+    } While ($term2 -ne 0);
+
+    $gcd = ($term1 -shl $commonFactorsOfTwo);
+
+    # Test that gcd divides both of the original terms
+    # TODO: external tests to verify that this is the GREATEST common denominator
+    Test-Equal -leftHandSide 0 -rightHandSide ($original_term1 % $gcd);
+    Test-Equal -leftHandSide 0 -rightHandSide ($original_term2 % $gcd);
+
+    Return $gcd;
+}
+
+Export-ModuleMember -Function Get-GreatestCommonDivisor;
 
 #
 # Modular arithmetic
