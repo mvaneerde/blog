@@ -1,6 +1,6 @@
-Import-Module ".\ElGamal.psm1";
-
 # ElGamal encryption
+
+Import-Module ".\ElGamal.psm1";
 
 Write-Host "-- AGREE ON COMMON PARAMETERS --"
 # everyone agrees on a particular prime
@@ -24,7 +24,7 @@ $parties = ("A", "B");
 $xs = @(57, 55);
 $ys = $xs | ForEach-Object {
     $x = $_;
-    Return ModPow -base $g -exponent $x -prime $p;
+    Return Get-ModularPower -base $g -exponent $x -modulus $p;
 }
 
 @(0, 1) | ForEach-Object {
@@ -41,10 +41,11 @@ Write-Host "The first block of the message is m = $m";
 $k_small = Get-Random -Maximum $p;
 Write-Host "A chooses a random number k = $k_small";
 
-$k_big = ModPow -base $ys[1] -exponent $k_small -prime $p;
+$k_big = Get-ModularPower -base $ys[1] -exponent $k_small -modulus $p;
 Write-Host("A calculates the key K = (y_B = {0})^(k = $k_small) mod (p = $p) = $k_big" -f $ys[1]);
 
-($c1, $c2) = ((ModPow -base $g -exponent $k_small -prime $p), (ModMult -term1 $k_big -term2 $m -prime $p));
+$c1 = Get-ModularPower -base $g -exponent $k_small -modulus $p;
+$c2 = Get-ModularProduct -factor1 $k_big -factor2 $m -modulus $p;
 Write-Host "A calculates and sends the encrypted message (c1, c2) = ($c1, $c2)";
 Write-Host "    * c1 = (g = $g)^(k = $k_small) mod (p = $p) = $c1";
 Write-Host "    * c2 = (K = $k_big)(m = $m) mod (p = $p) = $c2";
@@ -52,14 +53,14 @@ Write-Host "";
 
 Write-Host "-- DECRYPT --"
 Write-Host "B wants to read the message that A sent B";
-$k_big_recovered = ModPow -base $c1 -exponent $xs[1] -prime $p;
+$k_big_recovered = Get-ModularPower -base $c1 -exponent $xs[1] -modulus $p;
 Write-Host("B recovers K = (c1 = $c1)^(x_B = {0}) mod p = $k_big_recovered" -f $xs[1]);
 If ($k_big -ne $k_big_recovered) {
     Write-Host "ERROR: B's recovered (K = $k_big_recovered) is not the same as A's (K = $k_big)";
     Exit;
 }
-$k_big_inv = ModInv -term $k_big -prime $p;
-$m_recovered = ModMult -term1 $c2 -term2 $k_big_inv -prime $p;
+$k_big_inv = Get-ModularInverse -term $k_big -modulus $p;
+$m_recovered = Get-ModularProduct -factor1 $c2 -factor2 $k_big_inv -modulus $p;
 Write-Host "B calculates m = (c2 = $c2)/(K = $k_big) = $m_recovered";
 If ($m -ne $m_recovered) {
     Write-Host "ERROR: B's recovered (m = $m_recovered) is not the same as A's (m = $m)";
@@ -75,19 +76,20 @@ Write-Host "";
 
 Do {
     $k = Get-Random -Maximum $p;
-} Until (1 -eq (GCD -term1 $k -term2 ($p - 1)));
+} Until (1 -eq (Get-GreatestCommonDivisor -term1 $k -term2 ($p - 1)));
 Write-Host ("A chooses a random number k = $k such that gcd(k = $k, p - 1 = {0}) = 1" -f ($p - 1));
-$r = ModPow -base $g -exponent $k -prime $p;
+$r = Get-ModularPower -base $g -exponent $k -modulus $p;
 # m = xr + ks mod (p - 1)
 # s = (m - xr) / k mod (p - 1)
-$s = ModMult `
-    -term1 ( `
-        ModSub -term1 $m -term2 ( `
-            ModMult -term1 $xs[0] -term2 $r -prime ($p - 1) `
-        ) -prime ($p - 1) `
+$s = Get-ModularQuotient `
+    -numerator ( `
+        Get-ModularDifference `
+            -minuend $m `
+            -subtrahend (Get-ModularProduct -factor1 $xs[0] -factor2 $r -modulus ($p - 1)) `
+        -modulus ($p - 1) `
     ) `
-    -term2 (ModInv -term $k -prime ($p - 1)) `
-    -prime ($p - 1);
+    -denominator $k `
+    -modulus ($p - 1);
 Write-Host "A calculates and sends the signature (r, s) = ($r, $s)";
 Write-Host "These are calculated so g^m = y_A^r r^s mod p";
 Write-Host "Take r = g^k";
@@ -98,8 +100,8 @@ Write-Host "    * r = (g = $g)^(k = $k) mod (p = $p) = $r"
 Write-Host ("    * s which makes (m = $m) = (x = {0}) * (r = $r) + (k = $k) * (s = $s) mod (p - 1 = {1})" -f $xs[0], ($p - 1));
 # check
 $m_check = (
-    (ModMult -term1 $xs[0] -term2 $r -prime ($p - 1)) +
-    (ModMult -term1 $k -term2 $s -prime ($p - 1))
+    (Get-ModularProduct -factor1 $xs[0] -factor2 $r -modulus ($p - 1)) +
+    (Get-ModularProduct -factor1 $k -factor2 $s -modulus ($p - 1))
 ) % ($p - 1);
 If ($m_check -ne ($m % ($p - 1))) {
     Write-Host "ERROR: A's generated signature doesn't pass A's own check";
@@ -110,11 +112,11 @@ Write-Host "";
 Write-Host "-- VERIFY SIGNATURE --"
 Write-Host "B - or anyone - wants to verify A's signature";
 Write-Host("If the signature is valid, (g = $g)^(m = $m) = (y_A = {0})^(r = $r) (r = $r)^(s = $s) mod (p = $p)" -f $ys[0]);
-$lhs = ModPow -base $g -exponent $m -prime $p;
-$rhs = ModMult `
-    -term1 (ModPow -base $ys[0] -exponent $r -prime $p) `
-    -term2 (ModPow -base $r -exponent $s -prime $p) `
-    -prime $p;
+$lhs = Get-ModularPower -base $g -exponent $m -modulus $p;
+$rhs = Get-ModularProduct `
+    -factor1 (Get-ModularPower -base $ys[0] -exponent $r -modulus $p) `
+    -factor2 (Get-ModularPower -base $r -exponent $s -modulus $p) `
+    -modulus $p;
 If ($lhs -ne $rhs) {
     Write-Host "ERROR: A's generated signature doesn't pass B's check";
     Exit;
