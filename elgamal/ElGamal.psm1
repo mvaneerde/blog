@@ -77,6 +77,7 @@ Function Test-Generator {
     )
 
     Test-Prime -prime $prime;
+    Test-Between -min 1 -test $generator -maxPlusOne $prime;
 
     # g^0 = 1
     ($exponent, $power) = (0, 1);
@@ -86,7 +87,9 @@ Function Test-Generator {
         $power = Get-ModularProduct -factor1 $power -factor2 $generator -modulus $prime;
     } While ($power -ne 1);
 
-    Test-Equal -leftHandSide $exponent -rightHandSide ($prime - 1);
+    If ($exponent -ne ($prime - 1)) {
+        Throw "$generator^$exponent = 1 mod $prime so $generator is not a generator of GF($prime)";
+    }
 }
 Export-ModuleMember -Function Test-Generator;
 
