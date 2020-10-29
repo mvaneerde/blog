@@ -17,6 +17,8 @@ Export-ModuleMember -Function Get-GreatestCommonDivisor;
 #
 # Test functions
 #
+
+# verify min <= test < maxPlusOne
 Function Test-Between {
     Param(
         [Parameter(Mandatory)][int]$min,
@@ -30,7 +32,9 @@ Function Test-Between {
         Throw "$min <= $test < $maxPlusOne check fails";
     }
 }
+Export-ModuleMember -Function Test-Between;
 
+# verify lhs = rhs
 Function Test-Equal {
     Param(
         [Parameter(Mandatory)][int]$leftHandSide,
@@ -43,6 +47,48 @@ Function Test-Equal {
         Throw "$leftHandSide = $rightHandSide check fails";
     }
 }
+Export-ModuleMember -Function Test-Equal;
+
+# verify a given number is prime
+Function Test-Prime {
+    Param(
+        [Parameter(Mandatory)][int]$prime
+    )
+
+    If ($prime -ge 2) {
+        For ($i = 2; $i * $i -le $prime; $i++) {
+            If ($prime % $i -eq 0) {
+                Throw "$prime is divisible by $i and so isn't prime";
+            }
+        }
+
+        # check passes
+    } Else {
+        Throw "$prime is too small to be prime";
+    }
+}
+Export-ModuleMember -Function Test-Prime;
+
+# verify a given number is a generator of a given prime field
+Function Test-Generator {
+    Param(
+        [Parameter(Mandatory)][int]$generator,
+        [Parameter(Mandatory)][int]$prime
+    )
+
+    Test-Prime -prime $prime;
+
+    # g^0 = 1
+    ($exponent, $power) = (0, 1);
+
+    Do {
+        $exponent++;
+        $power = Get-ModularProduct -factor1 $power -factor2 $generator -modulus $prime;
+    } While ($power -ne 1);
+
+    Test-Equal -leftHandSide $exponent -rightHandSide ($prime - 1);
+}
+Export-ModuleMember -Function Test-Generator;
 
 #
 # Modular arithmetic

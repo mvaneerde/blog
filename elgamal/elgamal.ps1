@@ -1,4 +1,6 @@
 # ElGamal encryption
+# https://en.wikipedia.org/wiki/ElGamal_encryption
+# https://caislab.kaist.ac.kr/lecture/2010/spring/cs548/basic/B02.pdf
 
 Import-Module ".\ElGamal.psm1";
 
@@ -7,25 +9,30 @@ Write-Host "-- AGREE ON COMMON PARAMETERS --"
 # in principle people could have different favorite primes
 # but if they wanted to talk they would have to agree on a prime for the conversation
 $p = 101;
+Test-Prime $p;
 
 # everyone also agrees on a generator g
-# such that g^k runs through all of 1 through p - 1
+# such that g^k runs through all of 1 through p - 1 mod m
 $g = 2;
+Test-Between -min 2 -test $g -maxPlusOne $p;
+Test-Generator -prime $p -generator $g;
 
 Write-Host "Everyone agrees to use prime field GF(p = $p) and generator g = $g";
 Write-Host "";
 
-Write-Host "-- GENERATE KEYS --"
+Write-Host "-- GENERATE KEYS --";
 # Two parties A and B
 # Each has a secret key x chosen randomly from 0 to p - 1 inclusive
 # This generates a public key g^x mod p
 
 $parties = ("A", "B");
 $xs = @(57, 55);
+$xs | ForEach-Object { Test-Between -min 0 -test $_ -maxPlusOne $p; }
 $ys = $xs | ForEach-Object {
     $x = $_;
     Return Get-ModularPower -base $g -exponent $x -modulus $p;
 }
+$ys | ForEach-Object { Test-Between -min 0 -test $_ -maxPlusOne $p; }
 
 @(0, 1) | ForEach-Object {
     $i = $_;
@@ -33,12 +40,14 @@ $ys = $xs | ForEach-Object {
 }
 Write-Host "";
 
-Write-Host "-- ENCRYPT --"
+Write-Host "-- ENCRYPT --";
 Write-Host "A wants to send B a message so that only B can read it";
 $m = 92;
+Test-Between -min 0 -test $m -maxPlusOne $p;
 Write-Host "The first block of the message is m = $m";
 
 $k_small = Get-Random -Maximum $p;
+Test-Between -min 0 -test $k_small -maxPlusOne $p;
 Write-Host "A chooses a random number k = $k_small";
 
 $k_big = Get-ModularPower -base $ys[1] -exponent $k_small -modulus $p;
@@ -51,26 +60,21 @@ Write-Host "    * c1 = (g = $g)^(k = $k_small) mod (p = $p) = $c1";
 Write-Host "    * c2 = (K = $k_big)(m = $m) mod (p = $p) = $c2";
 Write-Host "";
 
-Write-Host "-- DECRYPT --"
+Write-Host "-- DECRYPT --";
 Write-Host "B wants to read the message that A sent B";
 $k_big_recovered = Get-ModularPower -base $c1 -exponent $xs[1] -modulus $p;
 Write-Host("B recovers K = (c1 = $c1)^(x_B = {0}) mod p = $k_big_recovered" -f $xs[1]);
-If ($k_big -ne $k_big_recovered) {
-    Write-Host "ERROR: B's recovered (K = $k_big_recovered) is not the same as A's (K = $k_big)";
-    Exit;
-}
+Test-Equal -leftHandSide $k_big -rightHandSide $k_big_recovered;
 $k_big_inv = Get-ModularInverse -term $k_big -modulus $p;
 $m_recovered = Get-ModularProduct -factor1 $c2 -factor2 $k_big_inv -modulus $p;
 Write-Host "B calculates m = (c2 = $c2)/(K = $k_big) = $m_recovered";
-If ($m -ne $m_recovered) {
-    Write-Host "ERROR: B's recovered (m = $m_recovered) is not the same as A's (m = $m)";
-    Exit;
-}
+Test-Equal -leftHandSide $m -rightHandSide $m_recovered;
 Write-Host "";
 
 Write-Host "-- SIGN --";
 Write-Host "A wants to sign a message so that anyone can prove that A wrote it";
 $m = 28;
+Test-Between -min 0 -test $m -maxPlusOne $p;
 Write-Host "The first block of the message is m = $m";
 Write-Host "";
 
@@ -103,13 +107,10 @@ $m_check = (
     (Get-ModularProduct -factor1 $xs[0] -factor2 $r -modulus ($p - 1)) +
     (Get-ModularProduct -factor1 $k -factor2 $s -modulus ($p - 1))
 ) % ($p - 1);
-If ($m_check -ne ($m % ($p - 1))) {
-    Write-Host "ERROR: A's generated signature doesn't pass A's own check";
-    Exit;
-}
+Test-Equal -leftHandSide $m_check -rightHandSide ($m % ($p - 1));
 Write-Host "";
 
-Write-Host "-- VERIFY SIGNATURE --"
+Write-Host "-- VERIFY SIGNATURE --";
 Write-Host "B - or anyone - wants to verify A's signature";
 Write-Host("If the signature is valid, (g = $g)^(m = $m) = (y_A = {0})^(r = $r) (r = $r)^(s = $s) mod (p = $p)" -f $ys[0]);
 $lhs = Get-ModularPower -base $g -exponent $m -modulus $p;
@@ -117,9 +118,6 @@ $rhs = Get-ModularProduct `
     -factor1 (Get-ModularPower -base $ys[0] -exponent $r -modulus $p) `
     -factor2 (Get-ModularPower -base $r -exponent $s -modulus $p) `
     -modulus $p;
-If ($lhs -ne $rhs) {
-    Write-Host "ERROR: A's generated signature doesn't pass B's check";
-    Exit;
-}
+Test-Equal -leftHandSide $lhs -rightHandSide $rhs;
 Write-Host "This checks because both sides are equal to $lhs";
 Write-Host "";
