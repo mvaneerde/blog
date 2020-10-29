@@ -335,10 +335,19 @@ Function Get-ModularPower {
     Test-Between -min 0 -test $denominator -maxPlusOne $modulus;
 
     $power = 1;
+    $base_2_k = $base;
 
-    # TODO: do a real modular exponentiation
-    For ($i = 0; $i -lt $exponent; $i++) {
-        $power = Get-ModularProduct -factor1 $power -factor2 $base -modulus $modulus;
+    # consider y as a binary number
+    # this decomposes the power into a product of x^(powers of 2)
+    # e.g. x^9 = x^1001_b = x^8 x^1
+    While ($exponent -ne 0) {
+        # if the kth bit of y is 1, multiply the answer so far by x^(2^k)
+        If (($exponent -band 1) -eq 1) {
+            $power = Get-ModularProduct -factor1 $power -factor2 $base_2_k -modulus $modulus;
+        }
+
+        $exponent = ($exponent -shr 1);
+        $base_2_k = Get-ModularProduct -factor1 $base_2_k -factor2 $base_2_k -modulus $modulus;
     }
 
     Test-Between -min 0 -test $power -maxPlusOne $modulus;
