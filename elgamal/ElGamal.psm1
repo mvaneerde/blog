@@ -276,15 +276,35 @@ Function Get-ModularInverse {
         [Parameter(Mandatory)][int]$modulus
     )
 
-    Test-Between -min 0 -test $factor1 -maxPlusOne $modulus;
-    Test-Between -min 0 -test $factor2 -maxPlusOne $modulus;
+    Test-Between -min 0 -test $term -maxPlusOne $modulus;
 
-    # TODO: do a real modular division
-    $inverse = 1;
-    While (1 -ne (Get-ModularProduct -factor1 $inverse -factor2 $term -modulus $modulus)) {
-        $inverse++;
+    # a necessary and sufficient condition for the inverse to exist
+    # is that GCD(x, m) = 1
+    Test-Equal -leftHandSide 1 -rightHandSide (Get-GreatestCommonDivisor -term1 $term -term2 $modulus);
+
+    # use the extended Euclidean algorithm to find the inverse
+    # https://en.wikipedia.org/wiki/Extended_Euclidean_algorithm
+    #
+    # ma + xy = 1 mod m
+    # reducing mod m we find xy = 1 mod m
+    ([int]$t, [int]$t_new) = (0, 1);
+    ([int]$r, [int]$r_new) = ($modulus, $term);
+
+    While ($r_new -ne 0) {
+        $quotient = [Math]::Floor($r / $r_new);
+        ($t, $t_new) = ($t_new, ($t - ($quotient * $t_new)));
+        ($r, $r_new) = ($r_new, ($r - ($quotient * $r_new)));
     }
 
+    # If this doesn't hold there is no inverse
+    Test-Equal -leftHandSide 1 -rightHandSide $r;
+
+    # Make the answer positive if necessary
+    If ($t -lt 0) {
+        $t += $modulus;
+    }
+
+    $inverse = $t;
     Test-Between -min 0 -test $inverse -maxPlusOne $modulus;
 
     Test-Equal `
