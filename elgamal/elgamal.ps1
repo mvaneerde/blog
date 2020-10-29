@@ -63,11 +63,11 @@ Write-Host "";
 Write-Host "-- DECRYPT --";
 Write-Host "B wants to read the message that A sent B";
 $k_big_recovered = Get-ModularPower -base $c1 -exponent $xs[1] -modulus $p;
-Write-Host("B recovers K = (c1 = $c1)^(x_B = {0}) mod p = $k_big_recovered" -f $xs[1]);
+Write-Host("B recovers K = (c1 = $c1)^(x_B = {0}) mod (p = $p) = $k_big_recovered" -f $xs[1]);
 Test-Equal -leftHandSide $k_big -rightHandSide $k_big_recovered;
 $k_big_inv = Get-ModularInverse -term $k_big -modulus $p;
 $m_recovered = Get-ModularProduct -factor1 $c2 -factor2 $k_big_inv -modulus $p;
-Write-Host "B calculates m = (c2 = $c2)/(K = $k_big) = $m_recovered";
+Write-Host "B calculates m = (c2 = $c2)/(K = $k_big) mod (p = $p) = $m_recovered";
 Test-Equal -leftHandSide $m -rightHandSide $m_recovered;
 Write-Host "";
 
