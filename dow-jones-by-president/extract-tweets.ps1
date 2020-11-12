@@ -44,7 +44,7 @@ Function TweetIsInteresting
 		($text -match "\bNASDAQ\b") -or
 		($text -match "\bS&P\b") -or
 		($text -match "\bStock Markets?\b") -or
-		($text -match "\bWall Street\b(?!\s+Journal)");
+		($text -match "(?<!Occupy\s+)\bWall Street\b(?!\s+Journal)");
 }
 
 Function CommentForTweet
@@ -66,63 +66,53 @@ Function CommentForTweet
 	Return $comment;
 }
 
-$months = @{
-	"Jan" = "01";
-	"Feb" = "02";
-	"Mar" = "03";
-	"Apr" = "04";
-	"May" = "05";
-	"Jun" = "06";
-	"Jul" = "07";
-	"Aug" = "08";
-	"Sep" = "09";
-	"Oct" = "10";
-	"Nov" = "11";
-	"Dec" = "12";
-};
-
 Write-Host "Reading tweet archive...";
-$all_tweets = Get-Content -Path ".\trump-twitter-archive.json" -Encoding UTF8 | Out-String | ConvertFrom-Json;
+$all_tweets = Import-Csv ".\trump-twitter-archive.csv" -Encoding UTF8;
 $tweet_count = $all_tweets.Count;
 
 Write-Host "Reading exceptions..."
-$exceptions = Import-Csv .\trump-twitter-exceptions.csv;
+$exceptions = Import-Csv ".\trump-twitter-exceptions.csv";
 Set-Content -Path ".\tweets.csv" -Encoding UTF8 -Value "`"Date`",`"Link`",`"Tweet`",`"Comment`"";
 
 Write-Host "Filtering tweets...";
 
 $i = 0;
-$all_tweets | ForEach-Object {
+$interesting_tweets = $all_tweets | ForEach-Object {
 	$tweet = $_;
 
 	$i++;
 	If ($i % 1000 -eq 0)
 	{
 		Write-Host "    $i of $tweet_count";
-    }
-
-	# dates are in rather a strange format
-	# Thu Mar 26 21:27:44 +0000 2020
-	If ($tweet.created_at -match "^(Sun|Mon|Tue|Wed|Thu|Fri|Sat) (\w{3}) (\d{2}) (\d{2}):(\d{2}):(\d{2}) ([+-]?\d{4}) (\d+)$")
-	{
-		# Put it in 2020-03-26T21:27:44+0000 format instead
-		$dateStr = $matches[8] + "-" + $months[$matches[2]] + "-" + $matches[3] +
-			"T" + $matches[4] + ":" + $matches[5] + ":" + $matches[6] + $matches[7];
-		$date = [DateTime]::Parse($dateStr).ToUniversalTime();
-		$id = $tweet.id_str;
-		$text = [System.Net.WebUtility]::HtmlDecode($tweet.text);
-
-		If (TweetIsInteresting -date $date -id $id -text $text)
-		{
-			# Convert back to Eastern Standard Time at the last minute for a pretty display
-			$tz = [TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time');
-			$date = EncodeCsv -value ([TimeZoneInfo]::ConvertTimeFromUtc($date, $tz).ToString("yyyy-MM-dd hh:mm tt"));
-			$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $id);
-			$text = EncodeCsv -value $text;
-			$comment = EncodeCsv -value (CommentForTweet -id $id);
-			$row = $date + "," + $link + "," + $text + "," + $comment;
-
-			Add-Content -Path ".\tweets.csv" $row;
-		}
 	}
+
+	$date = Get-Date -Date $tweet.date;
+	$id = $tweet.id;
+	$text = [System.Net.WebUtility]::HtmlDecode($tweet.text.Replace("&amp,", "&amp;"));
+
+	If (TweetIsInteresting -date $date -id $id -text $text)
+	{
+		Return $tweet;
+	}
+}
+
+Write-Host "Interesting tweets found: ", $interesting_tweets.Count;
+
+$interesting_tweets | Sort-Object -Property "date" | ForEach-Object {
+	$tweet = $_;
+
+	$date = Get-Date -Date $tweet.date;
+	$id = $tweet.id;
+
+	# Convert back to Eastern Standard Time at the last minute for a pretty display
+	$tz = [TimeZoneInfo]::FindSystemTimeZoneById('Eastern Standard Time');
+	$text = [System.Net.WebUtility]::HtmlDecode($tweet.text.Replace("&amp,", "&amp;"));
+
+	$date = EncodeCsv -value ([TimeZoneInfo]::ConvertTimeFromUtc($date, $tz).ToString("yyyy-MM-dd hh:mm tt"));
+	$link = EncodeCsv -value ("https://twitter.com/realdonaldtrump/status/" + $id);
+	$text = EncodeCsv -value $text;
+	$comment = EncodeCsv -value (CommentForTweet -id $id);
+	$row = $date + "," + $link + "," + $text + "," + $comment;
+
+	Add-Content -Path ".\tweets.csv" $row;
 }

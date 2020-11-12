@@ -1,19 +1,19 @@
 Function WriteHeader() {
 	Write-Output "<table border=`"1`">"
-	Write-Output "<tr style=`"font-weight: bold`">"
-	Write-Output "    <td rowspan=`"2`">President</td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`">First market day</td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`">Last market day</td>"
-	Write-Output "    <td rowspan=`"2`">Annual return</td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`">Record highs</td>"
+	Write-Output "<tr>"
+	Write-Output "    <td rowspan=`"2`"><strong>President</strong></td>"
+	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>First market day</strong></td>"
+	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>Last market day</strong></td>"
+	Write-Output "    <td rowspan=`"2`"><strong>Annual return</strong></td>"
+	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>Record highs</strong></td>"
 	Write-Output "</tr>"
-	Write-Output "<tr style=`"font-weight: bold`">"
-	Write-Output "    <td>Date</td>"
-	Write-Output "    <td>Open</td>"
-	Write-Output "    <td>Date</td>"
-	Write-Output "    <td>Close</td>"
-	Write-Output "    <td>Count</td>"
-	Write-Output "    <td>Mean days to new record high</td>"
+	Write-Output "<tr>"
+	Write-Output "    <td><strong>Date</strong></td>"
+	Write-Output "    <td><strong>Open</strong></td>"
+	Write-Output "    <td><strong>Date</strong></td>"
+	Write-Output "    <td><strong>Close</strong></td>"
+	Write-Output "    <td><strong>Count</strong></td>"
+	Write-Output "    <td><strong>Mean days to new record high</strong></td>"
 	Write-Output "</tr>"
 }
 
@@ -41,9 +41,9 @@ Function WritePresident() {
 	}
 
 	$firstDatePretty = $firstMarketDay.ToString("yyyy-MM-dd");
-	$firstOpenPretty = ([double]$firstOpen).ToString("F2");
+	$firstOpenPretty = ([double]$firstOpen).ToString("N2");
 	$lastDatePretty = $lastMarketDay.ToString("yyyy-MM-dd");
-	$lastClosePretty = ([double]$lastClose).ToString("F2");
+	$lastClosePretty = ([double]$lastClose).ToString("N2");
 
 	Write-Output "<tr>"
 	Write-Output "    <td>$president</td>"
@@ -63,13 +63,13 @@ Function WriteFooter() {
 	$firstDatePretty = $firstMarketDay.ToString("yyyy-MM-dd");
 
 	$firstOpen = [double]$djia[0].Open;
-	$firstOpenPretty = $firstOpen.ToString("F2");
+	$firstOpenPretty = $firstOpen.ToString("N2");
 
 	$lastMarketDay = [DateTime]$djia[@($djia).Count - 1].Date;
 	$lastDatePretty = $lastMarketDay.ToString("yyyy-MM-dd");
 
 	$lastClose = [double]$djia[@($djia).Count - 1].Close;
-	$lastClosePretty = $lastClose.ToString("F2");
+	$lastClosePretty = $lastClose.ToString("N2");
 
 	# +1 is because we include both the start and end days
 	$calendarDays = (New-Timespan -Start $firstMarketDay -End $lastMarketDay).Days + 1;
@@ -81,15 +81,15 @@ Function WriteFooter() {
 	$daysBetweenHighs = "{0:N0}" -f ($calendarDays / $totalRecordHighs);
 	$daysBetweenHighsAlign = "right";
 
-	Write-Output "<tr style=`"font-weight: bold;`">"
-	Write-Output "    <td>Overall</td>"
-	Write-Output "    <td>$firstDatePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$firstOpenPretty</td>"
-	Write-Output "    <td>$lastDatePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$lastClosePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$return</td>"
-	Write-Output "    <td style=`"text-align: right`">$totalRecordHighs</td>"
-	Write-Output "    <td style=`"text-align: right`">$daysBetweenHighs</td>"
+	Write-Output "<tr>"
+	Write-Output "    <td><strong>Overall</strong></td>"
+	Write-Output "    <td><strong>$firstDatePretty</strong></td>"
+	Write-Output "    <td style=`"text-align: right`"><strong>$firstOpenPretty</strong></td>"
+	Write-Output "    <td><strong>$lastDatePretty</strong></td>"
+	Write-Output "    <td style=`"text-align: right`"><strong>$lastClosePretty</strong></td>"
+	Write-Output "    <td style=`"text-align: right`"><strong>$return</strong></td>"
+	Write-Output "    <td style=`"text-align: right`"><strong>$totalRecordHighs</strong></td>"
+	Write-Output "    <td style=`"text-align: right`"><strong>$daysBetweenHighs</strong></td>"
 	Write-Output "</tr>"
 	Write-Output "</table>"
 }
