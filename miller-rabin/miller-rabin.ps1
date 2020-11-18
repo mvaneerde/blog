@@ -10,11 +10,9 @@ Param(
     [System.Numerics.BigInteger]$rounds
 )
 
-# Given a max
-# Returns a big integer
-# Uniformly distributed between [min, max)
-# The smallest possible value is min
-# And the largest is (max - 1)
+# Given a min and a max
+# Returns a big integer uniformly distributed between [min, max)
+# That is, the smallest possible value is min nd the largest is (max - 1)
 Function Get-RandomBigInteger {
     Param(
         [Parameter(Mandatory)]
@@ -23,10 +21,12 @@ Function Get-RandomBigInteger {
         [System.Numerics.BigInteger]$max
     )
 
-    If ($max -le $min) {
-        Throw "Get-RandomBigInteger called with a max ($max) <= min ($min)";
+    If ($min -ge $max) {
+        Throw "Get-RandomBigInteger needs min ($min) < max ($max)";
     }
 
+    # Convert [min, max) to [0, max - min)
+    # We'll convert it back right and the end
     $max = $max - $min;
 
     # Generate a random string of bits of the right length
@@ -50,22 +50,30 @@ Function Get-RandomBigInteger {
         # Since we're dealing with non-negative numbers, the sign bit must be 0
         #
         # But more than that - we want to control how much entropy we waste
-        # Suppose the MSB is 0x5 = 0b0000`0101
-        # Our randomly generated MSB will be bigger than this 250/256 of the time
-        # So we will have to retry about 50 times before we slip under the max
-        # We can improve this to ABOUT TWICE, WITHOUT INTRODUCING BIAS
-        # by clearing the top bits of our random MSB
+        # Suppose the MSB is 0x9 = 0b0000`1001
+        # Our randomly generated MSB will be bigger than this 118/128 of the time
+        # So we will have to retry about 13 times before we slip under this max
+        # We can improve this to ABOUT TWICE, and WITHOUT INTRODUCING BIAS
+        # we just need to clear the unused top bits of our random MSB
+        #
+        # In particular, if the MSB of our adjusted max is 0b0000`1001,
+        # then we clear the top four bits of our random MSB
+        #
+        # Now our truncated randomly generated MSB will be bigger only 14/32 of the time
         For ([byte]$b = 0x80; $b -gt 0; $b /= 2) {
             If ($msb -band $b) {
+                # We found the most significant bit of the max
                 Break;
             }
 
+            # Clear this bit
             $bytes[$bytes.Length - 1] = $bytes[$bytes.Length - 1] -band (-bnot $b);
         }
 
         $number = [System.Numerics.BigInteger]::new($bytes);
-    } While ($number -ge $max);
+    } Until ($number -lt $max);
 
+    # Convert [0, max - min) back to [min, max)
     Return $number + $min;
 }
 
