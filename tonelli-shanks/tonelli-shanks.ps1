@@ -3,8 +3,8 @@
 # using the Tonelli-Shanks algorithm
 # See https://en.wikipedia.org/wiki/Tonelli%E2%80%93Shanks_algorithm
 Param(
-    [Parameter(Mandatory)][long]$p,
-    [Parameter(Mandatory)][long]$n
+    [Parameter(Mandatory)][System.Numerics.BigInteger]$p,
+    [Parameter(Mandatory)][System.Numerics.BigInteger]$n
 )
 
 #
@@ -13,18 +13,21 @@ Param(
 
 # given a number test whether it is prime
 Function Test-Prime {
-Param([Parameter(Mandatory)][long]$p)
+Param([Parameter(Mandatory)][System.Numerics.BigInteger]$p)
 
-    # Brute force
-    If ($p -lt 2) {
-        return $false;
-    }
-
-    For ([long]$i = 2; $i * $i -le $p; $i++)
-    {
-        If ($p % $i -eq 0) {
+    If ($p -lt 1000000) {
+        # Brute force
+        If ($p -lt 2) {
             return $false;
         }
+
+        For ([System.Numerics.BigInteger]$i = 2; $i * $i -le $p; $i = $i + 1) {
+            If ($p % $i -eq 0) {
+                return $false;
+            }
+        }
+    } Else {
+        Write-Host "Skipping primality check since $p is large";
     }
 
     return $true;
@@ -33,8 +36,8 @@ Param([Parameter(Mandatory)][long]$p)
 # given n and p, determine whether there are any solutions to r^2 mod p = n^
 Function Test-Square {
     Param(
-        [Parameter(Mandatory)][long]$number,
-        [Parameter(Mandatory)][long]$prime
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$number,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime
     )
 
     # trivial cases
@@ -49,7 +52,7 @@ Function Test-Square {
     # so n^(p - 1) - 1 = 0 mod p
     # so (n^((p - 1)/2)) - 1) (n^((p - 1)/2) + 1) = 0 mod p
     # so either n^((p - 1)/2)) - 1 = 0 or n^((p - 1)/2)) + 1 = 0 mod p
-    [long]$euler = Get-ModularPower -base $number -exponent (($prime - 1) / 2) -modulus $prime;
+    $euler = [System.Numerics.BigInteger]::ModPow($number, (($prime - 1) / 2), $prime);
 
     # It's 1 if and only if the number is a square
     # This is because (r^2)^((p - 1)/2) = r^(p - 1) = 1 so the first factor is 0
@@ -59,40 +62,13 @@ Function Test-Square {
     Return $euler -eq 1;
 }
 
-# given b, p, and m return b^p mod m
-Function Get-ModularPower {
-    Param(
-        [Parameter(Mandatory)][long]$base,
-        [Parameter(Mandatory)][long]$exponent,
-        [Parameter(Mandatory)][long]$modulus
-    )
-
-    [long]$power = 1;
-    [long]$base_2_k = $base;
-
-    # consider y as a binary number
-    # this decomposes the power into a product of x^(powers of 2)
-    # e.g. x^9 = x^1001_b = x^8 x^1
-    While ($exponent -ne 0) {
-        # if the kth bit of y is 1, multiply the answer so far by x^(2^k)
-        If (($exponent -band 1) -eq 1) {
-            $power = ($power * $base_2_k) % $modulus;
-        }
-
-        $exponent = ($exponent -shr 1);
-        $base_2_k = ($base_2_k * $base_2_k) % $modulus;
-    }
-
-    Return $power;
-}
-
 # given n return q and s where n = q 2^s with q odd
 Function Get-PowerOfTwo {
-    Param([Parameter(Mandatory)][long]$number)
+    Param([Parameter(Mandatory)][System.Numerics.BigInteger]$number)
 
-    [long]$powerOfTwo = 0;
+    [System.Numerics.BigInteger]$powerOfTwo = 0;
     While (($number -band 1) -eq 0) {
-        $powerOfTwo++;
+        $powerOfTwo = $powerOfTwo + 1;
         $number = $number -shr 1;
     }
     
@@ -102,11 +78,11 @@ Function Get-PowerOfTwo {
 # given n and p find z so that z^2 = n mod p has no solutions
 Function Get-NonSquare {
     Param(
-        [Parameter(Mandatory)][long]$prime
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime
     )
 
     # 1 is always a square so start with 2
-    For ([long]$z = 2; $z -lt $prime; $z++) {
+    For ([System.Numerics.BigInteger]$z = 2; $z -lt $prime; $z = $z + 1) {
         If (!(Test-Square -number $z -prime $prime)) {
             Return $z;
         }
@@ -119,14 +95,14 @@ Function Get-NonSquare {
 # this i must be < M
 Function Get-SmallestPowerOfTwoRootOfUnity {
     Param(
-        [Parameter(Mandatory)][long]$base,
-        [Parameter(Mandatory)][long]$maxPowerOfTwo,
-        [Parameter(Mandatory)][long]$prime
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$base,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$maxPowerOfTwo,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime
     )
 
-    [long]$originalBase = $base;
+    [System.Numerics.BigInteger]$originalBase = $base;
 
-    For ([long]$i = 1; $i -lt $maxPowerOfTwo; $i++) {
+    For ([System.Numerics.BigInteger]$i = 1; $i -lt $maxPowerOfTwo; $i = $i + 1) {
         # (base^(2^(i - 1)))^2 = base^(2^(i - 1) * 2) = 2^(2^i)
         $base = ($base * $base) % $prime;
         If ($base -eq 1) {
@@ -168,7 +144,7 @@ If (($p -eq 2) -or ($n -eq 0)) {
     # (n^((p + 1)/4) - r)(n^((p + 1)/4) + r) = 0
     # so r = n^((p + 1)/4) or -n^((p + 1)/4)
     Write-Host "$p mod 4 = 3 so we take $n^(($p + 1)/4)";
-    [long]$r = Get-ModularPower -base $n -exponent (($p + 1) / 4) -modulus $p;
+    $r = [System.Numerics.BigInteger]::ModPow($n, (($p + 1) / 4), $p);
 
     Write-Host "Solutions:";
     ($r, ($p - $r)) | ForEach {
@@ -179,7 +155,7 @@ If (($p -eq 2) -or ($n -eq 0)) {
     # We know there is a solution but we have to do some work to find it
     # 
     # Write (p - 1) as the product of an odd number q and a power of two s
-    ([long]$q, [long]$s) = Get-PowerOfTwo -number ($p - 1);
+    ([System.Numerics.BigInteger]$q, [System.Numerics.BigInteger]$s) = Get-PowerOfTwo -number ($p - 1);
     Write-Host "$p - 1 = $q * 2^$s";
 
     # Find a z that is a nonsquare mod p
@@ -215,21 +191,21 @@ If (($p -eq 2) -or ($n -eq 0)) {
     # ...
     # and in general c^(2^(i)) is a 2^(m - i)th root of unity.
 
-    [long]$m = $s;
-    [long]$c = Get-ModularPower -base $z -exponent $q -modulus $p;
-    [long]$t = Get-ModularPower -base $n -exponent $q -modulus $p;
-    [long]$r = Get-ModularPower -base $n -exponent (($q + 1) / 2) -modulus $p;
+    [System.Numerics.BigInteger]$m = $s;
+    $c = [System.Numerics.BigInteger]::ModPow($z, $q, $p);
+    $t = [System.Numerics.BigInteger]::ModPow($n, $q, $p);
+    $r = [System.Numerics.BigInteger]::ModPow($n, (($q + 1) / 2), $p);
     Write-Host "Initial: m = $m, c = $c, t = $t, r = $r"
 
-    For ([long]$loop = 1; ($t -ne 1); $loop++) {
-        [long]$i = Get-SmallestPowerOfTwoRootOfUnity -base $t -maxPowerOfTwo $m -prime $p;
+    For ([System.Numerics.BigInteger]$loop = 1; ($t -ne 1); $loop = $loop + 1) {
+        [System.Numerics.BigInteger]$i = Get-SmallestPowerOfTwoRootOfUnity -base $t -maxPowerOfTwo $m -prime $p;
         Write-Host "$t^(2^$i) = 1 mod $p";
 
-        $b = Get-ModularPower -base $c -exponent (1 -shl ($m - $i - 1)) -modulus $p;
+        $b = [System.Numerics.BigInteger]::ModPow($c, (1 -shl ($m - $i - 1)), $p);
         Write-Host "$c^(2^($m - $i - 1)) = $b mod $p";
         $m = $i;
-        $c = Get-ModularPower -base $b -exponent 2 -modulus $p;
-        $t = ($t * (Get-ModularPower -base $b -exponent 2 -modulus $p)) % $p;
+        $c = [System.Numerics.BigInteger]::ModPow($b, 2, $p);
+        $t = ($t * ([System.Numerics.BigInteger]::ModPow($b, 2, $p))) % $p;
         $r = ($r * $b) % $p;
         Write-Host "Loop ${loop}: m = $m, c = $c, t = $t, r = $r"
     }
