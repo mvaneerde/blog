@@ -1,3 +1,6 @@
+# Given a file name
+# Reads the System.Diagnostics.FileVersionInfo properties and displays them
+# See https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.fileversioninfo.getversioninfo
 Param(
     [Parameter(Mandatory)][string]$filename
 )
