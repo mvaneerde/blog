@@ -15,6 +15,7 @@ https://matthewvaneerde.wordpress.com/
 | [dmoenum](dmoenum)                                   | [How to enumerate DirectSound DirectX Media Objects (DMOs) on your system](https://matthewvaneerde.wordpress.com/2010/05/27/how-to-enumerate-directsound-directx-media-objects-dmos-on-your-system/) | 
 | [dow-jones-by-president](dow-jones-by-president)     | [Some Dow Jones Industrial Average statistics, by United States President](https://matthewvaneerde.wordpress.com/2017/11/02/some-dow-jones-industrial-average-statistics-by-united-states-president/) | 
 | [elgamal](elgamal)                                   | [Implementing ElGamal encrypt, decrypt, sign, and verify signature](https://matthewvaneerde.wordpress.com/2020/10/29/implementing-elgamal-encrypt-decrypt-sign-and-verify-signature/) |
+| [fileversioninfo](fileversioninfo)                   | [Printing various file version properties with PowerShell](https://matthewvaneerde.wordpress.com/2020/11/18/printing-various-file-version-properties-with-powershell/) | 
 | [gf-256](gf-256)                                     | [Efficient multiplication and division in GF(2⁸)](https://matthewvaneerde.wordpress.com/2014/03/18/efficient-multiplication-and-division-in-gf2/) | 
 | [inactive-volume-sessions](inactive-volume-sessions) | [Enumerating inactive volume sessions](https://matthewvaneerde.wordpress.com/2015/02/16/enumerating-inactive-volume-sessions/) | 
 | [install](install)                                   | - |
