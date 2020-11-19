@@ -6,6 +6,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA6BD8A9-006A-4E91-B595-93A34307615A}"
 	ProjectSection(SolutionItems) = preProject
 		Random-BigInteger.psm1 = Random-BigInteger.psm1
+		Tests.ps1 = Tests.ps1
 	EndProjectSection
 EndProject
 Global

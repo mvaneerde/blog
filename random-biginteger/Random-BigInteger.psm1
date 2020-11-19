@@ -14,7 +14,7 @@ Function Get-RandomBigInteger {
     }
 
     # Convert [min, max) to [0, max - min)
-    # We'll convert it back right and the end
+    # We'll convert it back right at the end
     $max = $max - $min;
 
     # Generate a random string of bits of the right length
