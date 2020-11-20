@@ -15,9 +15,11 @@ Import-Module "..\Random-BigInteger\Random-BigInteger.psm1";
 # Handle even numbers and numbers less than 5 by hand
 If (($prime -lt 5) -or (($prime % 2) -eq 0)) {
     If (($prime -eq 2) -or ($prime -eq 3)) {
-        Write-Host "$prime is definitely prime";
+        Write-Host "$prime is DEFINITELY PRIME";
+    } ElseIf ($prime -eq 4) {
+        Write-Host "$prime is DEFINITELY COMPOSITE";
     } Else {
-        Write-Host "$prime is definitely not prime";
+        Write-Host "$prime is DEFINITELY NOT PRIME";
     }
 } Else {
     # p is an odd prime >= 5
