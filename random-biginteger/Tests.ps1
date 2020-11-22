@@ -1,9 +1,8 @@
 Import-Module ".\Random-BigInteger.psm1";
 
-<#
-$rounds = 10000;
+$rounds = 1000;
 
-(9 .. 15) | ForEach-Object {
+(7 .. 16) | ForEach-Object {
     $max = $_;
     Write-Host "-- Distribution of Get-RandomBigInteger -Min 0 -Max $max --";
     Write-Host("Expected: {0} ({1:P})" -f ($rounds / $max), (1 / $max));
@@ -22,9 +21,6 @@ $rounds = 10000;
     Write-Host "";
 }
 
-Write-Host "-- Naive --";
-#>
-$rounds = 1000;
 $d = 30;
 $two_d = [System.Numerics.BigInteger]::Pow(2, $d);
 $maxes = @(64 .. 128);
