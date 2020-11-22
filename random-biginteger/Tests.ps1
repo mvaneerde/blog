@@ -1,51 +1,56 @@
-Import-Module ".\Random-BigInteger.psm1"
+Import-Module ".\Random-BigInteger.psm1";
 
-$max = 7;
-$rs = @(1 .. $max) | ForEach-Object { Return 0; }
+<#
+$rounds = 10000;
 
-$n = 100000;
-For ($i = 0; $i -lt $n; $i++) {
-    $r = Get-RandomBigInteger -min 0 -max $max;
-    $rs[$r]++;
-}
+(9 .. 15) | ForEach-Object {
+    $max = $_;
+    Write-Host "-- Distribution of Get-RandomBigInteger -Min 0 -Max $max --";
+    Write-Host("Expected: {0} ({1:P})" -f ($rounds / $max), (1 / $max));
 
-$most_r = 0;
-$most_r_count = $rs[$most_r];
+    $count = @(0 .. ($max - 1)) | ForEach-Object { Return 0; }
 
-$least_r = 0;
-$least_r_count = $rs[$least_r];
-
-$total_count = 0;
-$total_count_squared = 0;
-
-For ($i = 0; $i -lt $max; $i++) {
-    $total_count += $rs[$i];
-    $total_count_squared += $rs[$i] * $rs[$i];
-
-    If ($rs[$i] -gt $most_r_count) {
-        $most_r = $i;
-        $most_r_count = $rs[$i];
+    (1 .. $rounds) | ForEach-Object {
+        $x = Get-RandomBigInteger -min 0 -max $max;
+        $count[$x]++;
     }
 
-    If ($rs[$i] -lt $least_r_count) {
-        $least_r = $i;
-        $least_r_count = $rs[$i];
+    (0 .. ($max - 1)) | ForEach-Object {
+        Write-Host("{0}: {1} ({2:P})" -f $_, $count[$_], ($count[$_] / $rounds));
     }
+
+    Write-Host "";
 }
 
-# E(X)
-$mean = $total_count / $max;
+Write-Host "-- Naive --";
+#>
+$rounds = 1000;
+$d = 30;
+$two_d = [System.Numerics.BigInteger]::Pow(2, $d);
+$maxes = @(64 .. 128);
+$maxes += "...";
+$maxes += (($two_d + 1), ($two_d + 2), ($two_d + 3), ($two_d + 4), ($two_d + 5));
+$maxes += "...";
+$maxes += ((2 * $two_d - 5), (2 * $two_d - 4), (2 * $two_d - 3), (2 * $two_d - 2), (2 * $two_d - 1));
+$maxes | ForEach-Object {
+    $max = $_;
+    if ($max -eq "...") {
+        Write-Host "...";
+    } Else {
+        For ($i = 0; $i -lt $rounds; $i++) {
+            $x = Get-RandomBigIntegerNaive -min 0 -max $max;
+        }
 
-# Var(X) = E(X^2) - E(X)^2
-$variance = ($total_count_squared / $max) - ($mean * $mean);
-$standard_deviation = [Math]::Sqrt($variance);
+        $entropyNaive = Get-BitsOfEntropyUsed;
+        Clear-BitsOfEntropyUsed;
 
-Write-Host("Get-RandomBigInteger -min 0 -max {0}" -f $max);
-Write-Host("Trials: {0}" -f $n);
-Write-Host("Total count: {0}" -f $total_count);
-Write-Host("Total count squared: {0}" -f $total_count_squared);
-Write-Host("Most common number: {0} appeared {1} times" -f $most_r, $most_r_count);
-Write-Host("Least common number: {0} appeared {1} times" -f $least_r, $least_r_count);
-Write-Host("Mean number of times each number appeared: {0}" -f $mean);
-Write-Host("Variance in the number of times each number appeared: {0}" -f $variance);
-Write-Host("Standard deviation of the number of times each number appeared: {0}" -f $standard_deviation);
+        For ($i = 0; $i -lt $rounds; $i++) {
+            $x = Get-RandomBigInteger -min 0 -max $max;
+        }
+
+        $entropy = Get-BitsOfEntropyUsed;
+        Write-Host("Flips per integer {0}: naive {1}, better {2}" -f $max, ($entropyNaive / [float]$rounds), ($entropy / [float]$rounds));
+        Clear-BitsOfEntropyUsed;
+    }
+}
+Write-Host "";
