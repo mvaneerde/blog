@@ -25,9 +25,9 @@ $d = 30;
 $two_d = [System.Numerics.BigInteger]::Pow(2, $d);
 $maxes = @(64 .. 128);
 $maxes += "...";
-$maxes += (($two_d + 1), ($two_d + 2), ($two_d + 3), ($two_d + 4), ($two_d + 5));
+$maxes += ($two_d, ($two_d + 1), ($two_d + 2), ($two_d + 3), ($two_d + 4), ($two_d + 5));
 $maxes += "...";
-$maxes += ((2 * $two_d - 5), (2 * $two_d - 4), (2 * $two_d - 3), (2 * $two_d - 2), (2 * $two_d - 1));
+$maxes += ((2 * $two_d - 5), (2 * $two_d - 4), (2 * $two_d - 3), (2 * $two_d - 2), (2 * $two_d - 1), (2 * $two_d));
 $maxes | ForEach-Object {
     $max = $_;
     if ($max -eq "...") {
