@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30711.63
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DA6BD8A9-006A-4E91-B595-93A34307615A}"
+	ProjectSection(SolutionItems) = preProject
+		random-biginteger.ps1 = random-biginteger.ps1
+		Random-BigInteger.psm1 = Random-BigInteger.psm1
+		Tests.ps1 = Tests.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30177E1E-329E-4249-B223-917128CA3BB4}
+	EndGlobalSection
+EndGlobal
