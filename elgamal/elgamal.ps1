@@ -45,30 +45,15 @@ Write-Host "A wants to send B a message so that only B can read it";
 $m = 92;
 Test-Between -min 0 -test $m -maxPlusOne $p;
 Write-Host "The first block of the message is m = $m";
-
-$k_small = Get-Random -Maximum $p;
-Test-Between -min 0 -test $k_small -maxPlusOne $p;
-Write-Host "A chooses a random number k = $k_small";
-
-$k_big = Get-ModularPower -base $ys[1] -exponent $k_small -modulus $p;
-Write-Host("A calculates the key K = (y_B = {0})^(k = $k_small) mod (p = $p) = $k_big" -f $ys[1]);
-
-$c1 = Get-ModularPower -base $g -exponent $k_small -modulus $p;
-$c2 = Get-ModularProduct -factor1 $k_big -factor2 $m -modulus $p;
-Write-Host "A calculates and sends the encrypted message (c1, c2) = ($c1, $c2)";
-Write-Host "    * c1 = (g = $g)^(k = $k_small) mod (p = $p) = $c1";
-Write-Host "    * c2 = (K = $k_big)(m = $m) mod (p = $p) = $c2";
+($c1, $c2) = Get-ElGamalEncryption -prime $p -generator $g -recipientPublicKey $ys[1] -clearText $m; 
+Write-Host "Sender encrypts m = $m as (c1, c2) = ($c1, $c2)";
 Write-Host "";
 
 Write-Host "-- DECRYPT --";
-Write-Host "B wants to read the message that A sent B";
-$k_big_recovered = Get-ModularPower -base $c1 -exponent $xs[1] -modulus $p;
-Write-Host("B recovers K = (c1 = $c1)^(x_B = {0}) mod (p = $p) = $k_big_recovered" -f $xs[1]);
-Test-Equal -leftHandSide $k_big -rightHandSide $k_big_recovered;
-$k_big_inv = Get-ModularInverse -term $k_big -modulus $p;
-$m_recovered = Get-ModularProduct -factor1 $c2 -factor2 $k_big_inv -modulus $p;
-Write-Host "B calculates m = (c2 = $c2)/(K = $k_big) mod (p = $p) = $m_recovered";
+$m_recovered = Get-ElGamalDecryption -prime $p -generator $g -recipientPrivateKey $xs[1] -cipherText ($c1, $c2); 
+Write-Host "Recipient reads m = $m_recovered";
 Test-Equal -leftHandSide $m -rightHandSide $m_recovered;
+Write-Host "The decrypted message matches the original cleartext message";
 Write-Host "";
 
 Write-Host "-- SIGN --";

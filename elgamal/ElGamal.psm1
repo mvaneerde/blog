@@ -1,3 +1,78 @@
+Import-Module "..\random-biginteger\Random-BigInteger.psm1";
+
+#
+# Encrypt
+#
+# Given:
+#     * A prime p
+#     * A generator g
+#     * The recipients public key y = g^x
+#     * A cleartext message m
+#
+# Return:
+#     * The encrypted message (c1, c2)
+#     Only the holder of the private key x can decrypt it
+Function Get-ElGamalEncryption {
+    Param(
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$generator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$recipientPublicKey,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$clearText
+    )
+
+    Test-Between -min 0 -test $recipientPublicKey -maxPlusOne $prime;
+
+    $k_small = Get-RandomBigInteger -Min 0 -Max $prime;
+    Test-Between -min 0 -test $k_small -maxPlusOne $prime;
+    Write-Host "Encryptor chooses a random number k = $k_small";
+
+    $k_big = Get-ModularPower -base $recipientPublicKey -exponent $k_small -modulus $prime;
+    Write-Host("Encryptor calculates the key K = (y = {0})^(k = $k_small) mod (p = $prime) = $k_big" -f $recipientPublicKey);
+
+    $c1 = Get-ModularPower -base $generator -exponent $k_small -modulus $prime;
+    $c2 = Get-ModularProduct -factor1 $k_big -factor2 $clearText -modulus $prime;
+    Write-Host "Encryptor calculates the encrypted message (c1, c2) = ($c1, $c2)";
+    Write-Host "    * c1 = (g = $generator)^(k = $k_small) mod (p = $prime) = $c1";
+    Write-Host "    * c2 = (K = $k_big)(m = $clearText) mod (p = $prime) = $c2";
+
+    Return ($c1, $c2);
+}
+Export-ModuleMember -Function Get-ElGamalEncryption
+
+#
+# Decrypt
+#
+# Given:
+#     * A prime p
+#     * A generator g
+#     * The recipients public private key x
+#     * An encrypted message (c1, c2)
+#
+# Return:
+#     * The cleartext message m
+Function Get-ElGamalDecryption {
+    Param(
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$generator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$recipientPrivateKey,
+        [Parameter(Mandatory)][System.Numerics.BigInteger[]]$cipherText
+    )
+
+    Test-Equal -leftHandSide ($cipherText.Length) -rightHandSide 2;
+
+    ($c1, $c2) = $cipherText;
+
+    Write-Host "Recipient wants to decrypt the message";
+    $k_big = Get-ModularPower -base $c1 -exponent $recipientPrivateKey -modulus $prime;
+    Write-Host("Recipient recovers K = (c1 = $c1)^(x_B = {0}) mod (p = $prime) = $k_big" -f $recipientPrivateKey);
+    $k_big_inv = Get-ModularInverse -term $k_big -modulus $prime;
+    $clearText = Get-ModularProduct -factor1 $c2 -factor2 $k_big_inv -modulus $prime;
+    Write-Host "Recipient calculates m = (c2 = $c2)/(K = $k_big) mod (p = $prime) = $clearText";
+
+    Return $clearText;
+}
+Export-ModuleMember -Function Get-ElGamalDecryption
+
 #
 # Test functions
 #
@@ -5,9 +80,9 @@
 # verify min <= test < maxPlusOne
 Function Test-Between {
     Param(
-        [Parameter(Mandatory)][int]$min,
-        [Parameter(Mandatory)][int]$test,
-        [Parameter(Mandatory)][int]$maxPlusOne
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$min,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$test,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$maxPlusOne
     )
 
     If (($min -le $test) -and ($test -lt $maxPlusOne)) {
@@ -21,8 +96,8 @@ Export-ModuleMember -Function Test-Between;
 # verify lhs = rhs
 Function Test-Equal {
     Param(
-        [Parameter(Mandatory)][int]$leftHandSide,
-        [Parameter(Mandatory)][int]$rightHandSide
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$leftHandSide,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$rightHandSide
     )
 
     If ($leftHandSide -eq $rightHandSide) {
@@ -36,8 +111,8 @@ Export-ModuleMember -Function Test-Equal;
 # verify test >= min
 Function Test-GreaterThanOrEqual {
     Param(
-        [Parameter(Mandatory)][int]$test,
-        [Parameter(Mandatory)][int]$min
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$test,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$min
     )
 
     If ($test -ge $min) {
@@ -51,7 +126,7 @@ Export-ModuleMember -Function Test-Between;
 # verify a given number is prime
 Function Test-Prime {
     Param(
-        [Parameter(Mandatory)][int]$prime
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime
     )
 
     If ($prime -ge 2) {
@@ -71,8 +146,8 @@ Export-ModuleMember -Function Test-Prime;
 # verify a given number is a generator of a given prime field
 Function Test-Generator {
     Param(
-        [Parameter(Mandatory)][int]$generator,
-        [Parameter(Mandatory)][int]$prime
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$generator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime
     )
 
     Test-Prime -prime $prime;
@@ -95,8 +170,8 @@ Export-ModuleMember -Function Test-Generator;
 # Given two numbers, return the greatest common divisor of those numbers
 Function Get-GreatestCommonDivisor {
     Param(
-        [Parameter(Mandatory)][int]$term1,
-        [Parameter(Mandatory)][int]$term2
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term1,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term2
     )
 
     $original_term1 = $term1;
@@ -177,9 +252,9 @@ Export-ModuleMember -Function Get-GreatestCommonDivisor;
 # find the sum x + y mod m
 Function Get-ModularSum {
     Param(
-        [Parameter(Mandatory)][int]$term1,
-        [Parameter(Mandatory)][int]$term2,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term1,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term2,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $term1 -maxPlusOne $modulus;
@@ -201,8 +276,8 @@ Export-ModuleMember -Function Get-ModularSum;
 # find the number y such that x + y = 0 mod m
 Function Get-ModularNegative {
     Param(
-        [Parameter(Mandatory)][int]$term,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $term -maxPlusOne $modulus;
@@ -226,9 +301,9 @@ Export-ModuleMember -Function Get-ModularNegative;
 # find the difference x - y mod m
 Function Get-ModularDifference {
     Param(
-        [Parameter(Mandatory)][int]$minuend,
-        [Parameter(Mandatory)][int]$subtrahend,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$minuend,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$subtrahend,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $minuend -maxPlusOne $modulus;
@@ -252,9 +327,9 @@ Export-ModuleMember -Function Get-ModularDifference;
 # find the product x * y mod m
 Function Get-ModularProduct {
     Param(
-        [Parameter(Mandatory)][int]$factor1,
-        [Parameter(Mandatory)][int]$factor2,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$factor1,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$factor2,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $factor1 -maxPlusOne $modulus;
@@ -272,8 +347,8 @@ Export-ModuleMember -Function Get-ModularProduct;
 # find the number y such that x * y = 1 mod m
 Function Get-ModularInverse {
     Param(
-        [Parameter(Mandatory)][int]$term,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$term,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $term -maxPlusOne $modulus;
@@ -287,11 +362,11 @@ Function Get-ModularInverse {
     #
     # ma + xy = 1 mod m
     # reducing mod m we find xy = 1 mod m
-    ([int]$t, [int]$t_new) = (0, 1);
-    ([int]$r, [int]$r_new) = ($modulus, $term);
+    ([System.Numerics.BigInteger]$t, [System.Numerics.BigInteger]$t_new) = (0, 1);
+    ([System.Numerics.BigInteger]$r, [System.Numerics.BigInteger]$r_new) = ($modulus, $term);
 
     While ($r_new -ne 0) {
-        $quotient = [Math]::Floor($r / $r_new);
+        $quotient = $r / $r_new;
         ($t, $t_new) = ($t_new, ($t - ($quotient * $t_new)));
         ($r, $r_new) = ($r_new, ($r - ($quotient * $r_new)));
     }
@@ -319,9 +394,9 @@ Export-ModuleMember -Function Get-ModularInverse;
 # find the quotient z such that x = y * z mod m
 Function Get-ModularQuotient {
     Param(
-        [Parameter(Mandatory)][int]$numerator,
-        [Parameter(Mandatory)][int]$denominator,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$numerator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$denominator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $numerator -maxPlusOne $modulus;
@@ -346,9 +421,9 @@ Export-ModuleMember -Function Get-ModularQuotient;
 # find the power x ^ y mod m
 Function Get-ModularPower {
     Param(
-        [Parameter(Mandatory)][int]$base,
-        [Parameter(Mandatory)][int]$exponent,
-        [Parameter(Mandatory)][int]$modulus
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$base,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$exponent,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$modulus
     )
 
     Test-Between -min 0 -test $numerator -maxPlusOne $modulus;
