@@ -41,15 +41,15 @@ $ys | ForEach-Object { Test-Between -min 0 -test $_ -maxPlusOne $p; }
 Write-Host "";
 
 Write-Host "-- ENCRYPT --";
-Write-Host "A wants to send B a message so that only B can read it";
 $m = 92;
 Test-Between -min 0 -test $m -maxPlusOne $p;
-Write-Host "The first block of the message is m = $m";
-($c1, $c2) = Get-ElGamalEncryption -prime $p -generator $g -recipientPublicKey $ys[1] -clearText $m; 
-Write-Host "Sender encrypts m = $m as (c1, c2) = ($c1, $c2)";
+Write-Host "A wants to encrypt B a message $m so that only B can decrypt it";
+($c1, $c2) = Get-ElGamalEncryption -prime $p -generator $g -recipientPublicKey $ys[1] -clearText $m;
+Write-Host "A encrypts m = $m to B as (c1, c2) = ($c1, $c2)";
 Write-Host "";
 
 Write-Host "-- DECRYPT --";
+Write-Host "B wants to decrypt the message received from A";
 $m_recovered = Get-ElGamalDecryption -prime $p -generator $g -recipientPrivateKey $xs[1] -cipherText ($c1, $c2); 
 Write-Host "Recipient reads m = $m_recovered";
 Test-Equal -leftHandSide $m -rightHandSide $m_recovered;
