@@ -6,7 +6,7 @@ Import-Module "..\random-biginteger\Random-BigInteger.psm1";
 # Given:
 #     * A prime p
 #     * A generator g
-#     * The recipients public key y = g^x
+#     * The recipient's public key y = g^x
 #     * A cleartext message m
 #
 # Return:
@@ -37,7 +37,7 @@ Function Get-ElGamalEncryption {
 
     Return ($c1, $c2);
 }
-Export-ModuleMember -Function Get-ElGamalEncryption
+Export-ModuleMember -Function Get-ElGamalEncryption;
 
 #
 # Decrypt
@@ -45,7 +45,7 @@ Export-ModuleMember -Function Get-ElGamalEncryption
 # Given:
 #     * A prime p
 #     * A generator g
-#     * The recipients public private key x
+#     * The recipient's private key x
 #     * An encrypted message (c1, c2)
 #
 # Return:
@@ -59,7 +59,6 @@ Function Get-ElGamalDecryption {
     )
 
     Test-Equal -leftHandSide ($cipherText.Length) -rightHandSide 2;
-
     ($c1, $c2) = $cipherText;
 
     Write-Host "Recipient wants to decrypt the message";
@@ -71,7 +70,107 @@ Function Get-ElGamalDecryption {
 
     Return $clearText;
 }
-Export-ModuleMember -Function Get-ElGamalDecryption
+Export-ModuleMember -Function Get-ElGamalDecryption;
+
+#
+# Sign
+#
+# Given:
+#     * A prime p
+#     * A generator g
+#     * The signer's private key x
+#     * A message m
+#
+# Return:
+#     * The signature (r, s)
+Function Get-ElGamalSignature {
+    Param(
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$generator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$signerPrivateKey,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$message
+    )
+
+    Do {
+        $k = Get-RandomBigInteger -Min 0 -Max $prime;
+    } Until (1 -eq (Get-GreatestCommonDivisor -term1 $k -term2 ($prime - 1)));
+    Write-Host ("Signer chooses a random number k = $k such that gcd(k = $k, p - 1 = {0}) = 1" -f ($prime - 1));
+
+    $r = Get-ModularPower -base $generator -exponent $k -modulus $prime;
+    # m = xr + ks mod (p - 1)
+    # s = (m - xr) / k mod (p - 1)
+    $s = Get-ModularQuotient `
+        -numerator ( `
+            Get-ModularDifference `
+                -minuend $message `
+                -subtrahend (Get-ModularProduct -factor1 $signerPrivateKey -factor2 $r -modulus ($prime - 1)) `
+            -modulus ($prime - 1) `
+        ) `
+        -denominator $k `
+        -modulus ($prime - 1);
+    Write-Host "Signer calculates the signature (r, s) = ($r, $s)";
+
+    Write-Host "These are calculated so g^m = y^r r^s mod p";
+    Write-Host "Take r = g^k";
+    Write-Host "Now we have g^m = g^(x r) g^(k s) mod p";
+    Write-Host "Which is to say m = x r + k s mod (p - 1)";
+    Write-Host "We want to solve for s - this is why we needed gcd(k, p - 1) is 1"
+    Write-Host "    * r = (g = $generator)^(k = $k) mod (p = $prime) = $r"
+    Write-Host ("    * s which makes (m = $message) = (x = {0}) * (r = $r) + (k = $k) * (s = $s) mod (p - 1 = {1})" -f $signerPrivateKey, ($prime - 1));
+
+    # check
+    $m_check = (
+        (Get-ModularProduct -factor1 $signerPrivateKey -factor2 $r -modulus ($prime - 1)) +
+        (Get-ModularProduct -factor1 $k -factor2 $s -modulus ($prime - 1))
+    ) % ($prime - 1);
+    Test-Equal -leftHandSide $m_check -rightHandSide ($message % ($prime - 1));
+
+    Return ([System.Numerics.BigInteger]$r, [System.Numerics.BigInteger]$s);
+}
+Export-ModuleMember -Function Get-ElGamalSignature;
+
+#
+# Verify signature
+#
+# Given:
+#     * A prime p
+#     * A generator g
+#     * The signer's public key x
+#     * A message m
+#     * A signature (r, s)
+#
+# Return:
+#     * $true if the signature is valid, $false if the signature is invalid
+Function Compare-ElGamalSignature {
+    Param(
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$prime,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$generator,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$signerPublicKey,
+        [Parameter(Mandatory)][System.Numerics.BigInteger]$message,
+        [Parameter(Mandatory)][System.Numerics.BigInteger[]]$signature
+    )
+
+    Test-Equal -leftHandSide ($signature.Length) -rightHandSide 2;
+    ($r, $s) = $signature;
+
+    $lhs = Get-ModularPower -base $generator -exponent $message -modulus $prime;
+    Write-Host "Signature verifier calculates (g = $generator)^(m = $message) = $lhs";
+    $rhs = Get-ModularProduct `
+        -factor1 (Get-ModularPower -base $signerPublicKey -exponent $r -modulus $prime) `
+        -factor2 (Get-ModularPower -base $r -exponent $s -modulus $prime) `
+        -modulus $prime;
+    Write-Host "Signature verifier calculates = (y = $signerPublicKey)^(r = $r) (r = $r)^(s = $s) mod (p = $prime) = $rhs";
+
+    If ($lhs -eq $rhs) {
+        Write-Host "Signature is valid";
+    } Else {
+        Write-Host "Signature is invalid";
+    }
+
+    Return ($lhs -eq $rhs);
+}
+Export-ModuleMember -Function Compare-ElGamalSignature;
+
 
 #
 # Test functions
