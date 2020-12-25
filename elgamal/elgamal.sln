@@ -5,6 +5,7 @@ VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BA5DE5C8-D948-4F98-BD16-0D375CACC35C}"
 	ProjectSection(SolutionItems) = preProject
+		decrypt.ps1 = decrypt.ps1
 		elgamal.ps1 = elgamal.ps1
 		ElGamal.psm1 = ElGamal.psm1
 	EndProjectSection
