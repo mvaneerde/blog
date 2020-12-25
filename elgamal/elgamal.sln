@@ -8,6 +8,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		decrypt.ps1 = decrypt.ps1
 		elgamal.ps1 = elgamal.ps1
 		ElGamal.psm1 = ElGamal.psm1
+		encrypt.ps1 = encrypt.ps1
+		sign.ps1 = sign.ps1
+		verify-signature.ps1 = verify-signature.ps1
 	EndProjectSection
 EndProject
 Global
