@@ -71,7 +71,7 @@ Function Get-Log {
     )
 
     If (!$babySteps) {
-        $babySteps = Get-BabySteps -p $p -g -$g;
+        $babySteps = Get-BabySteps -p $p -g $g;
     }
 
     If ($babySteps.ContainsKey($x)) {
@@ -91,6 +91,6 @@ Function Get-Log {
         $giantSteps = $giantSteps + 1;
     }
 
-    Return ($s * $giantSteps + $babySteps[$x]) % $p;
+    Return (($s * $giantSteps) + $babySteps[$x]) % $p;
 }
 Export-ModuleMember -Function Get-Log;
