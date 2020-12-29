@@ -33,7 +33,7 @@ Function Get-Factors {
         }
 
         If ($p -eq 2) {
-            $p = 3;
+            $p = [bigint]3;
         } Else {
             $p = $p + 2;
         }
