@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E13A2B78-D016-46D3-AFD0-3CEBF7A415DE}"
+	ProjectSection(SolutionItems) = preProject
+		pohlig-hellman.ps1 = pohlig-hellman.ps1
+		Pohlig-Hellman.psm1 = Pohlig-Hellman.psm1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9880826C-8E73-415D-86B1-577C5A6776AB}
+	EndGlobalSection
+EndGlobal
