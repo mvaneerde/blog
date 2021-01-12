@@ -7,6 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		find-generator.ps1 = find-generator.ps1
 		Schnorr.psm1 = Schnorr.psm1
+		show-identity.ps1 = show-identity.ps1
 		subgroups-of-gf-173.csv = subgroups-of-gf-173.csv
 		subgroups-of-gf-173.ps1 = subgroups-of-gf-173.ps1
 	EndProjectSection

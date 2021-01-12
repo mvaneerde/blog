@@ -8,18 +8,6 @@ Param(
 
 Import-Module ".\Schnorr.psm1";
 
-$g = Find-Generator -p $p -q $q;
+$g = Find-SchnorrGenerator -p $p -q $q;
 
 Write-Host "g = $g";
-
-# Check: g^q = 1
-$g_q = [bigint]::ModPow($g, $q, $p);
-If ($g_q -ne 1) {
-	Throw "$g^$q = 1 mod $p does not hold";
-}
-
-# Check: g^((p - 1)/q) ≠ 1
-$g_p_1_q = [bigint]::ModPow($g, ($p - 1) / $q, $p);
-If ($g_p_1_q -eq 1) {
-	Throw "$g^(($p - 1)/$q) ≠ 1 mod $p does not hold";
-}
