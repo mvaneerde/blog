@@ -68,71 +68,65 @@ Function Find-SchnorrGenerator {
 }
 Export-ModuleMember -Function Find-SchnorrGenerator;
 
-# see "The identification protocol" in the above paper
-# in Schnorr system (g, q, p)
-# let A, the holder of secret key s_k, prove their identity
-# to a degree of confidence determined by security parameter t
-Function Show-SchnorrIdentity {
+Function Get-SchnorrPublicKey {
 	Param(
 		[Parameter(Mandatory)][bigint]$p,
 		[Parameter(Mandatory)][bigint]$q,
 		[Parameter(Mandatory)][bigint]$g,
-		[Parameter(Mandatory)][bigint]$s_k,
+		[Parameter(Mandatory)][bigint]$s_k
+	)
+
+	# derive the public key g^(-s) mod p from the secret key s
+	Return [bigint]::ModPow($g, $q - $s_k, $p);
+}
+Export-ModuleMember -Function Get-SchnorrPublicKey;
+
+Function Get-SchnorrNonce {
+	Param(
+		[Parameter(Mandatory)][bigint]$p,
+		[Parameter(Mandatory)][bigint]$q,
+		[Parameter(Mandatory)][bigint]$g
+	)
+
+	# generate a private nonce 1 <= r < q
+	# and a public nonce g^r mod p
+	$r = Get-RandomBigInteger -Min 1 -Max $q;
+	Return @($r, [bigint]::ModPow($g, $r, $p));
+}
+Export-ModuleMember -Function Get-SchnorrNonce;
+
+Function Get-SchnorrChallenge {
+	Param(
 		[Parameter(Mandatory)][bigint]$t
 	)
 
-	# verify 2 <= q < p
-	If (-not (([bigint]2 -le $q) -and ($q -lt $p))) {
-		Throw "2 <= $q < $p does not hold";
-	}
+	Return Get-RandomBigInteger -Min 0 -Max ([bigint]::Pow(2, $t));
+}
+Export-ModuleMember -Function Get-SchnorrChallenge;
 
-	# verify q | p - 1
-	If ((($p - 1) % $q) -ne 0) {
-		Throw "$q | $p - 1 does not hold";
-	}
+Function Get-SchnorrResponse {
+	Param(
+		[Parameter(Mandatory)][bigint]$q,
+		[Parameter(Mandatory)][bigint]$s_k,
+		[Parameter(Mandatory)][bigint]$r,
+		[Parameter(Mandatory)][bigint]$e
+	)
 
-	# verify g^q = 1
-	$g_q = [bigint]::ModPow($g, $q, $p);
-	If ($g_q -ne 1) {
-		Throw "$g^$q = 1 mod $p does not hold";
-	}
+	Return ($r + ($s_k * $e)) % $q;
+}
+Export-ModuleMember -Function Get-SchnorrResponse;
 
-	# verify g^((p - 1)/q) ≠ 1
-	$g_p_1_q = [bigint]::ModPow($g, ($p - 1) / $q, $p);
-	If ($g_p_1_q -eq 1) {
-		Throw "$g^(($p - 1)/$q) ≠ 1 mod $p does not hold";
-	}
-
-	Write-Host "Schnorr system (p = $p, q = $q, g = $g)";
-
-	# verify 1 <= s_k <= q
-	If (-not (([bigint]1 -le $s_k) -and ($s_k -le $q))) {
-		Throw "1 <= $s_k <= $q does not hold";
-	}
-
-	# calculate A's public key g^(-s) mod p
-	$p_k = [bigint]::ModPow($g, $q - $s_k, $p);
-
-	Write-Host "A (secret key = $s_k, public key = $p_k) wants to prove her identity";
-
-	$r = Get-RandomBigInteger -Min 1 -Max $q;
-	$g_r = [bigint]::ModPow($g, $r, $p);
-	Write-Host "A chooses a secret nonce (r = $r) and generates a public nonce (g = $g)^(r = $r) = $g_r";
-
-	Write-Host "A sends B (I am A, public key $p_k, public nonce = $g_r)";
-
-	$e = Get-RandomBigInteger -Min 0 -Max ([bigint]::Pow(2, $t));
-	Write-Host "B sends A a (t = $t)-bit challenge number (e = $e)";
-
-	$y = ($r + ($s_k * $e)) % $q;
-	Write-Host "A sends B a response y = $y = ((r = $r) + ((s_k = $s_k) * (e = $e))) mod (q = $q)";
+Function Test-SchnorrResponse {
+	Param(
+		[Parameter(Mandatory)][bigint]$p,
+		[Parameter(Mandatory)][bigint]$g,
+		[Parameter(Mandatory)][bigint]$p_k,
+		[Parameter(Mandatory)][bigint]$g_r,
+		[Parameter(Mandatory)][bigint]$e,
+		[Parameter(Mandatory)][bigint]$y
+	)
 
 	$g_r_check = ([bigint]::ModPow($g, $y, $p) * [bigint]::ModPow($p_k, $e, $p)) % $p;
-	Write-Host "B calculates (g = $g)^(r = $r) = $g_r_check = (g = $g)^(y = $y) * (p_k = $p_k)^(e = $e) mod $p";
-
-	If ($g_r -ne $g_r_check) {
-		Throw "$g_r = $g_r_check does not hold";
-	}
+	Return $g_r -eq $g_r_check;
 }
-Export-ModuleMember -Function Show-SchnorrIdentity;
-
+Export-ModuleMember -Function Test-SchnorrResponse;
