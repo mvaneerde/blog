@@ -3,8 +3,9 @@
 # * (p - 1)'s largest prime factor q
 # * an element g of Z_p which generates a subgroup of order q
 # * a secret key s_k
+# * a security tolerance t
 #
-# Show how the holder of the secret key can prove their identity
+# Show how the holder of the secret key can prove their identity with certainty 1 - 2^(-t)
 # without revealing any secret information
 Param(
 	[Parameter(Mandatory)][bigint]$p,
@@ -29,7 +30,7 @@ Write-Host "A chooses a secret nonce (r = $r) and public nonce g_r = $g_r = (g =
 Write-Host "A sends B her public key and public nonce";
 
 $e = Get-SchnorrChallenge -t $t
-Write-Host "B generates a(n) $t-bit challenge (e = $e) and sends it to A";
+Write-Host "B generates $t-bit challenge (e = $e) and sends it to A";
 
 $y = Get-SchnorrResponse -q $q -s_k $s_k -r $r -e $e;
 Write-Host "A generates a response (y = $y) = (r = $r) + (s_k = $s_k) * (e = $e) mod (q = $q) and sends it to B";
