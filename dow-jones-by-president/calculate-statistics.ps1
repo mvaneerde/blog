@@ -18,7 +18,7 @@ Function WriteHeader() {
 }
 
 Function WritePresident() {
-	$president = $presidents[$iPresident].President;
+	Param([string]$president);
 
 	If ($marketDays -eq 0) {
 		# No market days;
@@ -29,7 +29,12 @@ Function WritePresident() {
 	$calendarDays = (New-Timespan -Start $firstMarketDay -End $lastMarketDay).Days + 1;
 
 	# the annualized return is (last/first)^(365.25/days) - 1
-	$return = "{0:P0}" -f ([Math]::pow([double]$lastClose / [double]$firstOpen, 365.25 / $calendarDays) - 1);
+	# but we require at least 30 days to have passed before we give a number
+	If ($calendarDays -ge 30) {
+		$return = "{0:P0}" -f ([Math]::pow([double]$lastClose / [double]$firstOpen, 365.25 / $calendarDays) - 1);
+	} Else {
+		$return = "Less than 30 days";
+	}
 
 	If ($recordHighs -eq 0) {
 		$daysBetweenHighs = "N/A";
@@ -97,11 +102,12 @@ Function WriteFooter() {
 # Start End President
 $presidents = Get-Content "presidents.csv" | ConvertFrom-Csv;
 
+Write-Host("Total presidents: {0}" -f $presidents.Count);
+
 # Date Open High Low Close Volume
 $djia = Get-Content "dow-jones-industrial-average.csv" | ConvertFrom-Csv;
 
-# iterate over both lists at once
-$iPresident = 0;
+# iterate over the Dow Jones days
 $iDjia = 0;
 
 # per-president stats
@@ -115,41 +121,54 @@ $firstOpen = $null;
 $lastClose = $null;
 
 WriteHeader;
+$presidents | ForEach-Object {
+	$president = $_;
 
-While ($iPresident -lt $presidents.Count -and $iDjia -lt $djia.Count) {
-	While ( `
-		$iPresident -lt $presidents.Count -and `
-		$presidents[$iPresident].End -ne "" -and `
-		[DateTime]$presidents[$iPresident].End -lt [DateTime]$djia[$iDjia].Date `
-	) {
-		WritePresident;
+	$marketDays = 0;
+	$recordHighs = 0;
 
-		$iPresident++;
+	# look at all the DJIA days which overlap with this presidential term
+	While ($iDjia -lt $djia.Count) {
+		# does this day count for this president?
+		If (
+			([DateTime]$president.Start -le [DateTime]$djia[$iDjia].Date) -and
+			(
+				($president.End -eq "") -or
+				([DateTime]$djia[$iDjia].Date -le [DateTime]$president.End)
+			)
+		) {
+			$marketDays++;
 
-		$marketDays = 0;
-		$recordHighs = 0;
+			If ($marketDays -eq 1) {
+				$firstMarketDay = [DateTime]$djia[$iDjia].Date;
+				$firstOpen = $djia[$iDjia].Open;
+			}
+			$lastMarketDay = [DateTime]$djia[$iDjia].Date;
+			$lastClose = $djia[$iDjia].Close;
+
+			If ([double]$djia[$iDjia].Close -gt [double]$high) {
+				$recordHighs++;
+				$totalRecordHighs++;
+				[double]$high = $djia[$iDjia].Close;
+			}
+		}
+
+		# might it count for the next president too?
+		If ($president.End -eq "") {
+			# there is no next president (yet)
+			$iDjia++;
+		} ElseIf (([DateTime]$djia[$iDjia].Date -lt [DateTime]$president.End)) {
+			# this isn't the last day of the term
+			$iDjia++;
+		} Else {
+			# either the last day of the term or after the term
+			# either way, yes, could count for the next president
+			Break;
+		}
 	}
 
-	$marketDays++;
-
-	If ($marketDays -eq 1) {
-		$firstMarketDay = [DateTime]$djia[$iDjia].Date;
-		$firstOpen = $djia[$iDjia].Open;
+	If ($marketDays -gt 0) {
+		WritePresident -president $president.President;
 	}
-	$lastMarketDay = [DateTime]$djia[$iDjia].Date;
-	$lastClose = $djia[$iDjia].Close;
-
-	If ([double]$djia[$iDjia].Close -gt [double]$high) {
-		$recordHighs++;
-		$totalRecordHighs++;
-		[double]$high = $djia[$iDjia].Close;
-	}
-
-	$iDjia++;
 }
-
-If ($iPresident -lt $presidents.Count) {
-	WritePresident;
-}
-
 WriteFooter;

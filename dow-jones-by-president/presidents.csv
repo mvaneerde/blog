@@ -23,10 +23,10 @@
 1885-03-04,1889-03-04,Grover Cleveland
 1889-03-04,1893-03-04,Benjamin Harrison
 1893-03-04,1897-03-04,Grover Cleveland
-1897-03-04,1901-09-14,William McKinley
-1901-09-14,1909-03-04,Theodore Roosevelt
-1909-03-04,1913-03-04,William Taft
-1913-03-04,1921-03-04,Woodrow Wilson
+1897-03-04,9/14/1901,William McKinley
+9/14/1901,3/4/1909,Theodore Roosevelt
+3/4/1909,3/4/1913,William Taft
+3/4/1913,3/4/1921,Woodrow Wilson
 3/4/1921,8/2/1923,Warren Harding
 8/2/1923,3/4/1929,Calvin Coolidge
 3/4/1929,3/4/1933,Herbert Hoover
@@ -43,4 +43,5 @@
 1/20/1993,1/20/2001,Bill Clinton
 1/20/2001,1/20/2009,George W. Bush
 1/20/2009,1/20/2017,Barack Obama
-1/20/2017,,Donald Trump
+1/20/2017,1/20/2021,Donald Trump
+1/20/2021,,Joe Biden
