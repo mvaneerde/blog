@@ -216,11 +216,11 @@ Function Interval {
     )
 
     $interval = New-Object -TypeName PSObject;
-    $interval | Add-Member –MemberType NoteProperty -Name "Start" -Value $start;
-    $interval | Add-Member –MemberType NoteProperty -Name "End" -Value $end;
-    $interval | Add-Member –MemberType NoteProperty -Name "Off" -Value 0;
-    $interval | Add-Member –MemberType NoteProperty -Name "Weekdays" -Value (WeekdaysInInterval -start $start -end $end);
-    $interval | Add-Member –MemberType NoteProperty -Name "DaysOff" -Value ([DateTime[]]@());
+    $interval | Add-Member -MemberType NoteProperty -Name "Start" -Value $start;
+    $interval | Add-Member -MemberType NoteProperty -Name "End" -Value $end;
+    $interval | Add-Member -MemberType NoteProperty -Name "Off" -Value 0;
+    $interval | Add-Member -MemberType NoteProperty -Name "Weekdays" -Value (WeekdaysInInterval -start $start -end $end);
+    $interval | Add-Member -MemberType NoteProperty -Name "DaysOff" -Value ([DateTime[]]@());
 
     Return $interval;
 }
