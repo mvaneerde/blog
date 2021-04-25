@@ -9,12 +9,11 @@ $ps = Import-Csv ".\disney-princesses.csv";
 # Write a row for each princess
 $ps | ForEach-Object {
     $p = $_;
-    $movie = $p.Movie;
-    $year = $p.Year;
-    $character = $p.Character;
+    $htmlMovie = [System.Net.WebUtility]::HtmlEncode($p.Movie);
+    $htmlYear = [System.Net.WebUtility]::HtmlEncode($p.Year);
+    $htmlCharacter = [System.Net.WebUtility]::HtmlEncode($p.Character);
 
-    # HACK HACK HACK - fix HTML encoding
-    Write-Output "<tr><td>$movie ($year)</td><td>$character</td></tr>";
+    Write-Output "<tr><td>$htmlMovie ($htmlYear)</td><td>$htmlCharacter</td></tr>";
 };
 
 # Write footer
