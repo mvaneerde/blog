@@ -115,9 +115,9 @@ $intervals | ForEach-Object {
 # print out the intervals and the days off
 $intervals | ForEach-Object {
     $interval = $_;
-    $start = $interval.Start;
+    $start = $interval.Start.ToString("yyyy-MM-dd");
     $weekdays = $interval.Weekdays;
-    $end = $interval.End;
+    $end = $interval.End.ToString("yyyy-MM-dd");
     $off = $interval.Off;
 
     If ($weekday -eq 1) {

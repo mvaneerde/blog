@@ -91,6 +91,7 @@ Function Get-RandomBigInteger {
 
     # Convert [min, max) to [0, max - min)
     # We'll convert it back right at the end
+    $original_max = $max;
     $max = $max - $min;
 
     $xs = $max.ToByteArray();
@@ -104,7 +105,7 @@ Function Get-RandomBigInteger {
     }
 
     $msb_value = $xs[$msb_index];
-    #                     0  1  2  3  4    5   6    7
+    #                     0  1  2  3   4   5   6    7
     $bit_flags = [byte[]](1, 2, 4, 8, 16, 32, 64, 128);
 
     $d = 8 * $msb_index;
@@ -207,8 +208,8 @@ Function Get-RandomBigInteger {
 
     $x = [System.Numerics.BigInteger]::new($xs) + $min;
 
-    If ($x -lt $min -or $x -ge $max) {
-        Throw("$min <= $x < $max does not hold");
+    If ($x -lt $min -or $x -ge $original_max) {
+        Throw("$min <= $x < $original_max does not hold");
     }
 
     Return $x;
