@@ -1,0 +1,18 @@
+<!-- BEGIN HEADER -->
+<table border="1">
+<tr>
+    <td rowspan="2"><strong>President</strong></td>
+    <td style="text-align: center" colspan="2"><strong>First market day</strong></td>
+    <td style="text-align: center" colspan="2"><strong>Last market day</strong></td>
+    <td rowspan="2"><strong>Annual return</strong></td>
+    <td style="text-align: center" colspan="2"><strong>Record highs</strong></td>
+</tr>
+<tr>
+    <td><strong>Date</strong></td>
+    <td><strong>Open</strong></td>
+    <td><strong>Date</strong></td>
+    <td><strong>Close</strong></td>
+    <td><strong>Count</strong></td>
+    <td><strong>Mean days to new record high</strong></td>
+</tr>
+<!-- END HEADER -->

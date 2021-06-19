@@ -1,23 +1,28 @@
-Function WriteHeader() {
-	Write-Output "<table border=`"1`">"
-	Write-Output "<tr>"
-	Write-Output "    <td rowspan=`"2`"><strong>President</strong></td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>First market day</strong></td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>Last market day</strong></td>"
-	Write-Output "    <td rowspan=`"2`"><strong>Annual return</strong></td>"
-	Write-Output "    <td style=`"text-align: center`" colspan=`"2`"><strong>Record highs</strong></td>"
-	Write-Output "</tr>"
-	Write-Output "<tr>"
-	Write-Output "    <td><strong>Date</strong></td>"
-	Write-Output "    <td><strong>Open</strong></td>"
-	Write-Output "    <td><strong>Date</strong></td>"
-	Write-Output "    <td><strong>Close</strong></td>"
-	Write-Output "    <td><strong>Count</strong></td>"
-	Write-Output "    <td><strong>Mean days to new record high</strong></td>"
-	Write-Output "</tr>"
+# Given an HTML template and a dictionary of keys and values,
+# replace each key with the HTML-encoded value
+# e.g. if the dictionary contains d["INDEX"] = "S&P 500"
+# then instances of #INDEX# in the HTML will be replaced with S&amp;P 500
+Function WriteHtmlWithReplacement {
+	Param(
+		[string]$html,
+		[hashtable]$parameters
+	);
+
+	$parameters.Keys | ForEach-Object {
+		$key = $_;
+		$value = $parameters[$key]
+		$html = $html.Replace("#" + $key + "#", [System.Net.WebUtility]::HtmlEncode($value));
+	}
+
+	Write-Output $html;
 }
 
-Function WritePresident() {
+Function WriteHeader {
+	$header = Get-Content -Path "dow-header.txt" -Raw;
+	Write-Output $header;
+}
+
+Function WritePresident {
 	Param([string]$president);
 
 	If ($marketDays -eq 0) {
@@ -45,25 +50,22 @@ Function WritePresident() {
 		$daysBetweenHighsAlign = "right";
 	}
 
-	$firstDatePretty = $firstMarketDay.ToString("yyyy-MM-dd");
-	$firstOpenPretty = ([double]$firstOpen).ToString("N2");
-	$lastDatePretty = $lastMarketDay.ToString("yyyy-MM-dd");
-	$lastClosePretty = ([double]$lastClose).ToString("N2");
+	$parameters = @{
+		"PRESIDENT" = $president;
+		"FIRSTDATEPRETTY" = $firstMarketDay.ToString("yyyy-MM-dd");
+		"LASTDATEPRETTY" = $lastMarketDay.ToString("yyyy-MM-dd");
+		"FIRSTOPENPRETTY" = ([double]$firstOpen).ToString("N2");
+		"LASTCLOSEPRETTY" = ([double]$lastClose).ToString("N2");
+		"RETURN" = $return;
+		"RECORDHIGHS" = $recordHighs;
+		"DAYSBETWEENHIGHS" = $daysBetweenHighs;
+		"DAYSBETWEENHIGHSALIGN" = $daysBetweenHighsAlign;
+	};
 
-	Write-Output "<tr>"
-	Write-Output "    <td>$president</td>"
-	Write-Output "    <td>$firstDatePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$firstOpenPretty</td>"
-	Write-Output "    <td>$lastDatePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$lastClosePretty</td>"
-	Write-Output "    <td style=`"text-align: right`">$return</td>"
-	Write-Output "    <td style=`"text-align: right`">$recordHighs</td>"
-	Write-Output "    <td style=`"text-align: $daysBetweenHighsAlign`">$daysBetweenHighs</td>"
-	Write-Output "</tr>"
-
+	WriteHtmlWithReplacement -html (Get-Content -Path "dow-president.txt" -Raw) -parameters $parameters;
 }
 
-Function WriteFooter() {
+Function WriteSummary {
 	$firstMarketDay = [DateTime]$djia[0].Date;
 	$firstDatePretty = $firstMarketDay.ToString("yyyy-MM-dd");
 
@@ -86,17 +88,22 @@ Function WriteFooter() {
 	$daysBetweenHighs = "{0:N0}" -f ($calendarDays / $totalRecordHighs);
 	$daysBetweenHighsAlign = "right";
 
-	Write-Output "<tr>"
-	Write-Output "    <td><strong>Overall</strong></td>"
-	Write-Output "    <td><strong>$firstDatePretty</strong></td>"
-	Write-Output "    <td style=`"text-align: right`"><strong>$firstOpenPretty</strong></td>"
-	Write-Output "    <td><strong>$lastDatePretty</strong></td>"
-	Write-Output "    <td style=`"text-align: right`"><strong>$lastClosePretty</strong></td>"
-	Write-Output "    <td style=`"text-align: right`"><strong>$return</strong></td>"
-	Write-Output "    <td style=`"text-align: right`"><strong>$totalRecordHighs</strong></td>"
-	Write-Output "    <td style=`"text-align: right`"><strong>$daysBetweenHighs</strong></td>"
-	Write-Output "</tr>"
-	Write-Output "</table>"
+	$parameters = @{
+		"FIRSTDATEPRETTY" = $firstMarketDay.ToString("yyyy-MM-dd");
+		"LASTDATEPRETTY" = $lastMarketDay.ToString("yyyy-MM-dd");
+		"FIRSTOPENPRETTY" = ([double]$firstOpen).ToString("N2");
+		"LASTCLOSEPRETTY" = ([double]$lastClose).ToString("N2");
+		"RETURN" = $return;
+		"TOTALRECORDHIGHS" = $totalRecordHighs;
+		"DAYSBETWEENHIGHS" = $daysBetweenHighs;
+	};
+
+	WriteHtmlWithReplacement -html (Get-Content -Path "dow-summary.txt" -Raw) -parameters $parameters;
+}
+
+Function WriteFooter {
+	$footer = Get-Content -Path "dow-footer.txt" -Raw;
+	Write-Output $footer;
 }
 
 # Start End President
@@ -171,4 +178,5 @@ $presidents | ForEach-Object {
 		WritePresident -president $president.President;
 	}
 }
+WriteSummary;
 WriteFooter;

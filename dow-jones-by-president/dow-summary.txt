@@ -1,0 +1,10 @@
+<tr>
+    <td><strong>Overall</strong></td>
+    <td><strong>#FIRSTDATEPRETTY#</strong></td>
+    <td style="text-align: right"><strong>#FIRSTOPENPRETTY#</strong></td>
+    <td><strong>#LASTDATEPRETTY#</strong></td>
+    <td style="text-align: right"><strong>#LASTCLOSEPRETTY#</strong></td>
+    <td style="text-align: right"><strong>#RETURN#</strong></td>
+    <td style="text-align: right"><strong>#TOTALRECORDHIGHS#</strong></td>
+    <td style="text-align: right"><strong>#DAYSBETWEENHIGHS#</strong></td>
+</tr>

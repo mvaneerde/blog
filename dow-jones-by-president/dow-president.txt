@@ -1,0 +1,12 @@
+<!-- BEGIN PRESIDENT -->
+<tr>
+    <td>#PRESIDENT#</td>
+    <td>#FIRSTDATEPRETTY#</td>
+    <td style="text-align: right">#FIRSTOPENPRETTY#</td>
+    <td>#LASTDATEPRETTY#</td>
+    <td style="text-align: right">#LASTCLOSEPRETTY#</td>
+    <td style="text-align: right">#RETURN#</td>
+    <td style="text-align: right">#RECORDHIGHS#</td>
+    <td style="text-align: #DAYSBETWEENHIGHSALIGN#">#DAYSBETWEENHIGHS#</td>
+</tr>
+<!-- END PRESIDENT -->
