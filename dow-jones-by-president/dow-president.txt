@@ -1,12 +1,13 @@
 <!-- BEGIN PRESIDENT -->
-<tr>
-    <td>#PRESIDENT#</td>
-    <td>#FIRSTDATEPRETTY#</td>
-    <td style="text-align: right">#FIRSTOPENPRETTY#</td>
-    <td>#LASTDATEPRETTY#</td>
-    <td style="text-align: right">#LASTCLOSEPRETTY#</td>
-    <td style="text-align: right">#RETURN#</td>
-    <td style="text-align: right">#RECORDHIGHS#</td>
-    <td style="text-align: #DAYSBETWEENHIGHSALIGN#">#DAYSBETWEENHIGHS#</td>
-</tr>
+        <tr>
+            <td colspan="3">
+                #PRESIDENT#
+                <div style="float: right;">#FIRSTDATEPRETTY# to #LASTDATEPRETTY#</div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">#RETURN#</td>
+            <td style="text-align: right">#RECORDHIGHS#</td>
+            <td style="text-align: #DAYSBETWEENHIGHSALIGN#">#DAYSBETWEENHIGHS#</td>
+        </tr>
 <!-- END PRESIDENT -->

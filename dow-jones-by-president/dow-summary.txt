@@ -1,10 +1,13 @@
-<tr>
-    <td><strong>Overall</strong></td>
-    <td><strong>#FIRSTDATEPRETTY#</strong></td>
-    <td style="text-align: right"><strong>#FIRSTOPENPRETTY#</strong></td>
-    <td><strong>#LASTDATEPRETTY#</strong></td>
-    <td style="text-align: right"><strong>#LASTCLOSEPRETTY#</strong></td>
-    <td style="text-align: right"><strong>#RETURN#</strong></td>
-    <td style="text-align: right"><strong>#TOTALRECORDHIGHS#</strong></td>
-    <td style="text-align: right"><strong>#DAYSBETWEENHIGHS#</strong></td>
-</tr>
+<!-- BEGIN SUMMARY -->
+        <tr>
+            <td colspan="3">
+                <strong>Overall</strong>
+                <div style="float: right;">#FIRSTDATEPRETTY# to #LASTDATEPRETTY#</div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">#RETURN#</td>
+            <td style="text-align: right">#TOTALRECORDHIGHS#</td>
+            <td style="text-align: right">#DAYSBETWEENHIGHS#</td>
+        </tr>
+<!-- END SUMMARY -->
