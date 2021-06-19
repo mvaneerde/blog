@@ -1,0 +1,8 @@
+<table>
+    <thead>
+        <tr>
+            <th>Movie</th>
+            <th>Character</th>
+        </tr>
+    </thead>
+    <tbody>
