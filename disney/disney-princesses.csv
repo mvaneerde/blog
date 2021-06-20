@@ -1,7 +1,7 @@
-﻿Movie,Year,Link,Character
-Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/,Snow White
-Bambi,1942,http://www.imdb.com/title/tt0034492/,Faline
-Bambi,1942,http://www.imdb.com/title/tt0034492/,Bambi's Mother
-Cinderella,1950,http://www.imdb.com/title/tt0042332/,Cinderella
-Peter Pan,1953,http://www.imdb.com/title/tt0046183/,Tiger Lily
-Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/,Aurora
+﻿Movie,Year,Link,Character,Image,Height,Width
+Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/,Snow White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202
+Bambi,1942,http://www.imdb.com/title/tt0034492/,Faline,https://matthewvaneerde.files.wordpress.com/2011/08/faline.jpg,233,200
+Bambi,1942,http://www.imdb.com/title/tt0034492/,Bambi's Mother,https://matthewvaneerde.files.wordpress.com/2011/08/bambis-mother.jpg,258,185
+Cinderella,1950,http://www.imdb.com/title/tt0042332/,Cinderella,https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233
+Peter Pan,1953,http://www.imdb.com/title/tt0046183/,Tiger Lily,https://matthewvaneerde.files.wordpress.com/2011/08/tiger-lily.jpg,229,173
+Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/,Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189

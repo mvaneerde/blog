@@ -29,8 +29,11 @@ $ps | ForEach-Object {
 
     Write-Html -file "princess.txt" -parameters @{
         "CHARACTER" = $p.Character;
+        "HEIGHT" = $p.Height;
+        "IMAGE" = $p.Image;
         "LINK" = $p.Link;
         "MOVIE" = $p.Movie;
+        "WIDTH" = $p.Width;
         "YEAR" = $p.Year;
     };
 };
