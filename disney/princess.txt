@@ -1,4 +1,4 @@
         <tr>
-            <td><a href="#LINK#">#MOVIE# (#YEAR#)</a></td>
-            <td><img height="#HEIGHT#" src="#IMAGE#" width="#WIDTH#" />#CHARACTER#</td>
+            <td><img height="#HEIGHT#" src="#IMAGE#" width="#WIDTH#" /></td>
+            <td>#CHARACTER#</td>
         </tr>

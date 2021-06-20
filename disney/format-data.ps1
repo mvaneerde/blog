@@ -17,6 +17,8 @@ Function Write-Html {
     Write-Output $html;
 }
 
+$movie = "";
+
 # Write header
 Write-Html -file "header.txt";
 
@@ -27,16 +29,31 @@ $ps = Import-Csv ".\disney-princesses.csv";
 $ps | ForEach-Object {
     $p = $_;
 
+    If ($p.Movie -ne $movie) {
+        If ($movie -ne "") {
+            Write-Html -file "movie-footer.txt";
+        }
+
+        Write-Html -file "movie-header.txt" -parameters @{
+            "LINK" = $p.Link;
+            "MOVIE" = $p.Movie;
+            "YEAR" = $p.Year;
+        };
+
+        $movie = $p.Movie;
+    }
+
     Write-Html -file "princess.txt" -parameters @{
         "CHARACTER" = $p.Character;
         "HEIGHT" = $p.Height;
         "IMAGE" = $p.Image;
-        "LINK" = $p.Link;
-        "MOVIE" = $p.Movie;
         "WIDTH" = $p.Width;
-        "YEAR" = $p.Year;
     };
 };
+
+If ($movie -ne "") {
+    Write-Html -file "movie-footer.txt";
+}
 
 # Write footer
 Write-Html -file "footer.txt";

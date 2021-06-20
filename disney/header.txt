@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th>Movie</th>
+            <th>Image</th>
             <th>Character</th>
         </tr>
     </thead>
