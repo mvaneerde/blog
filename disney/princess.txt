@@ -1,4 +1,10 @@
         <tr>
-            <td><img height="#HEIGHT#" src="#IMAGE#" width="#WIDTH#" /></td>
-            <td>#CHARACTER#</td>
+            <td style="vertical-align: top;"><img height="#HEIGHT#" src="#IMAGE#" width="#WIDTH#" /></td>
+            <td style="vertical-align: top;">
+                #CHARACTER#
+                <br />
+                #COMMENT#
+                <br />
+                <strong>#PRINCESS#</strong>
+            </td>
         </tr>

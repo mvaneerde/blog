@@ -43,10 +43,18 @@ $ps | ForEach-Object {
         $movie = $p.Movie;
     }
 
+    $princessPretty = @{
+        "Maybe" = "Disney Princess?";
+        "No" = "Not a Disney Princess";
+        "Yes" = "Disney Princess";
+    };
+
     Write-Html -file "princess.txt" -parameters @{
         "CHARACTER" = $p.Character;
+        "COMMENT" = $p.Comment;
         "HEIGHT" = $p.Height;
         "IMAGE" = $p.Image;
+        "PRINCESS" = $princessPretty[$p.Princess];
         "WIDTH" = $p.Width;
     };
 };
