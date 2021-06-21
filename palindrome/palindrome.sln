@@ -1,0 +1,18 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2FF551C0-DAD6-4F4E-AB7C-C969A7CC1EE4}"
+	ProjectSection(SolutionItems) = preProject
+		Test-Palindrome.ps1 = Test-Palindrome.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7459B279-C0F6-42C6-9CA9-460F1AD03868}
+	EndGlobalSection
+EndGlobal
