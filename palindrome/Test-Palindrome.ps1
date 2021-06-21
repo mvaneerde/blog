@@ -33,7 +33,7 @@ $conjugateOf = Get-ConjugateDictionary;
 # check the first letter against the last,
 # then the second against the next-to-last,
 # and so on
-While ($front -lt $back) {
+While ($front -le $back) {
     $f = $letters[$front];
     $b = $letters[$back];
 
