@@ -1,8 +1,11 @@
-﻿Movie,Year,Link,Character,Image,Height,Width,Princess,Comment
-Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/,Snow White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202,Yes,Queen's Daughter; Queen? Prince's Girlfriend; Prince's Wife?
-Bambi,1942,http://www.imdb.com/title/tt0034492/,Faline,https://matthewvaneerde.files.wordpress.com/2011/08/faline.jpg,233,200,Yes,Prince's Wife
-Bambi,1942,http://www.imdb.com/title/tt0034492/,Bambi's Mother,https://matthewvaneerde.files.wordpress.com/2011/08/bambis-mother.jpg,258,185,Yes,Prince's Wife
-Cinderella,1950,http://www.imdb.com/title/tt0042332/,Cinderella,https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233,Yes,Prince's Wife
-Peter Pan,1953,http://www.imdb.com/title/tt0046183/,Tiger Lily,https://matthewvaneerde.files.wordpress.com/2011/08/tiger-lily.jpg,229,173,Yes,Chief's Daughter
-Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/,Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189,Yes,King's Daughter; Prince's Girlfriend; Prince's Wife
-Robin Hood,1973,http://www.imdb.com/title/tt0070608/,Maid Marian,https://matthewvaneerde.files.wordpress.com/2011/08/maid-marian.jpg,233,200,No,Wealthy; Prince(?)'s Girlfriend
+﻿Studio,Movie,Year,Link,Character,Image,Height,Width,Princess,Comment
+Walt Disney Productions,Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/,Snow White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202,Yes,Queen's Daughter; Queen? Prince's Girlfriend; Prince's Wife?
+Walt Disney Productions,Bambi,1942,http://www.imdb.com/title/tt0034492/,Faline,https://matthewvaneerde.files.wordpress.com/2011/08/faline.jpg,233,200,Yes,Prince's Wife
+Walt Disney Productions,Bambi,1942,http://www.imdb.com/title/tt0034492/,Bambi's Mother,https://matthewvaneerde.files.wordpress.com/2011/08/bambis-mother.jpg,258,185,Yes,Prince's Wife
+Walt Disney Productions,Cinderella,1950,http://www.imdb.com/title/tt0042332/,Cinderella,https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233,Yes,Prince's Wife
+Walt Disney Productions,Peter Pan,1953,http://www.imdb.com/title/tt0046183/,Tiger Lily,https://matthewvaneerde.files.wordpress.com/2011/08/tiger-lily.jpg,229,173,Yes,Chief's Daughter
+Walt Disney Productions,Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/,Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189,Yes,King's Daughter; Prince's Girlfriend; Prince's Wife
+Walt Disney Productions,Robin Hood,1973,http://www.imdb.com/title/tt0070608/,Maid Marian,https://matthewvaneerde.files.wordpress.com/2011/08/maid-marian.jpg,233,200,No,Wealthy; Prince(?)'s Girlfriend
+Studio Ghibli,Nausicaä of the Valley of Wind,1984,http://www.imdb.com/title/tt0087544/,Nausicaä,https://matthewvaneerde.files.wordpress.com/2011/08/nausicaa.jpg,577,259,Yes,King’s Daughter; Queen?
+Studio Ghibli,Nausicaä of the Valley of Wind,1984,http://www.imdb.com/title/tt0087544/,Kushana,https://matthewvaneerde.files.wordpress.com/2011/08/kushana.jpg,200,232,Yes,Royalty’s Daughter
+Studio Ghibli,Nausicaä of the Valley of Wind,1984,http://www.imdb.com/title/tt0087544/,Lastelle,https://matthewvaneerde.files.wordpress.com/2011/08/lastelle.jpg,200,300,Yes,Queen’s Daughter
