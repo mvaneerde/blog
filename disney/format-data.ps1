@@ -1,8 +1,7 @@
 Function Write-Html {
     Param(
         [string]$file,
-        [hashtable]$textParameters,
-        [hashtable]$htmlParameters
+        [hashtable]$textParameters
     )
 
     $html = Get-Content -Path $file -Raw;
@@ -15,14 +14,6 @@ Function Write-Html {
         }
     }
 
-    If ($htmlParameters -ne $null) {
-        $htmlParameters.Keys | ForEach-Object {
-            $key = $_;
-            $value = $htmlParameters[$key];
-            $html = $html.Replace("#" + $key + "#", $value);
-        }
-    }
-
     Write-Output $html;
 }
 
@@ -31,62 +22,57 @@ $movie = "";
 # Write header
 Write-Html -file "header.txt";
 
-# Load list of princesses
-$ps = Import-Csv ".\disney-princesses.csv";
+# Load list of movies
+$movies = Import-Csv ".\movies.csv";
 
-# Write a row for each princess
-$ps | ForEach-Object {
-    $p = $_;
+# Load list of characters
+$characters = Import-Csv ".\characters.csv";
 
-    If ($p.Movie -ne $movie) {
-        If ($movie -ne "") {
-            Write-Html -file "movie-footer.txt";
+# Write a block for each movie
+$movies | ForEach-Object {
+    $movie = $_;
+
+    Write-Html -file "movie-header.txt" -textParameters @{
+        "LINK" = $movie.Link;
+        "TITLE" = $movie.Title;
+        "YEAR" = $movie.Year;
+    };
+
+    # Write a row for each character of interest in the movie
+    $interesting_characters = $characters | ForEach-Object {
+        $character = $_;
+
+        If ($character.Movie -eq $movie.Title) {
+            Return $character;
         }
+    }
 
-        Write-Html -file "movie-header.txt" -textParameters @{
-            "MOVIE_LINK" = $p."Movie Link";
-            "MOVIE" = $p.Movie;
-            "YEAR" = $p.Year;
+    If ($interesting_characters.Count -eq 0) {
+        Return;
+    }
+
+    $interesting_characters | ForEach-Object {
+        $character = $_;
+
+        $princessPretty = @{
+            "Maybe" = "Disney Princess?";
+            "No" = "Not a Disney Princess";
+            "Yes" = "Disney Princess";
         };
 
-        $movie = $p.Movie;
+        $textParameters = @{
+            "COMMENT" = $character.Comment;
+            "HEIGHT" = $character.Height;
+            "IMAGE" = $character.Image;
+            "LINK" = $character.Link;
+            "NAME" = $character.Name;
+            "PRINCESS" = $princessPretty[$character.Princess];
+            "WIDTH" = $character.Width;
+        };
+
+        Write-Html -file "princess.txt" -textParameters $textParameters;
     }
 
-    $princessPretty = @{
-        "Maybe" = "Disney Princess?";
-        "No" = "Not a Disney Princess";
-        "Yes" = "Disney Princess";
-    };
-
-    $textParameters = @{
-        "COMMENT" = $p.Comment;
-        "HEIGHT" = $p.Height;
-        "IMAGE" = $p.Image;
-        "PRINCESS" = $princessPretty[$p.Princess];
-        "WIDTH" = $p.Width;
-    };
-
-    If ($p."Character Link") {
-        $characterHtml =
-            "<a href=`"" +
-            [System.Net.WebUtility]::HtmlEncode($p."Character Link") +
-            "`">" +
-            [System.Net.WebUtility]::HtmlEncode($p.Character) +
-            "</a>";
-    } Else {
-        $characterHtml = [System.Net.WebUtility]::HtmlEncode($p.Character);
-    }
-
-    $htmlParameters = @{
-        "CHARACTER_HTML" = $characterHtml;
-    }
-
-    Write-Html -file "princess.txt" `
-        -textParameters $textParameters `
-        -htmlParameters $htmlParameters;
-};
-
-If ($movie -ne "") {
     Write-Html -file "movie-footer.txt";
 }
 

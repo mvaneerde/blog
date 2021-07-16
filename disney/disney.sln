@@ -5,12 +5,13 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{520CCF8A-C6FE-426D-99E5-21A39607E9CA}"
 	ProjectSection(SolutionItems) = preProject
-		disney-princesses.csv = disney-princesses.csv
+		characters.csv = characters.csv
 		footer.txt = footer.txt
 		format-data.ps1 = format-data.ps1
 		header.txt = header.txt
 		movie-footer.txt = movie-footer.txt
 		movie-header.txt = movie-header.txt
+		movies.csv = movies.csv
 		princess.txt = princess.txt
 		ReadMe.md = ReadMe.md
 	EndProjectSection

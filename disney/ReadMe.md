@@ -2,7 +2,7 @@
 
 Underlying data behind [Disney princesses: an attempt at a complete list](https://matthewvaneerde.wordpress.com/2011/08/28/disney-princesses-an-attempt-at-a-complete-list/)
 
-Data is stored in [disney-princesses.csv](disney-princesses.csv)
+Data is stored in [movies.csv](movies.csv) and [characters.csv](characters.csv)
 
 To format it as HTML, run a command like
 
