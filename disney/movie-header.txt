@@ -1,3 +1,3 @@
         <tr>
-            <td colspan="2"><a href="#LINK#">#MOVIE# (#YEAR#)</a></td>
+            <td colspan="2"><a href="#MOVIE_LINK#">#MOVIE# (#YEAR#)</a></td>
         </tr>
