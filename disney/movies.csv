@@ -1,28 +1,36 @@
-﻿Studio,Title,Year,Link
-Walt Disney Productions,Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/
-Walt Disney Productions,Bambi,1942,http://www.imdb.com/title/tt0034492/
-Walt Disney Productions,Cinderella,1950,http://www.imdb.com/title/tt0042332/
-Walt Disney Productions,Peter Pan,1953,http://www.imdb.com/title/tt0046183/
-Walt Disney Productions,Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/
-Walt Disney Productions,Robin Hood,1973,http://www.imdb.com/title/tt0070608/
-Studio Ghibli,Nausicaä of the Valley of Wind,1984,http://www.imdb.com/title/tt0087544/
-Walt Disney Productions,The Black Cauldron,1985,http://www.imdb.com/title/tt0088814/
-Studio Ghibli,Castle in the Sky,1986,http://www.imdb.com/title/tt0092067/
-Walt Disney Feature Animation,Oliver & Company,1988,http://www.imdb.com/title/tt0095776/
-Walt Disney Feature Animation,The Little Mermaid,1989,http://www.imdb.com/title/tt0097757/
-Walt Disney Feature Animation,Beauty and the Beast,1991,http://www.imdb.com/title/tt0101414/
-Walt Disney Feature Animation,Aladdin,1992,http://www.imdb.com/title/tt0103639/
-Walt Disney Feature Animation,The Lion King,1994,http://www.imdb.com/title/tt0110357/
-Walt Disney Feature Animation,Pocahontas,1995,http://www.imdb.com/title/tt0114148/
-Studio Ghibli,Princess Mononoke,1997,http://www.imdb.com/title/tt0119698/
-Pixar Animation Studios,A Bug's Life,1998,http://www.imdb.com/title/tt0120623/
-Walt Disney Feature Animation,Tarzan,1999,http://www.imdb.com/title/tt0120855/
-Walt Disney Feature Animation,Atlantis: The Lost Empire,2001,https://www.imdb.com/title/tt0230011/
-Studio Ghibli,Tales from Earthsea,2006,http://www.imdb.com/title/tt0495596/
-Studio Ghibli,Ponyo,2008,http://www.imdb.com/title/tt0876563/
-Walt Disney Animation Studios,The Princess and the Frog,2009,http://www.imdb.com/title/tt0780521/
-Walt Disney Animation Studios,Tangled,2010,http://www.imdb.com/title/tt0398286/
-Pixar Animation Studios,Brave,2012,http://www.imdb.com/title/tt1217209/
-Walt Disney Animation Studios,Wreck-It Ralph,2012,http://www.imdb.com/title/tt1772341/
-Walt Disney Animation Studios,Frozen,2013,http://www.imdb.com/title/tt2294629/
-Walt Disney Animation Studios,Moana,2016,https://www.imdb.com/title/tt3521164/
+﻿Studio,Title,Year,Link,Comment
+Walt Disney Productions,Snow White and the Seven Dwarfs,1937,http://www.imdb.com/title/tt0029583/,
+Walt Disney Productions,Bambi,1942,http://www.imdb.com/title/tt0034492/,
+Walt Disney Productions,Cinderella,1950,http://www.imdb.com/title/tt0042332/,
+Walt Disney Productions,Peter Pan,1953,http://www.imdb.com/title/tt0046183/,
+Walt Disney Productions,Sleeping Beauty,1959,http://www.imdb.com/title/tt0053285/,
+Walt Disney Productions,Robin Hood,1973,http://www.imdb.com/title/tt0070608/,
+Studio Ghibli,Nausicaä of the Valley of Wind,1984,http://www.imdb.com/title/tt0087544/,
+Walt Disney Productions,The Black Cauldron,1985,http://www.imdb.com/title/tt0088814/,
+Studio Ghibli,Castle in the Sky,1986,http://www.imdb.com/title/tt0092067/,
+Walt Disney Feature Animation,Oliver & Company,1988,http://www.imdb.com/title/tt0095776/,
+Walt Disney Feature Animation,The Little Mermaid,1989,http://www.imdb.com/title/tt0097757/,
+Walt Disney Feature Animation,Beauty and the Beast,1991,http://www.imdb.com/title/tt0101414/,
+Walt Disney Feature Animation,Aladdin,1992,http://www.imdb.com/title/tt0103639/,
+Walt Disney Feature Animation,The Lion King,1994,http://www.imdb.com/title/tt0110357/,
+Walt Disney Feature Animation,Pocahontas,1995,http://www.imdb.com/title/tt0114148/,
+Studio Ghibli,Princess Mononoke,1997,http://www.imdb.com/title/tt0119698/,
+Walt Disney Feature Animation,Mulan,1998,https://www.imdb.com/title/tt00120762/,
+Pixar Animation Studios,A Bug's Life,1998,http://www.imdb.com/title/tt0120623/,
+Walt Disney Feature Animation,Tarzan,1999,http://www.imdb.com/title/tt0120855/,
+Walt Disney Feature Animation,Atlantis: The Lost Empire,2001,https://www.imdb.com/title/tt0230011/,
+Studio Ghibli,Tales from Earthsea,2006,http://www.imdb.com/title/tt0495596/,
+Studio Ghibli,Ponyo,2008,http://www.imdb.com/title/tt0876563/,
+Walt Disney Animation Studios,The Princess and the Frog,2009,http://www.imdb.com/title/tt0780521/,
+Walt Disney Animation Studios,Tangled,2010,http://www.imdb.com/title/tt0398286/,
+Pixar Animation Studios,Brave,2012,http://www.imdb.com/title/tt1217209/,
+Walt Disney Animation Studios,Wreck-It Ralph,2012,http://www.imdb.com/title/tt1772341/,
+Studio Ghibli,The Tale of The Princess Kaguya,2013,https://www.imdb.com/title/tt2576852/,Rewatch me
+Walt Disney Animation Studios,Frozen,2013,http://www.imdb.com/title/tt2294629/,
+Walt Disney Animation Studios,Moana,2016,https://www.imdb.com/title/tt3521164/,
+Walt Disney Animation Studios,Ralph Breaks the Internet,2018,https://www.imdb.com/title/tt5848272/,
+Pixar Animation Studios,Toy Story 4,2019,https://www.imdb.com/title/tt1979376/,Watch me
+Walt Disney Animation Studios,Frozen II,2019,https://www.imdb.com/title/tt4520988/,
+Pixar Animation Studios,Onward,2020,https://www.imdb.com/title/tt7146812/,Guinevere?
+Walt Disney Animation Studios,Raya and the Last Dragon,2021,https://www.imdb.com/title/tt5109280/,Watch me
+Pixar Animation Studios,Luca,2021,https://www.imdb.com/title/tt12801262/,Watch me
