@@ -32,12 +32,6 @@ $characters = Import-Csv ".\characters.csv";
 $movies | ForEach-Object {
     $movie = $_;
 
-    Write-Html -file "movie-header.txt" -textParameters @{
-        "LINK" = $movie.Link;
-        "TITLE" = $movie.Title;
-        "YEAR" = $movie.Year;
-    };
-
     # Write a row for each character of interest in the movie
     $interesting_characters = $characters | ForEach-Object {
         $character = $_;
@@ -50,6 +44,12 @@ $movies | ForEach-Object {
     If ($interesting_characters.Count -eq 0) {
         Return;
     }
+
+    Write-Html -file "movie-header.txt" -textParameters @{
+        "LINK" = $movie.Link;
+        "TITLE" = $movie.Title;
+        "YEAR" = $movie.Year;
+    };
 
     $interesting_characters | ForEach-Object {
         $character = $_;
