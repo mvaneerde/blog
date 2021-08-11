@@ -20,13 +20,13 @@ Function Write-Html {
 $movie = "";
 
 # Write header
-Write-Html -file "header.txt";
+Write-Html -file ".\Template\header.txt";
 
 # Load list of movies
-$movies = Import-Csv ".\movies.csv";
+$movies = Import-Csv ".\Data\movies.csv";
 
 # Load list of characters
-$characters = Import-Csv ".\characters.csv";
+$characters = Import-Csv ".\Data\characters.csv";
 
 # Write a block for each movie
 $movies | ForEach-Object {
@@ -45,7 +45,7 @@ $movies | ForEach-Object {
         Return;
     }
 
-    Write-Html -file "movie-header.txt" -textParameters @{
+    Write-Html -file ".\Template\movie-header.txt" -textParameters @{
         "LINK" = $movie.Link;
         "TITLE" = $movie.Title;
         "YEAR" = $movie.Year;
@@ -70,11 +70,11 @@ $movies | ForEach-Object {
             "WIDTH" = $character.Width;
         };
 
-        Write-Html -file "princess.txt" -textParameters $textParameters;
+        Write-Html -file ".\Template\princess.txt" -textParameters $textParameters;
     }
 
-    Write-Html -file "movie-footer.txt";
+    Write-Html -file ".\Template\movie-footer.txt";
 }
 
 # Write footer
-Write-Html -file "footer.txt";
+Write-Html -file ".\Template\footer.txt";
