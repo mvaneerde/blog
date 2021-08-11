@@ -1,62 +1,45 @@
-﻿Movie,Name,Link,Image,Height,Width,Princess,Comment,,,
-Snow White and the Seven Dwarfs,Snow White,https://disney.fandom.com/wiki/Snow_White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202,Yes,Queen's Daughter; Queen? Prince's Girlfriend; Prince's Wife?,,,
-Bambi,Faline,https://disney.fandom.com/wiki/Faline,https://matthewvaneerde.files.wordpress.com/2011/08/faline.jpg,233,200,Yes,Prince's Wife,,,
-Bambi,Bambi's Mother,https://disney.fandom.com/wiki/Bambi's_mother,https://matthewvaneerde.files.wordpress.com/2011/08/bambis-mother.jpg,258,185,Yes,Prince's Wife,,,
-Cinderella,Cinderella,https://disney.fandom.com/wiki/Cinderella_(character),https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233,Yes,Prince's Wife,,,
-Peter Pan,Tiger Lily,https://disney.fandom.com/wiki/Tiger_Lily,https://matthewvaneerde.files.wordpress.com/2011/08/tiger-lily.jpg,229,173,Yes,Chief's Daughter,,,
-Sleeping Beauty,Aurora,https://disney.fandom.com/wiki/Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189,Yes,King's Daughter; Prince's Girlfriend; Prince's Wife,,,
-Robin Hood,Maid Marian,https://disney.fandom.com/wiki/Maid_Marian,https://matthewvaneerde.files.wordpress.com/2011/08/maid-marian.jpg,233,200,No,Wealthy; Prince(?)'s Girlfriend,,,
-Nausicaä of the Valley of Wind,Nausicaä,https://disney.fandom.com/wiki/Nausica%C3%A4,https://matthewvaneerde.files.wordpress.com/2011/08/nausicaa.jpg,577,259,Yes,King’s Daughter; Queen?,,,
-Nausicaä of the Valley of Wind,Kushana,https://nausicaa.fandom.com/wiki/Kushana,https://matthewvaneerde.files.wordpress.com/2011/08/kushana.jpg,200,232,Yes,Royalty’s Daughter,,,
-Nausicaä of the Valley of Wind,Lastelle,https://nausicaa.fandom.com/wiki/Rastel_(Lastelle),https://matthewvaneerde.files.wordpress.com/2011/08/lastelle.jpg,200,300,Yes,Queen’s Daughter,,,
-The Black Cauldron,Eilonwy,https://disney.fandom.com/wiki/Eilonwy,https://matthewvaneerde.files.wordpress.com/2011/08/eilonwy.jpg,194,200,Yes,Queen’s Daughter; Prince(?)‘s Girlfriend(?),,,
-Castle in the Sky,Sheeta,https://disney.fandom.com/wiki/Sheeta,https://matthewvaneerde.files.wordpress.com/2011/08/sheeta.jpg,179,200,Yes,Queen’s Daughter; Queen?,,,
-Oliver & Company,Jenny,https://disney.fandom.com/wiki/Jenny_Foxworth,https://matthewvaneerde.files.wordpress.com/2011/08/jenny.jpg,200,218,No,Wealthy,,,
-The Little Mermaid,Ariel,https://disney.fandom.com/wiki/Ariel,https://matthewvaneerde.files.wordpress.com/2011/08/ariel.gif,198,171,Yes,King’s Daughter; Queen’s Daughter? Prince’s Wife,,,
-The Little Mermaid,Aquata,https://littlemermaid.fandom.com/wiki/Aquata,https://matthewvaneerde.files.wordpress.com/2021/07/aquata.jpg,273,250,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-The Little Mermaid,Andrina,https://littlemermaid.fandom.com/wiki/Andrina,https://matthewvaneerde.files.wordpress.com/2021/07/andrina.jpg,169,300,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-The Little Mermaid,Arista,https://littlemermaid.fandom.com/wiki/Arista,https://matthewvaneerde.files.wordpress.com/2021/07/arista.jpg,141,250,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-The Little Mermaid,Attina,https://littlemermaid.fandom.com/wiki/Attina,https://matthewvaneerde.files.wordpress.com/2021/07/attina.png,272,250,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-The Little Mermaid,Adella,https://littlemermaid.fandom.com/wiki/Adella,https://matthewvaneerde.files.wordpress.com/2021/07/adella.jpg,346,250,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-The Little Mermaid,Alana,https://littlemermaid.fandom.com/wiki/Alana,https://matthewvaneerde.files.wordpress.com/2021/07/alana.jpg,232,250,Yes,King’s Daughter; Queen’s Daughter? Queen?,,,
-Beauty and the Beast,Belle,https://disney.fandom.com/wiki/Belle,https://matthewvaneerde.files.wordpress.com/2011/08/belle.jpg,200,226,Maybe,Prince’s Girlfriend; Prince’s Wife?,,,
-Aladdin,Jasmine,https://disney.fandom.com/wiki/Jasmine,https://matthewvaneerde.files.wordpress.com/2011/08/jasmine.jpg,231,200,Yes,Sultan’s Daughter; Prince’s Girlfriend? Sultan’s Girlfriend?,,,
-The Lion King,Nala,https://disney.fandom.com/wiki/Nala,https://matthewvaneerde.files.wordpress.com/2011/08/nala.jpg,159,200,Yes,King’s Daughter; Prince’s Girlfriend; King’s Girlfriend; King’s Wife,,,
-The Lion King,Kiara,https://disney.fandom.com/wiki/Kiara,https://matthewvaneerde.files.wordpress.com/2011/08/kiara.png,255,200,Yes,King’s Daughter,,,
-Pocahontas,Pocahontas,https://disney.fandom.com/wiki/Pocahontas_(character),https://matthewvaneerde.files.wordpress.com/2011/08/pocahontas.jpg,236,200,Yes,Chief’s Daughter,,,
-Princess Mononoke,San,https://disney.fandom.com/wiki/San,https://matthewvaneerde.files.wordpress.com/2011/08/san.jpg,291,200,Yes,Wolf God’s Adopted Daughter,,,
-Princess Mononoke,Kaya,https://ghibli.fandom.com/wiki/Kaya,https://matthewvaneerde.files.wordpress.com/2011/08/kaya.jpg,214,200,Yes,Prince’s Sister,,,
-Mulan,Mulan,https://disney.fandom.com/wiki/Fa_Mulan,https://matthewvaneerde.files.wordpress.com/2021/07/mulan.jpg,1010,816,No,,,,
-A Bug's Life,Dot,https://disney.fandom.com/wiki/Dot,https://matthewvaneerde.files.wordpress.com/2011/08/dot.jpg,252,200,Yes,Queen’s Daughter,,,
-A Bug's Life,Atta,https://disney.fandom.com/wiki/Atta,https://matthewvaneerde.files.wordpress.com/2011/08/atta.jpg,240,210,Yes,Queen’s Daughter; Queen,,,
-Tarzan,Tarzan,https://disney.fandom.com/wiki/Jane_Porter,https://matthewvaneerde.files.wordpress.com/2011/08/jane.png,460,200,Maybe,Chief’s son’s Girlfriend; Chief’s Wife,,,
-Atlantis: The Lost Empire,Kida,https://disney.fandom.com/wiki/Kida_Nedakh,https://matthewvaneerde.files.wordpress.com/2011/08/kida.jpg,200,200,Yes,King’s Daughter; Queen,,,
-Tales from Earthsea,Therru,https://disney.fandom.com/wiki/Therru,https://matthewvaneerde.files.wordpress.com/2011/08/therru.jpg,261,200,No,Prince’s Girlfriend,,,
-Ponyo,Ponyo,https://disney.fandom.com/wiki/Ponyo,https://matthewvaneerde.files.wordpress.com/2011/08/ponyo.jpg,244,223,Yes,Queen’s Daughter,,,
-The Princess and the Frog,Tiana,https://disney.fandom.com/wiki/Tiana,https://matthewvaneerde.files.wordpress.com/2011/08/tiana.jpg,275,200,Yes,Prince's Wife,,,
-The Princess and the Frog,Charlotte,https://disney.fandom.com/wiki/Charlotte_La_Bouff,https://matthewvaneerde.files.wordpress.com/2011/08/charlotte.png,158,200,Yes,King's Daughter,,,
-Tangled,Rapunzel,https://disney.fandom.com/wiki/Rapunzel,https://matthewvaneerde.files.wordpress.com/2011/08/rapunzel.jpg,183,200,Yes,King & Queen’s Daughter,,,
-Brave,Merida,https://disney.fandom.com/wiki/Merida,https://matthewvaneerde.files.wordpress.com/2011/08/merida.png,288,237,Yes,King & Queen’s Daughter,,,
-Wreck-It Ralph,Vanellope von Schweetz,https://disney.fandom.com/wiki/Vanellope_von_Schweetz,https://matthewvaneerde.files.wordpress.com/2011/08/vanellope-von-schweetz.png,241,200,Yes,Princess,,,
-The Tale of The Princess Kaguya,Kaguya,https://ghibli.fandom.com/wiki/Kaguya,https://matthewvaneerde.files.wordpress.com/2021/07/kaguya.jpg,329,295,Yes,Princess,,,
-Frozen,Anna,https://disney.fandom.com/wiki/Anna,https://matthewvaneerde.files.wordpress.com/2011/08/anna.png,259,200,Yes,King & Queen’s Daughter; Queen?,,,
-Frozen,Elsa,https://disney.fandom.com/wiki/Elsa,https://matthewvaneerde.files.wordpress.com/2011/08/elsa.png,323,200,Yes,King & Queen’s Daughter; Queen,,,
-Moana,Moana,https://disney.fandom.com/wiki/Moana_(character),https://matthewvaneerde.files.wordpress.com/2011/08/moana.png,368,200,Yes,Chief’s Daughter,,,
-Ralph Breaks the Internet,Vanellope von Schweetz,https://disney.fandom.com/wiki/Vanellope_von_Schweetz,https://matthewvaneerde.files.wordpress.com/2011/08/vanellope-von-schweetz.png,241,200,Yes,Princess,,,
-Ralph Breaks the Internet,Cinderella,https://disney.fandom.com/wiki/Cinderella_(character),https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233,Yes,Prince's Wife,,,
-Ralph Breaks the Internet,Aurora,https://disney.fandom.com/wiki/Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189,Yes,King's Daughter; Prince's Girlfriend; Prince's Wife,,,
-Ralph Breaks the Internet,Ariel,https://disney.fandom.com/wiki/Ariel,https://matthewvaneerde.files.wordpress.com/2011/08/ariel.gif,198,171,Yes,King’s Daughter; Queen’s Daughter? Prince’s Wife,,,
-Ralph Breaks the Internet,Belle,https://disney.fandom.com/wiki/Belle,https://matthewvaneerde.files.wordpress.com/2011/08/belle.jpg,200,226,Maybe,Prince’s Girlfriend; Prince’s Wife?,,,
-Ralph Breaks the Internet,Jasmine,https://disney.fandom.com/wiki/Jasmine,https://matthewvaneerde.files.wordpress.com/2011/08/jasmine.jpg,231,200,Yes,Sultan’s Daughter; Prince’s Girlfriend? Sultan’s Girlfriend?,,,
-Ralph Breaks the Internet,Pocahontas,https://disney.fandom.com/wiki/Pocahontas_(character),https://matthewvaneerde.files.wordpress.com/2011/08/pocahontas.jpg,236,200,Yes,Chief’s Daughter,,,
-Ralph Breaks the Internet,Mulan,https://disney.fandom.com/wiki/Fa_Mulan,https://matthewvaneerde.files.wordpress.com/2021/07/mulan.jpg,1010,816,No,,,,
-Ralph Breaks the Internet,Tiana,https://disney.fandom.com/wiki/Tiana,https://matthewvaneerde.files.wordpress.com/2011/08/tiana.jpg,275,200,Yes,Prince's Wife,,,
-Ralph Breaks the Internet,Rapunzel,https://disney.fandom.com/wiki/Rapunzel,https://matthewvaneerde.files.wordpress.com/2011/08/rapunzel.jpg,183,200,Yes,King & Queen’s Daughter,,,
-Ralph Breaks the Internet,Merida,https://disney.fandom.com/wiki/Merida,https://matthewvaneerde.files.wordpress.com/2011/08/merida.png,288,237,Yes,King & Queen’s Daughter,,,
-Ralph Breaks the Internet,Snow White,https://disney.fandom.com/wiki/Snow_White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202,Yes,Queen's Daughter; Queen? Prince's Girlfriend; Prince's Wife?,,,
-Ralph Breaks the Internet,Anna,https://disney.fandom.com/wiki/Anna,https://matthewvaneerde.files.wordpress.com/2011/08/anna.png,259,200,Yes,King & Queen’s Daughter; Queen?,,,
-Ralph Breaks the Internet,Elsa,https://disney.fandom.com/wiki/Elsa,https://matthewvaneerde.files.wordpress.com/2011/08/elsa.png,323,200,Yes,King & Queen’s Daughter; Queen,,,
-Ralph Breaks the Internet,Moana,https://disney.fandom.com/wiki/Moana_(character),https://matthewvaneerde.files.wordpress.com/2011/08/moana.png,368,200,Yes,Chief’s Daughter,,,
-Frozen II,Anna,https://disney.fandom.com/wiki/Anna,https://matthewvaneerde.files.wordpress.com/2011/08/anna.png,259,200,Yes,King & Queen’s Daughter; Queen?,,,
-Frozen II,Elsa,https://disney.fandom.com/wiki/Elsa,https://matthewvaneerde.files.wordpress.com/2011/08/elsa.png,323,200,Yes,King & Queen’s Daughter; Queen,,,
-Raya and the Last Dragon,Raya,https://disney.fandom.com/wiki/Raya,https://matthewvaneerde.files.wordpress.com/2021/07/raya.jpg,783,879,Yes,Chief’s Daughter,,,
+﻿Name,Link,Image,Height,Width,Princess,Comment
+Snow White,https://disney.fandom.com/wiki/Snow_White,https://matthewvaneerde.files.wordpress.com/2011/08/snow-white.jpg,171,202,Yes,Queen's Daughter; Queen? Prince's Girlfriend; Prince's Wife?
+Faline,https://disney.fandom.com/wiki/Faline,https://matthewvaneerde.files.wordpress.com/2011/08/faline.jpg,233,200,Yes,Prince's Wife
+Bambi's Mother,https://disney.fandom.com/wiki/Bambi's_mother,https://matthewvaneerde.files.wordpress.com/2011/08/bambis-mother.jpg,258,185,Yes,Prince's Wife
+Cinderella,https://disney.fandom.com/wiki/Cinderella_(character),https://matthewvaneerde.files.wordpress.com/2011/08/cinderella.jpg,234,233,Yes,Prince's Wife
+Tiger Lily,https://disney.fandom.com/wiki/Tiger_Lily,https://matthewvaneerde.files.wordpress.com/2011/08/tiger-lily.jpg,229,173,Yes,Chief's Daughter
+Aurora,https://disney.fandom.com/wiki/Aurora,https://matthewvaneerde.files.wordpress.com/2011/08/sleeping-beauty.jpg,265,189,Yes,King's Daughter; Prince's Girlfriend; Prince's Wife
+Maid Marian,https://disney.fandom.com/wiki/Maid_Marian,https://matthewvaneerde.files.wordpress.com/2011/08/maid-marian.jpg,233,200,No,Wealthy; Prince(?)'s Girlfriend
+Nausicaä,https://disney.fandom.com/wiki/Nausica%C3%A4,https://matthewvaneerde.files.wordpress.com/2011/08/nausicaa.jpg,577,259,Yes,King’s Daughter; Queen?
+Kushana,https://nausicaa.fandom.com/wiki/Kushana,https://matthewvaneerde.files.wordpress.com/2011/08/kushana.jpg,200,232,Yes,Royalty’s Daughter
+Lastelle,https://nausicaa.fandom.com/wiki/Rastel_(Lastelle),https://matthewvaneerde.files.wordpress.com/2011/08/lastelle.jpg,200,300,Yes,Queen’s Daughter
+Eilonwy,https://disney.fandom.com/wiki/Eilonwy,https://matthewvaneerde.files.wordpress.com/2011/08/eilonwy.jpg,194,200,Yes,Queen’s Daughter; Prince(?)‘s Girlfriend(?)
+Sheeta,https://disney.fandom.com/wiki/Sheeta,https://matthewvaneerde.files.wordpress.com/2011/08/sheeta.jpg,179,200,Yes,Queen’s Daughter; Queen?
+Jenny,https://disney.fandom.com/wiki/Jenny_Foxworth,https://matthewvaneerde.files.wordpress.com/2011/08/jenny.jpg,200,218,No,Wealthy
+Ariel,https://disney.fandom.com/wiki/Ariel,https://matthewvaneerde.files.wordpress.com/2011/08/ariel.gif,198,171,Yes,King’s Daughter; Queen’s Daughter? Prince’s Wife
+Aquata,https://littlemermaid.fandom.com/wiki/Aquata,https://matthewvaneerde.files.wordpress.com/2021/07/aquata.jpg,273,250,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Andrina,https://littlemermaid.fandom.com/wiki/Andrina,https://matthewvaneerde.files.wordpress.com/2021/07/andrina.jpg,169,300,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Arista,https://littlemermaid.fandom.com/wiki/Arista,https://matthewvaneerde.files.wordpress.com/2021/07/arista.jpg,141,250,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Attina,https://littlemermaid.fandom.com/wiki/Attina,https://matthewvaneerde.files.wordpress.com/2021/07/attina.png,272,250,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Adella,https://littlemermaid.fandom.com/wiki/Adella,https://matthewvaneerde.files.wordpress.com/2021/07/adella.jpg,346,250,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Alana,https://littlemermaid.fandom.com/wiki/Alana,https://matthewvaneerde.files.wordpress.com/2021/07/alana.jpg,232,250,Yes,King’s Daughter; Queen’s Daughter? Queen?
+Belle,https://disney.fandom.com/wiki/Belle,https://matthewvaneerde.files.wordpress.com/2011/08/belle.jpg,200,226,Maybe,Prince’s Girlfriend; Prince’s Wife?
+Jasmine,https://disney.fandom.com/wiki/Jasmine,https://matthewvaneerde.files.wordpress.com/2011/08/jasmine.jpg,231,200,Yes,Sultan’s Daughter; Prince’s Girlfriend? Sultan’s Girlfriend?
+Nala,https://disney.fandom.com/wiki/Nala,https://matthewvaneerde.files.wordpress.com/2011/08/nala.jpg,159,200,Yes,King’s Daughter; Prince’s Girlfriend; King’s Girlfriend; King’s Wife
+Kiara,https://disney.fandom.com/wiki/Kiara,https://matthewvaneerde.files.wordpress.com/2011/08/kiara.png,255,200,Yes,King’s Daughter
+Pocahontas,https://disney.fandom.com/wiki/Pocahontas_(character),https://matthewvaneerde.files.wordpress.com/2011/08/pocahontas.jpg,236,200,Yes,Chief’s Daughter
+San,https://disney.fandom.com/wiki/San,https://matthewvaneerde.files.wordpress.com/2011/08/san.jpg,291,200,Yes,Wolf God’s Adopted Daughter
+Kaya,https://ghibli.fandom.com/wiki/Kaya,https://matthewvaneerde.files.wordpress.com/2011/08/kaya.jpg,214,200,Yes,Prince’s Sister
+Mulan,https://disney.fandom.com/wiki/Fa_Mulan,https://matthewvaneerde.files.wordpress.com/2021/08/mulan.jpg,247,200,No,
+Dot,https://disney.fandom.com/wiki/Dot,https://matthewvaneerde.files.wordpress.com/2011/08/dot.jpg,252,200,Yes,Queen’s Daughter
+Atta,https://disney.fandom.com/wiki/Atta,https://matthewvaneerde.files.wordpress.com/2011/08/atta.jpg,240,210,Yes,Queen’s Daughter; Queen
+Tarzan,https://disney.fandom.com/wiki/Jane_Porter,https://matthewvaneerde.files.wordpress.com/2011/08/jane.png,460,200,Maybe,Chief’s son’s Girlfriend; Chief’s Wife
+Kida,https://disney.fandom.com/wiki/Kida_Nedakh,https://matthewvaneerde.files.wordpress.com/2011/08/kida.jpg,200,200,Yes,King’s Daughter; Queen
+Therru,https://disney.fandom.com/wiki/Therru,https://matthewvaneerde.files.wordpress.com/2011/08/therru.jpg,261,200,No,Prince’s Girlfriend
+Ponyo,https://disney.fandom.com/wiki/Ponyo,https://matthewvaneerde.files.wordpress.com/2011/08/ponyo.jpg,244,223,Yes,Queen’s Daughter
+Tiana,https://disney.fandom.com/wiki/Tiana,https://matthewvaneerde.files.wordpress.com/2011/08/tiana.jpg,275,200,Yes,Prince's Wife
+Charlotte,https://disney.fandom.com/wiki/Charlotte_La_Bouff,https://matthewvaneerde.files.wordpress.com/2011/08/charlotte.png,158,200,Yes,King's Daughter
+Rapunzel,https://disney.fandom.com/wiki/Rapunzel,https://matthewvaneerde.files.wordpress.com/2011/08/rapunzel.jpg,183,200,Yes,King & Queen’s Daughter
+Merida,https://disney.fandom.com/wiki/Merida,https://matthewvaneerde.files.wordpress.com/2011/08/merida.png,288,237,Yes,King & Queen’s Daughter
+Vanellope von Schweetz,https://disney.fandom.com/wiki/Vanellope_von_Schweetz,https://matthewvaneerde.files.wordpress.com/2011/08/vanellope-von-schweetz.png,241,200,Yes,Princess
+Kaguya,https://ghibli.fandom.com/wiki/Kaguya,https://matthewvaneerde.files.wordpress.com/2021/07/kaguya.jpg,329,295,Yes,Princess
+Anna,https://disney.fandom.com/wiki/Anna,https://matthewvaneerde.files.wordpress.com/2011/08/anna.png,259,200,Yes,King & Queen’s Daughter; Queen?
+Elsa,https://disney.fandom.com/wiki/Elsa,https://matthewvaneerde.files.wordpress.com/2011/08/elsa.png,323,200,Yes,King & Queen’s Daughter; Queen
+Moana,https://disney.fandom.com/wiki/Moana_(character),https://matthewvaneerde.files.wordpress.com/2011/08/moana.png,368,200,Yes,Chief’s Daughter
+Raya,https://disney.fandom.com/wiki/Raya,https://matthewvaneerde.files.wordpress.com/2021/08/raya.jpg,178,200,Yes,Chief’s Daughter

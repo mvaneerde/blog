@@ -11,6 +11,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{BA31E9C4-9551-43AD-B41C-80B8F8EA8EF3}"
 	ProjectSection(SolutionItems) = preProject
+		Data\cast.csv = Data\cast.csv
 		Data\characters.csv = Data\characters.csv
 		Data\movies.csv = Data\movies.csv
 	EndProjectSection

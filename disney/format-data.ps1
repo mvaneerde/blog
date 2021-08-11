@@ -28,16 +28,24 @@ $movies = Import-Csv ".\Data\movies.csv";
 # Load list of characters
 $characters = Import-Csv ".\Data\characters.csv";
 
+# Load cast list
+$cast = Import-Csv ".\Data\cast.csv";
+
 # Write a block for each movie
 $movies | ForEach-Object {
     $movie = $_;
 
     # Write a row for each character of interest in the movie
-    $interesting_characters = $characters | ForEach-Object {
-        $character = $_;
+    $interesting_characters = $cast | ForEach-Object {
+        $characterInMovie = $_;
 
-        If ($character.Movie -eq $movie.Title) {
-            Return $character;
+        If ($characterInMovie.Movie -eq $movie.Title) {
+            Return $characters | ForEach-Object {
+                $character = $_;
+                If ($characterInMovie.Character -eq $character.Name) {
+                    Return $character;
+                }
+            }
         }
     }
 
