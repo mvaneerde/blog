@@ -4,9 +4,9 @@ Underlying data behind [Disney princesses: an attempt at a complete list](https:
 
 Data is stored in
 
-* [cast.csv](.\Data\cast.csv)
-* [characters.csv](.\Data\characters.csv)
-* [movies.csv](.\Data\movies.csv)
+* [cast.csv](./Data/cast.csv)
+* [characters.csv](./Data/characters.csv)
+* [movies.csv](./Data/movies.csv)
 
 To format it as HTML, run a command like
 
