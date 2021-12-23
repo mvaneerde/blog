@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{76DB33FC-E662-40A2-874C-D828B01B6B77}"
+	ProjectSection(SolutionItems) = preProject
+		avatar-chooser.script = avatar-chooser.script
+		gender-chooser.script = gender-chooser.script
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1BFE25FC-CB9B-40C2-8BC4-75542ED5B424}
+	EndGlobalSection
+EndGlobal
