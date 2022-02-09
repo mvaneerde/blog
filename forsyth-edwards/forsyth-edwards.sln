@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EA6C550-6FFE-43A4-B2F4-30583B93867C}"
+	ProjectSection(SolutionItems) = preProject
+		Forsyth-Edwards.psm1 = Forsyth-Edwards.psm1
+		Show-ChessPosition.ps1 = Show-ChessPosition.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4B34966B-A2CC-4A0D-A386-F33D6B3E3E1D}
+	EndGlobalSection
+EndGlobal
