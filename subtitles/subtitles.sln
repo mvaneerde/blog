@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9F7579D-4C4F-4C08-8009-B086A0E4C7DA}"
+	ProjectSection(SolutionItems) = preProject
+		My opponent had a QUEEN and I had ONLY PAWNS and I still won!.srt = My opponent had a QUEEN and I had ONLY PAWNS and I still won!.srt
+		Solving Chess Worlde (Chessle) on EXPERT MODE.srt = Solving Chess Worlde (Chessle) on EXPERT MODE.srt
+		Solving Semantic Worlde (Semantle) by guessing words that MEAN something.srt = Solving Semantic Worlde (Semantle) by guessing words that MEAN something.srt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63DDB309-E48F-4131-9538-80F4AD55F166}
+	EndGlobalSection
+EndGlobal

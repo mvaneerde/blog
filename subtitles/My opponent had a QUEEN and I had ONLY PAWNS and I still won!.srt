@@ -1,0 +1,1265 @@
+﻿1
+00:00:00,048 --> 00:00:07,960
+I had only Pawns; and my opponent
+made a Queen; and I did not:
+
+2
+00:00:09,900 --> 00:00:12,820
+but I won!
+Okay.
+
+3
+00:00:13,320 --> 00:00:18,600
+So the game itself starts
+out - that's a nice little French.
+
+4
+00:00:19,800 --> 00:00:20,940
+We played the Exchange.
+
+5
+00:00:22,740 --> 00:00:25,529
+It's very even; open.
+
+6
+00:00:26,418 --> 00:00:29,124
+I like these kinda
+positions, from either side.
+
+7
+00:00:29,505 --> 00:00:35,093
+I fianchetto my Queen-side
+Bishop so that I can try to get
+
+8
+00:00:35,118 --> 00:00:41,230
+some kind of attack on the
+King-side, reinforce my d-pawn;
+
+9
+00:00:41,550 --> 00:00:43,538
+press - put some pressure
+on this square so that
+
+10
+00:00:43,562 --> 00:00:45,510
+it becomes very
+uncomfortable for him to occupy.
+
+11
+00:00:46,380 --> 00:00:49,400
+Doot-de-doo, he decides
+to take this square instead.
+
+12
+00:00:49,426 --> 00:00:53,155
+Okay, I'm undermining the
+d4-pawn, and I've got this
+
+13
+00:00:53,610 --> 00:00:55,830
+nice connected set of pawns here.
+
+14
+00:00:56,626 --> 00:01:00,368
+Doot-de-doo - he lashes
+out on the kingside,
+
+15
+00:01:00,393 --> 00:01:03,605
+which makes this square
+much more open for me,
+
+16
+00:01:03,630 --> 00:01:06,480
+and yet it does tend
+to cramp my King;
+
+17
+00:01:07,170 --> 00:01:13,500
+so I put the Knight here. I'm hoping to
+get the e4 square for my Pawn. I get it.
+
+18
+00:01:14,400 --> 00:01:18,552
+He trades off here, he's trying
+to isolate my queenside pawns.
+
+19
+00:01:19,250 --> 00:01:22,445
+We trade Queens. Okay,
+so there's not much hope of a
+
+20
+00:01:22,470 --> 00:01:25,715
+mating attack anymore,
+with the Queens off the board,
+
+21
+00:01:25,740 --> 00:01:30,993
+and we're going to contest the
+file. This move was a little bit weak.
+
+22
+00:01:31,072 --> 00:01:36,226
+What does the computer want? The computer
+suggests going to f6 instead. Fine,
+
+23
+00:01:36,750 --> 00:01:42,198
+but the idea here is that it
+solidifies the pawn on e4.
+
+24
+00:01:42,223 --> 00:01:44,250
+This pawn is now a
+protected passed pawn,
+
+25
+00:01:45,151 --> 00:01:49,175
+which gives me, I think, an
+advantage in the endgame,
+
+26
+00:01:49,200 --> 00:01:53,170
+whereas White's extra pawn is not passed.
+
+27
+00:01:54,030 --> 00:01:59,860
+Okay, we trade Rooks. He says
+"I'm going to contest the d-file again."
+
+28
+00:02:00,246 --> 00:02:04,685
+All right, we'll trade Rooks again! So now
+we're down to an endgame with only pieces -
+
+29
+00:02:04,710 --> 00:02:10,509
+no Rooks or Queens - and I make
+this move which is absolutely terrible
+
+30
+00:02:10,534 --> 00:02:15,270
+because it allows White to go here,
+forking the Bishop and the Pawn.
+
+31
+00:02:16,260 --> 00:02:22,025
+The idea in my head when I played this
+move was: I saw that my Bishop had now,
+
+32
+00:02:22,050 --> 00:02:26,225
+having served its role as
+the guardian of the e4 square,
+
+33
+00:02:26,250 --> 00:02:31,955
+now it needed to find something else
+to do: because with this pawn protected,
+
+34
+00:02:31,980 --> 00:02:34,273
+the - I don't need to worry
+about supporting e4 anymore
+
+35
+00:02:34,297 --> 00:02:37,175
+and now it's just a wall in front of
+my Bishop. So I thought, all right,
+
+36
+00:02:37,200 --> 00:02:41,795
+"let's move the Bishop out around the
+wall and maybe go after these pawns,"
+
+37
+00:02:41,820 --> 00:02:43,925
+but what I missed was, oh my God,
+
+38
+00:02:43,950 --> 00:02:46,685
+I have just abandoned
+the guard on this square,
+
+39
+00:02:46,710 --> 00:02:50,820
+and this beautifully placed
+Knight should just leap there,
+
+40
+00:02:51,600 --> 00:02:55,300
+and win my h-pawn - er, my a-pawn.
+
+41
+00:02:57,180 --> 00:03:01,475
+Instead he plays this move,
+which is weak. I get out of the fork -
+
+42
+00:03:01,500 --> 00:03:04,325
+although it would
+probably have been better
+
+43
+00:03:04,350 --> 00:03:08,795
+to go out of the fork -
+to just retreat the Bishop
+
+44
+00:03:08,820 --> 00:03:10,050
+and guard the square.
+
+45
+00:03:11,550 --> 00:03:16,056
+But instead, I allow him
+this really good move,
+
+46
+00:03:16,081 --> 00:03:20,560
+which would take a7 again,
+because I can't retreat the Bishop
+
+47
+00:03:21,150 --> 00:03:24,450
+to protect the pawn, because then
+he just takes the Bishop with his Knight.
+
+48
+00:03:24,586 --> 00:03:30,471
+Okay, he misses it too. He brings in
+the Knight, and I'm, like, alright, let's -
+
+49
+00:03:30,510 --> 00:03:32,495
+this pawn here -
+
+50
+00:03:32,520 --> 00:03:36,125
+it's going to be super weak.
+I'm gonna take this Bishop -
+
+51
+00:03:36,150 --> 00:03:38,285
+take this Knight
+with the Bishop,
+
+52
+00:03:38,310 --> 00:03:42,845
+lure his pawn onto the e5
+square, and then it's vulnerable.
+
+53
+00:03:42,870 --> 00:03:45,335
+That was the idea
+in my head. Actually,
+
+54
+00:03:45,360 --> 00:03:49,055
+the reality that position in the
+cold light of analysis is that it's
+
+55
+00:03:49,080 --> 00:03:50,795
+"dynamically balanced."
+
+56
+00:03:50,820 --> 00:03:53,855
+The Pawn is weak,
+but it is also strong.
+
+57
+00:03:53,880 --> 00:03:56,186
+It is dynamic play.
+
+58
+00:03:57,090 --> 00:04:01,535
+So i'm innocently going to
+go and round up the pawn,
+
+59
+00:04:01,560 --> 00:04:05,765
+But I - my idea is to go here
+next move - what I missed is that,
+
+60
+00:04:05,790 --> 00:04:08,811
+White has this fork, and
+then he's checking the King,
+
+61
+00:04:08,836 --> 00:04:11,621
+and he's going to
+pick up the Bishop.
+
+62
+00:04:11,646 --> 00:04:14,345
+<i>But Matt!</i>, you say, <i>the Bishop
+is guarded by the Knight!</i>
+
+63
+00:04:14,370 --> 00:04:16,480
+Yeah, but he can TAKE the Knight,
+
+64
+00:04:16,860 --> 00:04:19,715
+removing the guard of the
+Bishop, and THEN do the fork,
+
+65
+00:04:19,740 --> 00:04:22,715
+so it's not so easy.
+
+66
+00:04:22,740 --> 00:04:28,025
+He misses that idea and
+he pushes the b-pawn.
+
+67
+00:04:28,050 --> 00:04:32,705
+I accidentally get the right
+idea which is to go back here,
+
+68
+00:04:32,730 --> 00:04:34,595
+and chase the Knight away,
+
+69
+00:04:34,620 --> 00:04:37,113
+and THEN bring in the King.
+
+70
+00:04:38,520 --> 00:04:43,655
+He reinforces the Knight,
+which is not so good,
+
+71
+00:04:43,680 --> 00:04:46,565
+and I bring in the King,
+
+72
+00:04:46,590 --> 00:04:48,090
+and I'm going to win this pawn.
+
+73
+00:04:51,630 --> 00:04:55,955
+So he checks me,
+which is a bad idea;
+
+74
+00:04:55,980 --> 00:05:00,005
+I DO win the Pawn,
+I am now UP material;
+
+75
+00:05:00,030 --> 00:05:06,730
+and he comes in here. What's he thinking?
+He's going to go after this pawn here.
+
+76
+00:05:09,043 --> 00:05:11,096
+He is undercutting.
+
+77
+00:05:13,740 --> 00:05:16,295
+So I'm thinking here,
+
+78
+00:05:16,320 --> 00:05:21,755
+and I'm thinking to myself - <i>you know,
+I've got these passed pawns I want to push;</i>
+
+79
+00:05:21,780 --> 00:05:25,415
+<i>I want to get my king
+to one of these squares;</i>
+
+80
+00:05:25,440 --> 00:05:29,372
+<i>and I want to protect this pawn.
+So what's the best move for me?</i> -
+
+81
+00:05:29,396 --> 00:05:33,395
+and I come up with this move,
+
+82
+00:05:33,420 --> 00:05:37,215
+which, the idea is, to protect the
+pawn first, and then also kind of
+
+83
+00:05:37,239 --> 00:05:40,595
+guard this square, cause I'm worried
+about - <i>okay, what if he pushes here</i>
+
+84
+00:05:40,620 --> 00:05:43,415
+<i>and if he pushes
+here then I can go here,</i>
+
+85
+00:05:43,440 --> 00:05:48,605
+<i>and the Knight protects
+that square too</i> -
+
+86
+00:05:48,630 --> 00:05:52,715
+and then he does indeed push g3,
+
+87
+00:05:52,740 --> 00:05:57,245
+and... and I see at this
+point that this Bishop -
+
+88
+00:05:57,270 --> 00:06:01,175
+er, that this Knight has
+no squares. It can't go here,
+
+89
+00:06:01,200 --> 00:06:02,932
+because the Knight guards it;
+it can't go here because of the
+
+90
+00:06:02,956 --> 00:06:04,921
+King; it can't go here because
+of the King, and it can't go here...
+
+91
+00:06:09,150 --> 00:06:11,270
+or can it?
+
+92
+00:06:13,080 --> 00:06:17,135
+Well, in fact, it CAN go there.
+
+93
+00:06:17,160 --> 00:06:23,770
+If the Knight goes here, then it LOOKS like
+I can capture the Knight, but that is fake,
+
+94
+00:06:24,510 --> 00:06:29,310
+because then White has
+this beautiful move Bf4+.
+
+95
+00:06:29,970 --> 00:06:31,865
+The King has to
+move out of the way,
+
+96
+00:06:31,890 --> 00:06:35,765
+and then the Knight recovers -
+the Bishop recovers the Knight,
+
+97
+00:06:35,790 --> 00:06:39,340
+and we just have an opposite-Bishop
+endgame. Probably a draw.
+
+98
+00:06:39,540 --> 00:06:42,155
+Yeah, I've got the passed
+Pawn; yeah I'm a Pawn up;
+
+99
+00:06:42,186 --> 00:06:46,301
+but White can just blockade
+on the dark squares,
+
+100
+00:06:46,325 --> 00:06:51,532
+and, uh, and Black
+has nothing. Okay.
+
+101
+00:06:52,620 --> 00:06:56,705
+So White has that resource,
+which I did not see at the time,
+
+102
+00:06:56,730 --> 00:07:00,935
+so I moved the Bishop here.
+I am very happy with myself.
+
+103
+00:07:00,960 --> 00:07:05,645
+All I have to do is take the Knight,
+and there's nothing he can do to stop it.
+
+104
+00:07:05,670 --> 00:07:09,635
+So he did have
+the Nc7 move, as -
+
+105
+00:07:09,660 --> 00:07:12,185
+he probably still loses,
+but - it's his best option,
+
+106
+00:07:12,210 --> 00:07:16,485
+that - he kind of misses up the order
+a little, what he does, is, he plays Bf4.
+
+107
+00:07:19,590 --> 00:07:23,056
+And now I have a choice to make:
+
+108
+00:07:24,883 --> 00:07:27,616
+do I abandon my Pawn?
+
+109
+00:07:31,170 --> 00:07:36,095
+I can either: move forward
+here, then his Knight escapes;
+
+110
+00:07:36,120 --> 00:07:40,205
+or I can exchange the
+Knight for the Bishop,
+
+111
+00:07:40,230 --> 00:07:45,275
+win this Pawn in exchange for this
+one, and then I have TWO passed pawns,
+
+112
+00:07:45,300 --> 00:07:47,255
+supported by the King.
+
+113
+00:07:47,280 --> 00:07:49,085
+That's what I'm
+going to do. Okay.
+
+114
+00:07:49,110 --> 00:07:51,400
+Take the Bishop. He takes back.
+
+115
+00:07:58,440 --> 00:08:04,025
+I take the Pawn. I'm in
+check, I cannot save this Pawn:
+
+116
+00:08:04,050 --> 00:08:06,580
+the Bishop - the Knight's
+going to take it. He takes it.
+
+117
+00:08:11,040 --> 00:08:17,105
+Now how do you get these passed pawns all
+the way down to the board to make a Queen?
+
+118
+00:08:17,130 --> 00:08:22,715
+They're on light squares, and the
+Bishop's on light squares too, so
+
+119
+00:08:22,740 --> 00:08:29,255
+Black has to be careful not to
+allow White to set up a blockade,
+
+120
+00:08:29,280 --> 00:08:31,850
+and then the Knight is
+going to come back,
+
+121
+00:08:31,875 --> 00:08:37,145
+and it's going to help out the King,
+and it could be a tough struggle.
+
+122
+00:08:37,170 --> 00:08:43,146
+So, what I say to myself is,
+<i>I'm going to cut off the Knight</i> -
+
+123
+00:08:43,171 --> 00:08:45,665
+I'm still sort of
+entertaining ideas of,
+
+124
+00:08:45,690 --> 00:08:48,725
+maybe he'll make a mistake?
+
+125
+00:08:48,750 --> 00:08:54,185
+Like, he really only has one move in this
+position. He has to move the Knight here.
+
+126
+00:08:54,210 --> 00:08:55,415
+Eh, that's not quite true.
+
+127
+00:08:55,440 --> 00:09:00,066
+But, um, the Knight has four
+squares that it can move to,
+
+128
+00:09:00,091 --> 00:09:02,435
+and the Bishop covers
+three of those squares,
+
+129
+00:09:02,460 --> 00:09:08,315
+so if the King can get in,
+then he can win the Knight,
+
+130
+00:09:08,340 --> 00:09:11,195
+and then I'll be up a whole piece.
+
+131
+00:09:11,220 --> 00:09:16,475
+So that forces him to bring his
+Knight to the edge of the board,
+
+132
+00:09:16,500 --> 00:09:20,945
+and I'm thinking <i>all right, good
+now I can move by King forward;</i>
+
+133
+00:09:20,970 --> 00:09:23,705
+<i>I can start advancing the pawns;</i>
+
+134
+00:09:23,730 --> 00:09:27,395
+<i>if the pawn goes here
+it'll cover this square;</i>
+
+135
+00:09:27,420 --> 00:09:29,760
+<i>this is good.</i>
+So I moved the Knight -
+
+136
+00:09:30,079 --> 00:09:32,515
+I moved the King here,
+because I want to prevent
+
+137
+00:09:32,539 --> 00:09:37,775
+the enemy King from
+getting to the second rank,
+
+138
+00:09:37,800 --> 00:09:41,705
+and I like that I'm on this, like,
+two-square diagonal move away from -
+
+139
+00:09:41,730 --> 00:09:48,005
+from the Knight, which means the Knight
+will have to work very hard to check me,
+
+140
+00:09:48,030 --> 00:09:51,155
+and he moves his King there.
+
+141
+00:09:51,180 --> 00:09:56,705
+It might arguably in this position
+have been better to move the King here,
+
+142
+00:09:56,730 --> 00:10:00,889
+because then it's not
+in the way of the f-pawn.
+
+143
+00:10:00,914 --> 00:10:05,599
+The f-pawn is a more likely candidate
+for promotion than the e-pawn is,
+
+144
+00:10:05,624 --> 00:10:10,363
+because the f1-square is a
+light color, just like the Bishop,
+
+145
+00:10:11,144 --> 00:10:12,999
+whereas the e1
+square is a dark color.
+
+146
+00:10:13,023 --> 00:10:15,984
+So it's easier for White to
+blockade the dark square.
+
+147
+00:10:17,564 --> 00:10:19,424
+Of course, for the
+f1-pawn to promote,
+
+148
+00:10:19,449 --> 00:10:21,949
+it has to get past the
+f2-square, which is also dark,
+
+149
+00:10:21,974 --> 00:10:25,856
+so these are the
+squares that are very key;
+
+150
+00:10:27,824 --> 00:10:30,559
+and this square, of course,
+but that one I've gotten.
+
+151
+00:10:30,584 --> 00:10:33,979
+So anyway, I move the King
+here, and he moves the King here,
+
+152
+00:10:34,004 --> 00:10:37,969
+and I push the Pawn -
+okay, good, I'm blocking this -
+
+153
+00:10:37,994 --> 00:10:44,782
+He has this move,
+forking the - the Bishop -
+
+154
+00:10:44,807 --> 00:10:48,049
+he has this move, forking
+the Bishop and the Pawn,
+
+155
+00:10:48,074 --> 00:10:51,564
+but, like, I am totally willing
+
+156
+00:10:51,764 --> 00:10:54,109
+to give away the
+h-pawn in this position,
+
+157
+00:10:54,134 --> 00:10:57,349
+if it means that his Knight is going
+to go all the way to h7 for it.
+
+158
+00:10:57,374 --> 00:11:01,464
+Like, yeah! Great!
+Do that! Please!
+
+159
+00:11:03,070 --> 00:11:07,969
+Uh, he's - he moves to Ke1.
+He's got blockade ideas,
+
+160
+00:11:07,994 --> 00:11:10,129
+and so now I have to
+think of how I'm going to
+
+161
+00:11:10,154 --> 00:11:13,489
+advance this f-pawn. Like,
+I would love to go here,
+
+162
+00:11:13,514 --> 00:11:19,159
+but that drops the f-pawn with check, and
+the Pawn can't advance if it's not there.
+
+163
+00:11:19,184 --> 00:11:22,459
+So I reject that idea.
+Instead, I go here,
+
+164
+00:11:22,484 --> 00:11:27,439
+and now I've got this move, and then I've
+got this move coming, and it'll be check,
+
+165
+00:11:27,464 --> 00:11:32,509
+and let's say he goes
+here, then this will be mate,
+
+166
+00:11:32,534 --> 00:11:36,229
+or if he goes the other way,
+
+167
+00:11:36,254 --> 00:11:38,900
+then,
+
+168
+00:11:41,623 --> 00:11:43,249
+I can Queen!
+
+169
+00:11:43,274 --> 00:11:46,129
+So I'm liking this, I'm
+liking this. He moves here.
+
+170
+00:11:46,154 --> 00:11:50,637
+He's attacking my Bishop.
+
+171
+00:11:50,662 --> 00:11:52,339
+More than just
+attacking the Bishop:
+
+172
+00:11:52,364 --> 00:11:57,469
+he is threatening
+to go here, check,
+
+173
+00:11:57,494 --> 00:12:01,354
+and that will attack my king
+and it will attack my pawn.
+
+174
+00:12:03,254 --> 00:12:05,634
+And how do I protect my pawn
+
+175
+00:12:05,684 --> 00:12:08,299
+while not getting my King
+taken? I have to go here,
+
+176
+00:12:08,324 --> 00:12:11,509
+and then I'm blocking
+the Pawn again,
+
+177
+00:12:11,534 --> 00:12:15,619
+and now he has improved
+his Knight's position.
+
+178
+00:12:15,644 --> 00:12:20,839
+He's also threatening to
+take the Pawn, but, again,
+
+179
+00:12:20,864 --> 00:12:23,544
+you can have that Pawn,
+dude. Take the Pawn.
+
+180
+00:12:23,834 --> 00:12:28,284
+Get your Knight, like, opposite
+side of the board. I'll Queen. Great.
+
+181
+00:12:34,453 --> 00:12:41,082
+And here I had to think
+a lot, because - it's not -
+
+182
+00:12:41,114 --> 00:12:45,319
+It's getting kind of crowded
+over here if the Knight comes in,
+
+183
+00:12:45,344 --> 00:12:49,309
+and maybe the Knight goes here; maybe
+the Knight sacrifices itself for the Pawn;
+
+184
+00:12:49,334 --> 00:12:55,789
+it's not clear to me that I
+have a route to promote.
+
+185
+00:12:55,814 --> 00:13:01,249
+And White's got some tricks with
+that Knight and his crazy jumps.
+
+186
+00:13:01,274 --> 00:13:05,119
+And so I thought, and I thought, and
+I thought, and I came up with a very
+
+187
+00:13:05,144 --> 00:13:08,557
+beautiful move. One
+of my favorite moves.
+
+188
+00:13:09,944 --> 00:13:13,339
+It was a blitz game: we had
+five minutes on the clock to start,
+
+189
+00:13:13,364 --> 00:13:18,349
+three minute increment after each move, but
+I thought for thirty seconds on this move.
+
+190
+00:13:18,374 --> 00:13:24,316
+So I'm gonna let YOU think, and see if
+you come up with the same move that I did.
+
+191
+00:13:29,595 --> 00:13:35,514
+Okay? Here's what I did.
+
+192
+00:13:35,957 --> 00:13:40,783
+Why is this such a good move?
+And why did I have to think so long?
+
+193
+00:13:40,841 --> 00:13:44,648
+Okay, from a strategic point of view,
+
+194
+00:13:44,673 --> 00:13:49,888
+the Knight has two
+ways to get back
+
+195
+00:13:49,912 --> 00:13:53,184
+and help his King
+block the pawns.
+
+196
+00:13:53,636 --> 00:13:57,047
+I mean there's also this, but that's stick-
+ing the Knight on the edge of the board,
+
+197
+00:13:57,071 --> 00:14:00,979
+and the only way it can come in from there
+there is this square, and that's covered,
+
+198
+00:14:01,004 --> 00:14:03,410
+so I'm not worried
+about that so much;
+
+199
+00:14:05,947 --> 00:14:10,966
+and this move just covers
+both of those squares;
+
+200
+00:14:10,998 --> 00:14:12,705
+and then I'm going to
+advance the pawns,
+
+201
+00:14:12,729 --> 00:14:15,335
+and advance the pawns, and
+advance the pawns, and Queen.
+
+202
+00:14:17,804 --> 00:14:22,064
+Also, this keeps eye on all of these pawns!
+If any of these pawns advance, then that
+
+203
+00:14:22,064 --> 00:14:24,204
+weakens the ones in front of it.
+
+204
+00:14:26,863 --> 00:14:31,783
+I had to stop and think, because
+what if he goes here check?
+
+205
+00:14:36,134 --> 00:14:38,177
+<i>Well that's easy, Matt!
+You moved the Bishop</i>
+
+206
+00:14:38,201 --> 00:14:40,887
+<i>there so you could
+take him if he goes there!</i>
+
+207
+00:14:41,954 --> 00:14:44,314
+Yes but what happens if I take him?
+
+208
+00:14:45,764 --> 00:14:47,674
+Well, he takes back.
+
+209
+00:14:48,554 --> 00:14:51,260
+That's exactly what
+he did. He checked me;
+
+210
+00:14:53,234 --> 00:14:55,220
+and I took;
+
+211
+00:14:55,484 --> 00:14:57,464
+and he takes back.
+
+212
+00:14:59,474 --> 00:15:00,619
+And now what?
+
+213
+00:15:00,644 --> 00:15:04,369
+I had to calculate,
+all the way back here,
+
+214
+00:15:04,394 --> 00:15:06,409
+I had to calculate
+what would happen
+
+215
+00:15:06,434 --> 00:15:10,189
+if I moved the Bishop, and he checked
+me, and then I took, and he took back:
+
+216
+00:15:10,247 --> 00:15:14,055
+and I saw that he had a
+Pawn here, and he could go
+
+217
+00:15:14,079 --> 00:15:19,257
+one - two - three -
+and get a Queen;
+
+218
+00:15:20,774 --> 00:15:24,709
+but I went for the move anyway,
+because I saw that what my King could do,
+
+219
+00:15:24,734 --> 00:15:27,767
+and my pawns against his King,
+
+220
+00:15:28,947 --> 00:15:32,940
+was even better than a Queen,
+and I'll show you what that was.
+
+221
+00:15:33,464 --> 00:15:35,820
+He checks; I take;
+he takes back.
+
+222
+00:15:38,084 --> 00:15:41,523
+So the f-pawn is the key.
+We push the f-pawn forward.
+
+223
+00:15:42,277 --> 00:15:44,232
+Well what's he gonna
+do? He's gonna Queen.
+
+224
+00:15:44,264 --> 00:15:47,000
+This is - this guy here - this
+White Pawn - this is like the White -
+
+225
+00:15:47,024 --> 00:15:49,759
+the wide receiver in football,
+
+226
+00:15:49,784 --> 00:15:54,380
+who has just blasted past the safety,
+and he's waiting for the ball to come
+
+227
+00:15:54,405 --> 00:15:57,431
+and he reaches up his hands,
+and the ball falls into his hands,
+
+228
+00:15:57,456 --> 00:16:00,674
+and he's running, and then he's going to
+the end zone, and there's nobody between
+
+229
+00:16:00,836 --> 00:16:03,716
+him and the end zone, and
+he's going to get a touchdown.
+
+230
+00:16:04,987 --> 00:16:06,852
+What's going on here?
+
+231
+00:16:06,884 --> 00:16:09,864
+This guy - this is like -
+
+232
+00:16:10,634 --> 00:16:13,429
+the quarterback is
+on the one yard line;
+
+233
+00:16:13,454 --> 00:16:15,559
+and he gets the
+ball from the center;
+
+234
+00:16:15,584 --> 00:16:19,489
+and the center pushes; and the
+guard next to the center pushes;
+
+235
+00:16:19,514 --> 00:16:24,756
+and there's this defensive
+tackle - defensive end;
+
+236
+00:16:25,484 --> 00:16:29,894
+and they're trying to stop the quarterback
+from going over the one yard line and they
+
+237
+00:16:29,894 --> 00:16:33,374
+just push, and they
+shove, and they get over.
+
+238
+00:16:34,310 --> 00:16:38,536
+And who wins? Who's
+gonna make it to the end zone?
+
+239
+00:16:39,374 --> 00:16:42,656
+And who wins the
+game? Let's see!
+
+240
+00:16:43,334 --> 00:16:45,720
+So I pushed, with check.
+
+241
+00:16:48,494 --> 00:16:52,000
+Interestingly, White has two moves
+here. I only considered one.
+
+242
+00:16:53,624 --> 00:16:56,504
+I only considered this one which is the
+move that was played in the game,
+
+243
+00:16:56,504 --> 00:16:59,690
+but the computer finds this move too
+
+244
+00:17:00,421 --> 00:17:04,656
+Like, maybe I instinctively
+ignored it because I saw I could Queen;
+
+245
+00:17:04,694 --> 00:17:07,369
+and then once you get the
+Queen the Queen is with check;
+
+246
+00:17:07,394 --> 00:17:10,819
+and then you can just go all the
+way back down here and blockade;
+
+247
+00:17:10,844 --> 00:17:14,179
+and then you can Queen another
+Queen; and you can round up
+
+248
+00:17:14,204 --> 00:17:18,379
+this pawn; and you can round up all
+these other pawns; and then you can get
+
+249
+00:17:18,411 --> 00:17:23,911
+five Queens, total; and I should be
+able to checkmate them with five Queens.
+
+250
+00:17:24,494 --> 00:17:29,989
+But it is all irrelevant, because
+he actually moved to f1.
+
+251
+00:17:30,014 --> 00:17:32,449
+<i>But what are you gonna
+do about this Pawn, Matt?</i>
+
+252
+00:17:32,480 --> 00:17:35,413
+<i>Your King can't race back!</i>
+
+253
+00:17:35,940 --> 00:17:39,808
+I move here.
+Very simple.
+
+254
+00:17:39,833 --> 00:17:45,557
+Now at this point you're probably
+thinking <i>I begin to believe.</i>
+
+255
+00:17:45,597 --> 00:17:50,983
+Okay, so he comes
+forward; and I go forward;
+
+256
+00:17:53,594 --> 00:17:59,103
+and he Queens! He gets a Queen! Oh
+no! It's a Pawn endgame! He has a Queen!
+
+257
+00:18:01,389 --> 00:18:04,969
+And I checkmate. That's mate.
+
+258
+00:18:04,994 --> 00:18:09,300
+White King is in check. White King
+can't go here because of the Pawn.
+
+259
+00:18:10,507 --> 00:18:13,512
+White King can't go
+here because of the Pawn.
+
+260
+00:18:13,537 --> 00:18:16,992
+Black King covers
+these three squares.
+
+261
+00:18:17,024 --> 00:18:19,951
+Beautiful checkmate pattern.
+
+262
+00:18:19,976 --> 00:18:24,259
+And that is the story
+how, in a Pawn endgame,
+
+263
+00:18:24,284 --> 00:18:30,090
+I allowed my opponent
+to Queen; I did not Queen;
+
+264
+00:18:31,364 --> 00:18:35,983
+and I won! Thanks for watching.
+
