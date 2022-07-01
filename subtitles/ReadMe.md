@@ -11,11 +11,7 @@ Videos on [Matthew van Eerde](https://www.youtube.com/channel/UCIVOzg6gD6jVPUkp0
 
 1. [PUZZLE STREAK FAIL - tried to solve 50 in a row but mouseslipped after 35](https://www.youtube.com/watch?v=3uW1fpEi9sI) - [subtitles](./PUZZLE%20STREAK%20FAIL%20-%20tried%20to%20solve%2050%20in%20a%20row%20but%20mouseslipped%20after%2035.srt)
 
-<<<<<<< HEAD
-* [I went 5 FOR 5 in Pokémon GO Battle League, including taking out a Best Buddy Shadow Mewtwo!](https://www.youtube.com/watch?v=mycWktlJJ14) - [subtitles](./I%20went%205%20FOR%205%20in%20Pokémon%20GO%20Battle%20League,%20including%20taking%20out%20a%20Best%20Buddy%20Shadow%20Mewtwo!.srt)
-=======
-1. [I went 5 FOR 5 in Pokémon GO Battle League, including taking out a Best Buddy Shadow Mewtwo!](https://www.youtube.com/watch?v=mycWktlJJ14) - subtitles TODO
->>>>>>> dcc24e6e93a4425fc03319de0803eed23992f464
+1. [I went 5 FOR 5 in Pokémon GO Battle League, including taking out a Best Buddy Shadow Mewtwo!](https://www.youtube.com/watch?v=mycWktlJJ14) - [subtitles](./I%20went%205%20FOR%205%20in%20Pokémon%20GO%20Battle%20League,%20including%20taking%20out%20a%20Best%20Buddy%20Shadow%20Mewtwo!.srt)
 
 1. [I FINALLY got 50 chess puzzles correct in a row!](https://www.youtube.com/watch?v=tblK1K5tXvg) - [subtitles](./I%20FINALLY%20got%2050%20chess%20puzzles%20correct%20in%20a%20row!.srt)
 
