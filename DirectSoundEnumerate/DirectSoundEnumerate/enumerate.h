@@ -1,0 +1,3 @@
+// enumerate.h
+
+HRESULT EnumerateDirectSound();
