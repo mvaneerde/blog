@@ -29,6 +29,10 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
         return 0;
     }
 
+    if (FAILED(hr)) {
+        return hr;
+    }
+
     hr = Create(p.V8(), p.Render(), p.DeviceId());
 
     return (SUCCEEDED(hr) ? 0 : hr);
