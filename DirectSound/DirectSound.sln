@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectSoundEnumerate", "Dir
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectSoundCreate", "DirectSoundCreate\DirectSoundCreate.vcxproj", "{F7F3BA2F-6A71-4438-9AB4-DA5E1EB54387}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectSoundFullDuplexCreate", "DirectSoundFullDuplexCreate\DirectSoundFullDuplexCreate.vcxproj", "{3A01C9EC-4696-4EB3-B131-CF02427E02A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{F7F3BA2F-6A71-4438-9AB4-DA5E1EB54387}.Release|x64.Build.0 = Release|x64
 		{F7F3BA2F-6A71-4438-9AB4-DA5E1EB54387}.Release|x86.ActiveCfg = Release|Win32
 		{F7F3BA2F-6A71-4438-9AB4-DA5E1EB54387}.Release|x86.Build.0 = Release|Win32
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Debug|x64.ActiveCfg = Debug|x64
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Debug|x64.Build.0 = Debug|x64
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Debug|x86.ActiveCfg = Debug|Win32
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Debug|x86.Build.0 = Debug|Win32
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Release|x64.ActiveCfg = Release|x64
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Release|x64.Build.0 = Release|x64
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Release|x86.ActiveCfg = Release|Win32
+		{3A01C9EC-4696-4EB3-B131-CF02427E02A2}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
