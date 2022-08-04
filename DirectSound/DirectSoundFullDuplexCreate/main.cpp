@@ -33,7 +33,7 @@ int _cdecl wmain(int argc, LPCWSTR argv[]) {
         return hr;
     }
 
-    hr = Create(p.V8(), p.RenderDeviceId(), p.CaptureDeviceId());
+    hr = Create(p.RenderDeviceId(), p.CaptureDeviceId());
 
     return (SUCCEEDED(hr) ? 0 : hr);
 }

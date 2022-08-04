@@ -8,10 +8,6 @@
 #include "prefs.h"
 #include "cleanup.h"
 
-bool Prefs::V8() {
-    return _v8;
-}
-
 LPCGUID Prefs::RenderDeviceId() {
     return (_specificRenderDevice ? &_renderDeviceId : nullptr);
 }
@@ -30,8 +26,7 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
             )
         ) {
         LOG(
-            L"DirectSoundFullDuplexCreate [-8] [-renderDevice <deviceId>] [-captureDevice <deviceId>]\r\n"
-            L"    -8: uses DirectSoundFullDuplexCreate8\r\n"
+            L"DirectSoundFullDuplexCreate [-renderDevice <deviceId>] [-captureDevice <deviceId>]\r\n"
             L"    -renderDevice: specify a DirectSound device ID as returned by DirectSoundEnumerate\r\n"
             L"    -captureDevice: specify a DirectSound device ID as returned by DirectSoundEnumerate"
         );
@@ -39,26 +34,10 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
     }
 
     // read parameters
-    bool seenV8 = false;
     bool seenRenderDevice = false;
     bool seenCaptureDevice = false;
 
     for (int i = 1; i < argc; i++) {
-        // -8
-        if (
-            0 == _wcsicmp(argv[i], L"-8") ||
-            0 == _wcsicmp(argv[i], L"/8")
-            ) {
-            if (seenV8) {
-                ERR(L"Specify -8 at most once");
-                return E_INVALIDARG;
-            }
-
-            seenV8 = true;
-            _v8 = true;
-            continue;
-        }
-
         // -renderDevice
         if (
             0 == _wcsicmp(argv[i], L"-renderDevice") ||

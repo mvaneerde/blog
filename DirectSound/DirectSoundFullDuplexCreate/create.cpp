@@ -9,7 +9,7 @@
 #include "cleanup.h"
 #include "create.h"
 
-HRESULT Create(bool v8, LPCGUID renderDeviceId, LPCGUID captureDeviceId) {
+HRESULT Create(LPCGUID renderDeviceId, LPCGUID captureDeviceId) {
     HRESULT hr;
 
     const WORD channels = 2;
@@ -35,61 +35,43 @@ HRESULT Create(bool v8, LPCGUID renderDeviceId, LPCGUID captureDeviceId) {
         MILLISECONDS_PER_SECOND
     ) * format.nBlockAlign;
 
-    if (v8) {
-        DSCBUFFERDESC captureBufferDescription = {
-            sizeof(DSCBUFFERDESC), // dwSize
-            0, // dwFlags
-            bufferBytes, // dwBufferBytes
-            0, // dwReserved
-            &format, // lpwfxFormat
-            0, // dwFXCount
-            nullptr // lpDSCFXDesc
-        };
-        DSBUFFERDESC renderBufferDescription = {
-            sizeof(DSBUFFERDESC), // dwSize
-            0, // dwFlags
-            bufferBytes, // dwBufferBytes
-            0, // dwReserved
-            &format, // lpwfxFormat
-            GUID_NULL // guid3DAlgorithm
-        };
-        LPDIRECTSOUNDFULLDUPLEX fullDuplex = nullptr;
-        LPDIRECTSOUNDCAPTUREBUFFER8 captureBuffer = nullptr;
-        LPDIRECTSOUNDBUFFER8 buffer = nullptr;
+    DSCBUFFERDESC captureBufferDescription = {
+        sizeof(DSCBUFFERDESC), // dwSize
+        0, // dwFlags
+        bufferBytes, // dwBufferBytes
+        0, // dwReserved
+        &format, // lpwfxFormat
+        0, // dwFXCount
+        nullptr // lpDSCFXDesc
+    };
+    DSBUFFERDESC renderBufferDescription = {
+        sizeof(DSBUFFERDESC), // dwSize
+        0, // dwFlags
+        bufferBytes, // dwBufferBytes
+        0, // dwReserved
+        &format, // lpwfxFormat
+        GUID_NULL // guid3DAlgorithm
+    };
 
-        hr = DirectSoundFullDuplexCreate8(
-            captureDeviceId,
-            renderDeviceId,
-            &captureBufferDescription,
-            &renderBufferDescription,
-            GetConsoleWindow(),
-            DSSCL_NORMAL,
-            &fullDuplex,
-            &captureBuffer,
-            &buffer,
-            nullptr // outer unknown
-        );
-        if (FAILED(hr)) {
-            ERR(L"DirectSoundFullDuplexCreate8 failed with 0x%08x", hr);
-            return hr;
-        }
-    } else {
-        hr = DirectSoundFullDuplexCreate(
-            captureDeviceId,
-            renderDeviceId,
-            nullptr,
-            nullptr,
-            nullptr,
-            0,
-            nullptr,
-            nullptr,
-            nullptr,
-            nullptr
-        );
-        if (FAILED(hr)) {
-            ERR(L"DirectSoundFullDuplexCreate failed with 0x%08x", hr);
-            return hr;
-        }
+    LPDIRECTSOUNDFULLDUPLEX fullDuplex = nullptr;
+    LPDIRECTSOUNDCAPTUREBUFFER8 captureBuffer = nullptr;
+    LPDIRECTSOUNDBUFFER8 buffer = nullptr;
+
+    hr = DirectSoundFullDuplexCreate8(
+        captureDeviceId,
+        renderDeviceId,
+        &captureBufferDescription,
+        &renderBufferDescription,
+        GetConsoleWindow(),
+        DSSCL_NORMAL,
+        &fullDuplex,
+        &captureBuffer,
+        &buffer,
+        nullptr // outer unknown
+    );
+    if (FAILED(hr)) {
+        ERR(L"DirectSoundFullDuplexCreate8 failed with 0x%08x", hr);
+        return hr;
     }
 
     return hr;
