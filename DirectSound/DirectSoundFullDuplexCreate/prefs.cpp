@@ -2,6 +2,7 @@
 
 #include <windows.h>
 #include <objbase.h>
+#include <dsound.h>
 #include <stdio.h>
 
 #include "log.h"
@@ -9,11 +10,11 @@
 #include "cleanup.h"
 
 LPCGUID Prefs::RenderDeviceId() {
-    return (_specificRenderDevice ? &_renderDeviceId : nullptr);
+    return (_useRenderDevice ? &_renderDeviceId : nullptr);
 }
 
 LPCGUID Prefs::CaptureDeviceId() {
-    return (_specificCaptureDevice ? &_captureDeviceId : nullptr);
+    return (_useCaptureDevice ? &_captureDeviceId : nullptr);
 }
 
 HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
@@ -26,9 +27,12 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
             )
         ) {
         LOG(
-            L"DirectSoundFullDuplexCreate [-renderDevice <deviceId>] [-captureDevice <deviceId>]\r\n"
-            L"    -renderDevice: specify a DirectSound device ID as returned by DirectSoundEnumerate\r\n"
-            L"    -captureDevice: specify a DirectSound device ID as returned by DirectSoundEnumerate"
+            L"DirectSoundFullDuplexCreate\r\n"
+            L"    [-renderDevice default | voice | <deviceId>]\r\n"
+            L"    [-captureDevice default | voice | <deviceId>]\r\n"
+            L"\r\n"
+            L"    -renderDevice: choose a speaker\r\n"
+            L"    -captureDevice: choose a microphone"
         );
         return S_FALSE;
     }
@@ -49,7 +53,7 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
             }
 
             seenRenderDevice = true;
-            _specificRenderDevice = true;
+            _useRenderDevice = true;
 
             i++;
             if (i == argc) {
@@ -57,10 +61,16 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
                 return E_INVALIDARG;
             }
 
-            HRESULT hr = CLSIDFromString(argv[i], &_renderDeviceId);
-            if (FAILED(hr)) {
-                ERR(L"CLSIDFromString returned failure 0x%08x", hr);
-                return hr;
+            if (0 == _wcsicmp(argv[i], L"default")) {
+                _renderDeviceId = DSDEVID_DefaultPlayback;
+            } else if (0 == _wcsicmp(argv[i], L"voice")) {
+                _renderDeviceId = DSDEVID_DefaultVoicePlayback;
+            } else {
+                HRESULT hr = CLSIDFromString(argv[i], &_renderDeviceId);
+                if (FAILED(hr)) {
+                    ERR(L"CLSIDFromString returned failure 0x%08x", hr);
+                    return hr;
+                }
             }
             continue;
         }
@@ -76,7 +86,7 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
             }
 
             seenCaptureDevice = true;
-            _specificCaptureDevice = true;
+            _useCaptureDevice = true;
 
             i++;
             if (i == argc) {
@@ -84,10 +94,17 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
                 return E_INVALIDARG;
             }
 
-            HRESULT hr = CLSIDFromString(argv[i], &_captureDeviceId);
-            if (FAILED(hr)) {
-                ERR(L"CLSIDFromString returned failure 0x%08x", hr);
-                return hr;
+            if (0 == _wcsicmp(argv[i], L"default")) {
+                _captureDeviceId = DSDEVID_DefaultCapture;
+            }
+            else if (0 == _wcsicmp(argv[i], L"voice")) {
+                _captureDeviceId = DSDEVID_DefaultVoiceCapture;
+            } else {
+                HRESULT hr = CLSIDFromString(argv[i], &_captureDeviceId);
+                if (FAILED(hr)) {
+                    ERR(L"CLSIDFromString returned failure 0x%08x", hr);
+                    return hr;
+                }
             }
             continue;
         }

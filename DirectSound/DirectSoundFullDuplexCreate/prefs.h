@@ -7,9 +7,9 @@ public:
     LPCGUID CaptureDeviceId();
 
 private:
-    bool _specificRenderDevice = false;
+    bool _useRenderDevice = false;
     GUID _renderDeviceId;
 
-    bool _specificCaptureDevice = false;
+    bool _useCaptureDevice = false;
     GUID _captureDeviceId;
 };

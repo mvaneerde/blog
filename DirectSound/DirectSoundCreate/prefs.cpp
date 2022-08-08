@@ -1,8 +1,7 @@
-// prefs.cpp
-
 #include <windows.h>
 #include <objbase.h>
 #include <stdio.h>
+#include <dsound.h>
 
 #include "log.h"
 #include "prefs.h"
@@ -17,7 +16,7 @@ bool Prefs::Render() {
 }
 
 LPCGUID Prefs::DeviceId() {
-    return (_specificDevice ? &_deviceId : nullptr);
+    return (_useDeviceId ? &_deviceId : nullptr);
 }
 
 HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
@@ -30,10 +29,10 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
         )
     ) {
         LOG(
-            L"DirectSoundCreate [-8] [-capture] [-device <deviceId>]\r\n"
+            L"DirectSoundCreate [-8] [-capture] [-device default | voice | <deviceId>]\r\n"
             L"    -8: uses DirectSoundCreate8 or DirectSoundCapture8\r\n"
             L"    -capture: opens a recording stream\r\n"
-            L"    -device: specify a DirectSound device ID as returned by DirectSoundEnumerate"
+            L"    -device: specify which speaker or microphone to use"
         );
         return S_FALSE;
     }
@@ -42,7 +41,9 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
     bool seenV8 = false;
     bool seenCapture = false;
     bool seenDevice = false;
-
+    
+    DeviceOption deviceOption = useNull;
+    
     for (int i = 1; i < argc; i++) {
         // -8
         if (
@@ -85,7 +86,7 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
             }
 
             seenDevice = true;
-            _specificDevice = true;
+            _useDeviceId = true;
 
             i++;
             if (i == argc) {
@@ -93,16 +94,37 @@ HRESULT Prefs::Set(int argc, LPCWSTR argv[]) {
                 return E_INVALIDARG;
             }
 
-            HRESULT hr = CLSIDFromString(argv[i], &_deviceId);
-            if (FAILED(hr)) {
-                ERR(L"CLSIDFromString returned failure 0x%08x", hr);
-                return hr;
+            if (0 == _wcsicmp(argv[i], L"default")) {
+                deviceOption = useDefault;
+            } else if (0 == _wcsicmp(argv[i], L"voice")) {
+                deviceOption = useVoice;
+            } else {
+                deviceOption = useSpecific;
+
+                HRESULT hr = CLSIDFromString(argv[i], &_deviceId);
+                if (FAILED(hr)) {
+                    ERR(L"CLSIDFromString returned failure 0x%08x", hr);
+                    return hr;
+                }
             }
             continue;
         }
 
         ERR(L"Unrecognized argument %s", argv[i]);
         return E_INVALIDARG;
+    }
+
+    switch (deviceOption) {
+    case useNull:
+        break;
+    case useDefault:
+        _deviceId = (_capture ? DSDEVID_DefaultCapture : DSDEVID_DefaultPlayback);
+        break;
+    case useVoice:
+        _deviceId = (_capture ? DSDEVID_DefaultVoiceCapture : DSDEVID_DefaultVoicePlayback);
+        break;
+    case useSpecific:
+        break;
     }
 
     return S_OK;

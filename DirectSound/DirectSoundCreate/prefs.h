@@ -10,6 +10,12 @@ public:
 private:
     bool _capture = false;
     bool _v8 = false;
-    bool _specificDevice = false;
+    bool _useDeviceId = false;
     GUID _deviceId;
+    enum DeviceOption {
+        useNull,
+        useDefault,
+        useVoice,
+        useSpecific
+    };
 };

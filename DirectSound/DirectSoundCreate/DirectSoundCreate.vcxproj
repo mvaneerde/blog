@@ -131,6 +131,7 @@
   <ItemGroup>
     <ClCompile Include="cleanup.cpp" />
     <ClCompile Include="create.cpp" />
+    <ClCompile Include="initguid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="prefs.cpp" />
   </ItemGroup>
