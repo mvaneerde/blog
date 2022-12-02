@@ -27,9 +27,9 @@ fn main() {
     //  Handle even numbers and numbers less than 5 by hand
     if prime < 5 || (prime % 2) == 0 {
         match prime {
+            0 | 1 => println!("{prime} is DEFINITELY NOT PRIME"),
             2 | 3 => println!("{prime} is DEFINITELY PRIME"),
-            4 => println!("{prime} is DEFINITELY COMPOSITE"),
-            _ => println!("{prime} is DEFINITELY NOT PRIME")
+            _ => println!("{prime} is DEFINITELY COMPOSITE") // even number >= 4
         }
         return;
     } else {
