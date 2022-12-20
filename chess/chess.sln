@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.4.33122.133
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EB925828-BA81-4ECB-A890-AF977AA95FA3}"
 	ProjectSection(SolutionItems) = preProject
 		Forsyth-Edwards.psm1 = Forsyth-Edwards.psm1
+		query-openingdatabase.ps1 = query-openingdatabase.ps1
 		show-position.ps1 = show-position.ps1
 	EndProjectSection
 EndProject
