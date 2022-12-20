@@ -1,7 +1,13 @@
+# spec: https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
+
+Function Get-InitialChessPosition {
+    Return "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+}
+Export-ModuleMember -Function "Get-InitialChessPosition";
+
 Function Show-ChessPosition {
     Param([Parameter(Mandatory)][string]$fen);
 
-    # spec: https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
     $records = $fen.Split(" ");
     If ($records.Count -ne 6) {
         Throw "Invalid number of records, should be 6: " + $records.Count;
