@@ -1,5 +1,12 @@
 # spec: https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation
 
+# given a chess game position in Forsyth-Edwards Notation (FEN)
+# and a chess move in Universal Chess Interface (UCI) notation
+# apply that move to the position, and return the resulting position
+#
+# for example:
+# "r3k2n/8/8/8/8/8/8/4K2R w Kq - 0 1" + "e1g1"
+# becomes "r3k2n/8/8/8/8/8/8/5RK1 b q - 1 1"
 Function Add-MoveToChessPosition {
     Param(
         [Parameter(Mandatory)][string]$fen,
@@ -176,6 +183,9 @@ Function Add-MoveToChessPosition {
 }
 Export-ModuleMember -Function "Add-MoveToChessPosition";
 
+# given the row and column for a chess square on the board,
+# return the name of that square in algebraic notation
+# e.g. (5, 4) becomes d5
 Function Compress-ChessCoordinates {
     Param(
         [Parameter(Mandatory)][int]$row,
@@ -194,7 +204,8 @@ Function Compress-ChessCoordinates {
 }
 Export-ModuleMember -Function "Compress-ChessCoordinates";
 
-
+# given an object that contains all the properties of a chess position
+# return the Forsyth-Edwards Notation for that position
 Function Compress-ChessPosition {
     Param([Parameter(Mandatory)][PSCustomObject]$position);
 
@@ -247,6 +258,9 @@ Function Compress-ChessPosition {
 }
 Export-ModuleMember -Function "Compress-ChessPosition";
 
+# given the name of a square on the chessboard
+# return the row and column coordinates for that square
+# for example "d5" becomes (5, 4)
 Function Expand-ChessCoordinates {
     Param([Parameter(Mandatory)][string]$square);
 
@@ -271,6 +285,8 @@ Function Expand-ChessCoordinates {
 }
 Export-ModuleMember -Function "Expand-ChessCoordinates";
 
+# given the Forsyth-Edwards Notation for a chess position
+# return an object that contains all the properties of the position
 Function Expand-ChessPosition {
     Param([Parameter(Mandatory)][string]$fen);
 
@@ -355,6 +371,10 @@ Function Expand-ChessPosition {
 }
 Export-ModuleMember -Function "Expand-ChessPosition";
 
+# given a chess move in Universal Chess Interface Notation
+# return the coordinates of the "from" square and the "to" square
+# if the move was a promotion, also return the promoted piece
+# e.g. "d7e8n" becomes (7, 4, 8, 5, "n")
 Function Expand-UniversalChessInterfaceMove {
     Param([Parameter(Mandatory)][string]$move);
 
@@ -374,6 +394,9 @@ Function Expand-UniversalChessInterfaceMove {
 }
 Export-ModuleMember -Function "Expand-UniversalChessInterfaceMove";
 
+# given the Forsyth-Edwards Notation name for a piece
+# return whether the piece is White or Black
+# e.g. "n" becomes "b" and "N" becomes "w"
 Function Get-ChessPieceColor {
     Param([Parameter(Mandatory)][string]$piece);
 
@@ -385,11 +408,19 @@ Function Get-ChessPieceColor {
 }
 Export-ModuleMember -Function "Get-ChessPieceColor";
 
+# return the Forsyth-Edwares Notation for the chess position
+# at the start of a standard game
 Function Get-InitialChessPosition {
     Return "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 }
 Export-ModuleMember -Function "Get-InitialChessPosition";
 
+# given the existing castling privileges retained by both sides
+# and the coordinates of the square just moved from
+# and the coordinates of the squaer just moved to
+# return the new castling privileges after the move
+# this might be the same, or it might be less
+# e.g. ("KQkq", 8, 5, 7, 4) becomes "KQ" because Black moved his King
 Function Remove-CastlingOptions {
     Param(
         [char[]]$castling_options,
@@ -443,6 +474,8 @@ Function Remove-CastlingOptions {
 }
 Export-ModuleMember -Function "Remove-CastlingOptions";
 
+# given the Forsyth-Edwards notation for a chess position,
+# display that position in human-readable form to the console
 Function Show-ChessPosition {
     Param([Parameter(Mandatory)][string]$fen);
 
