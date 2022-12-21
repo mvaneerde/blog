@@ -8,10 +8,12 @@ Import-Module ".\Opening-Explorer.psm1";
 $position = Get-InitialChessPosition;
 $display_position = $position;
 
-$play | ForEach-Object {
-    $move = $_;
+If ($play.Count) {
+    $play | ForEach-Object {
+        $move = $_;
 
-    $display_position = Add-MoveToChessPosition -fen $display_position -move $move;
+        $display_position = Add-MoveToChessPosition -fen $display_position -move $move;
+    }
 }
 
 Show-ChessPosition -fen $display_position;
@@ -25,7 +27,7 @@ $black = [int]$results.black;
 Write-Host "";
 Write-Host "Opening:", $results.opening.name;
 Write-Host "ECO:", $results.opening.eco;
-Write-Host "Master games:", ($white + $draws + $draws);
+Write-Host "Master games:", ($white + $draws + $black);
 Write-Host "Results (White/Draw/Black):", (@($white, $draws, $black) -join "/");
 
 $results.moves | ForEach-Object {
