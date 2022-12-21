@@ -35,6 +35,20 @@ Function Add-MoveToChessPosition {
     $pawn_move = ($moving_piece -eq "p");
     $captured_piece = $position.board[($row_to - 1) * 8 + ($column_to - 1)];
 
+    # if we just captured en passant, the captured piece is on the en passant square
+    If (($moving_piece -eq "p") -and
+        (Compress-ChessCoordinates -row $row_to -column $column_to) -eq $position.en_passant) {
+        # the pawn we just captured is on the ROW we moved FROM
+        # and the COLUMN we moved TO
+        $captured_piece = $position.board[($row_from - 1) * 8 + ($column_to - 1)];
+
+        # remove it now
+        $position.board[($row_from - 1) * 8 + ($column_to - 1)] = " ";
+    } Else {
+        # Otherwise it's on the destination square
+        $captured_piece = $position.board[($row_to - 1) * 8 + ($column_to - 1)];
+    }
+
     # increment or reset the 50-move counter (really a 100-half-move counter)
     If ($pawn_move -or ($captured_piece -ne " ")) {
         $position.half_move = 0;
@@ -135,6 +149,17 @@ Function Add-MoveToChessPosition {
             -row_to $row_to `
             -column_to $column_to;
 
+    # set the en passant indicator according to whether we just moved a pawn two squares
+    If (($moving_piece -eq "p") -and
+        (
+            ($row_from -eq 2 -and $row_to -eq 4) -or
+            ($row_from -eq 7 -and $row_to -eq 5)
+        )) {
+        $position.en_passant = Compress-ChessCoordinates -row (([int]$row_from + [int]$row_to)/2) -column $column_to;
+    } Else {
+        $position.en_passant = "-";
+    }
+
     # it's the other player's turn to move now
     If ($position.to_move -eq "w") {
         $position.to_move = "b";
@@ -145,14 +170,30 @@ Function Add-MoveToChessPosition {
         $position.full_move++;
     }
 
-    # TODO: update en passant indicator
-    # TODO: check that moves are legal
-
     $fen = Compress-ChessPosition -position $position;
 
     Return $fen;
 }
 Export-ModuleMember -Function "Add-MoveToChessPosition";
+
+Function Compress-ChessCoordinates {
+    Param(
+        [Parameter(Mandatory)][int]$row,
+        [Parameter(Mandatory)][int]$column
+    );
+
+    If (($row -ge 1) -and
+        ($row -le 8) -and
+        ($column -ge 1) -and
+        ($column -le 8)) {
+    } Else {
+        Throw "Invalid coordinates ($row, $column)";
+    }
+
+    Return [string]("abcdefgh".ToCharArray()[$column - 1]) + $row;
+}
+Export-ModuleMember -Function "Compress-ChessCoordinates";
+
 
 Function Compress-ChessPosition {
     Param([Parameter(Mandatory)][PSCustomObject]$position);
@@ -205,6 +246,30 @@ Function Compress-ChessPosition {
     Return $fen;
 }
 Export-ModuleMember -Function "Compress-ChessPosition";
+
+Function Expand-ChessCoordinates {
+    Param([Parameter(Mandatory)][string]$square);
+
+    If ($square -CMatch "^([a-h])([1-8])$") {
+        ($column_letter, $row) = ($Matches[1], $Matches[2]);
+    } Else {
+        Throw "Invalid square $move";
+    }
+
+    Switch ($column_letter) {
+        "a" { $column_number = 1; }
+        "b" { $column_number = 2; }
+        "c" { $column_number = 3; }
+        "d" { $column_number = 4; }
+        "e" { $column_number = 5; }
+        "f" { $column_number = 6; }
+        "g" { $column_number = 7; }
+        "h" { $column_number = 8; }
+    }
+
+    Return ($row, $column_number);
+}
+Export-ModuleMember -Function "Expand-ChessCoordinates";
 
 Function Expand-ChessPosition {
     Param([Parameter(Mandatory)][string]$fen);
@@ -293,16 +358,10 @@ Export-ModuleMember -Function "Expand-ChessPosition";
 Function Expand-UniversalChessInterfaceMove {
     Param([Parameter(Mandatory)][string]$move);
 
-    If ($move -CMatch "^([a-h])([1-8])([a-h])([1-8])([rnbq]?)$") {
-        (
-            $column_from, $row_from,
-            $column_to, $row_to,
-            $promote
-        ) = (
-            $Matches[1], $Matches[2],
-            $Matches[3], $Matches[4],
-            $Matches[5]
-        )
+    If ($move -CMatch "^([a-h][1-8])([a-h][1-8])([rnbq]?)$") {
+        ($square_from, $square_to, $promote) = ($Matches[1], $Matches[2], $Matches[3]);
+        ($row_from, $column_from) = Expand-ChessCoordinates -square $square_from;
+        ($row_to, $column_to) = Expand-ChessCoordinates -square $square_to;
     } Else {
         Throw "Invalid move $move";
     }
@@ -310,20 +369,6 @@ Function Expand-UniversalChessInterfaceMove {
     If ($row_from -eq $row_to -and $column_from -eq $column_to) {
         Throw "`"From`" and `"to`" squares are the same";
     }
-
-    $column_number = @{
-        "a" = 1;
-        "b" = 2;
-        "c" = 3;
-        "d" = 4;
-        "e" = 5;
-        "f" = 6;
-        "g" = 7;
-        "h" = 8;
-    };
-
-    $column_from = $column_number[$column_from];
-    $column_to = $column_number[$column_to];
 
     Return ($row_from, $column_from, $row_to, $column_to, $promote);
 }
