@@ -1,0 +1,4 @@
+﻿Name,Start,Moves,End
+King move,8/8/4k3/8/4K3/8/P7/8 w - - 0 1,e4f4,8/8/4k3/8/5K2/8/P7/8 b - - 1 1
+Pawn promotion,8/8/4k3/8/4K3/8/P7/8 w - - 0 1,"a2a4,e6f6,a4a5,f6e6,a5a6,e6f6,a6a7,f6e6,a7a8q",Q7/8/4k3/8/4K3/8/8/8 b - - 0 5
+Castle,r3k2n/8/8/8/8/8/8/4K2R w Kq - 0 1,e1g1,r3k2n/8/8/8/8/8/8/5RK1 b q - 1 1

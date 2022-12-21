@@ -14,10 +14,6 @@ Function Add-MoveToChessPosition {
         $promote
     ) = Expand-UniversalChessInterfaceMove -move $move;
 
-    If ($promote -ne "") {
-        Write-Host "And promote to $promote";
-    }
-
     # check to see whether there is a piece on the "from" square
     $moving_piece = $position.board[($row_from - 1) * 8 + ($column_from - 1)];
     If ($moving_piece -eq " ") {
@@ -30,12 +26,15 @@ Function Add-MoveToChessPosition {
     }
 
     # move the piece from the old square to the new square in three steps
+
     # first, blank out the square we move from
     $position.board[($row_from - 1) * 8 + ($column_from - 1)] = [char]" ";
+    
     # second, see if this is a pawn move or a capture
     # note that promoting a pawn counts as a pawn move
-    $pawn_move = ($moving_piece -eq "p" -or $moving_piece -eq "P");
+    $pawn_move = ($moving_piece -eq "p");
     $captured_piece = $position.board[($row_to - 1) * 8 + ($column_to - 1)];
+
     # increment or reset the 50-move counter (really a 100-half-move counter)
     If ($pawn_move -or ($captured_piece -ne " ")) {
         $position.half_move = 0;
@@ -47,7 +46,7 @@ Function Add-MoveToChessPosition {
         (Get-ChessPieceColor -piece $captured_piece) -eq $position.to_move) {
         Throw "You cannot capture your own piece";
     }
-    If ($captured_piece -eq "k" -or $captured_piece -eq "K") {
+    If ($captured_piece -eq "k") {
         Throw "You cannot capture the enemy King";
     }
     If ($promote -ne "") {
@@ -68,8 +67,73 @@ Function Add-MoveToChessPosition {
             }
         }
     }
-    # third and finally, set the destination square to the (possibly promoted) piece
+    
+    # third, set the destination square to the (possibly promoted) piece
     $position.board[($row_to - 1) * 8 + ($column_to - 1)] = $moving_piece;
+
+    # if we just castled, move the rook too
+    If (($moving_piece -eq "k") -and
+        ($column_from -eq 5) -and
+        (($column_to -eq 3) -or ($column_to -eq 7))) {
+        If ($moving_piece -ceq "K") {
+            If ($row_from -ne 1 -or $row_to -ne 1) {
+                Throw "The White King needs to stay on the first row when castling";
+            }
+
+            If ($column_to -eq 3) {
+                # White Queen-side castling
+                If (-not ($position.castling_options -ccontains "Q")) {
+                    Throw "White has lost the privilege to castle Queen-side";
+                }
+
+                # move the Rook
+                $position.board[(1 - 1) * 8 + (1 - 1)] = [char]" ";
+                $position.board[(1 - 1) * 8 + (4 - 1)] = [char]"R";
+            } Else {
+                # White King-side castling
+                If (-not ($position.castling_options -ccontains "K")) {
+                    Throw "White has lost the privilege to castle King-side";
+                }
+
+                # move the Rook
+                $position.board[(1 - 1) * 8 + (8 - 1)] = [char]" ";
+                $position.board[(1 - 1) * 8 + (6 - 1)] = [char]"R";
+            }
+        } Else {
+            If ($row_from -ne 8 -or $row_to -ne 8) {
+                Throw "The Black King needs to stay on the eighth row when castling";
+            }
+
+            If ($column_to -eq 3) {
+                # Black Queen-side castling
+                If (-not ($position.castling_options -ccontains "q")) {
+                    Throw "Black has lost the privilege to castle Queen-side";
+                }
+
+                # move the Rook
+                $position.board[(8 - 1) * 8 + (1 - 1)] = [char]" ";
+                $position.board[(8 - 1) * 8 + (4 - 1)] = [char]"r";
+            } Else {
+                # Black King-side castling
+                If (-not ($position.castling_options -ccontains "k")) {
+                    Throw "Black has lost the privilege to castle King-side";
+                }
+
+                # move the Rook
+                $position.board[(8 - 1) * 8 + (8 - 1)] = [char]" ";
+                $position.board[(8 - 1) * 8 + (6 - 1)] = [char]"r";
+            }
+        }
+    }
+
+    # some moves reduce future castling privileges
+    $position.castling_options = `
+        Remove-CastlingOptions `
+            -castling_options $position.castling_options `
+            -row_from $row_from `
+            -column_from $column_from `
+            -row_to $row_to `
+            -column_to $column_to;
 
     # it's the other player's turn to move now
     If ($position.to_move -eq "w") {
@@ -82,7 +146,6 @@ Function Add-MoveToChessPosition {
     }
 
     # TODO: update en passant indicator
-    # TODO: update castling rights
     # TODO: check that moves are legal
 
     $fen = Compress-ChessPosition -position $position;
@@ -124,10 +187,16 @@ Function Compress-ChessPosition {
         Return $squares -join "";
     };
 
+    If ($position.castling_options.Count -eq 0) {
+        $castle = "-";
+    } Else {
+        $castle = ($position.castling_options -join "");
+    }
+
     $fen = @(
         ($rows -join "/"),
         $position.to_move,
-        ($position.castling_options -join ""),
+        $castle,
         $position.en_passant,
         $position.half_move,
         $position.full_move
@@ -275,6 +344,76 @@ Function Get-InitialChessPosition {
     Return "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
 }
 Export-ModuleMember -Function "Get-InitialChessPosition";
+
+Function Remove-CastlingOptions {
+    Param(
+        [char[]]$castling_options,
+        [Parameter(Mandatory)][int]$row_from,
+        [Parameter(Mandatory)][int]$column_from,
+        [Parameter(Mandatory)][int]$row_to,
+        [Parameter(Mandatory)][int]$column_to
+    );
+
+    $new_castling_options = [char[]]@();
+    $disallowed = [char[]]@();
+
+    # Moving from e1 disallows both castling options for White
+    If (($row_from -eq 1) -and ($column_from -eq 5)) {
+        $disallowed += @("K", "Q");
+    }
+
+    # Moving from e8 disallows both castling options for Black
+    If (($row_from -eq 8) -and ($column_from -eq 5)) {
+        $disallowed += @("k", "q");
+    }
+
+    # Moving from or to a1 disallows Queen-side castling for White
+    If ((($row_from -eq 1) -and ($column_from -eq 1)) -or
+        (($row_to -eq 1) -and ($column_to -eq 1))) {
+        $disallowed += "Q";
+    }
+
+    # Moving from or to h1 disallows King-side castling for White
+    If ((($row_from -eq 1) -and ($column_from -eq 8)) -or
+        (($row_to -eq 1) -and ($column_to -eq 8))) {
+        $disallowed += "K";
+    }
+
+    # Moving from or to a8 disallows Queen-side castling for Black
+    If ((($row_from -eq 8) -and ($column_from -eq 1)) -or
+        (($row_to -eq 8) -and ($column_to -eq 1))) {
+        $disallowed += "q";
+    }
+
+    # Moving from or to h8 disallows Queen-side castling for Black
+    If ((($row_from -eq 8) -and ($column_from -eq 8)) -or
+        (($row_to -eq 8) -and ($column_to -eq 8))) {
+        $disallowed += "k";
+    }
+
+    $new_castling_options = $castling_options | ForEach-Object {
+        $castling_option = $_;
+
+        $is_disallowed = $false;
+        $disallowed | ForEach-Object {
+            $disallowed_option = $_;
+
+            # case sensitivity matters here
+            If ($castling_option -ceq $disallowed_option) {
+                $is_disallowed = $true;
+            }
+        }
+
+        If ($is_disallowed) {
+            Return;
+        } Else {
+            Return $castling_option;
+        }
+    }
+    
+    Return $new_castling_options;
+}
+Export-ModuleMember -Function "Remove-CastlingOptions";
 
 Function Show-ChessPosition {
     Param([Parameter(Mandatory)][string]$fen);

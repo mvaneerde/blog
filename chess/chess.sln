@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Forsyth-Edwards.psm1 = Forsyth-Edwards.psm1
 		query-openingdatabase.ps1 = query-openingdatabase.ps1
 		show-position.ps1 = show-position.ps1
+		test-addmovetoposition.ps1 = test-addmovetoposition.ps1
+		test-removecastlingoptions.ps1 = test-removecastlingoptions.ps1
+		testcases-add-movetoposition.csv = testcases-add-movetoposition.csv
+		testcases-remove-castlingoptions.csv = testcases-remove-castlingoptions.csv
 	EndProjectSection
 EndProject
 Global
