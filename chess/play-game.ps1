@@ -9,7 +9,7 @@ If ($starting_position -eq "") {
 }
 Show-ChessPosition -fen $position;
 
-$history = [System.Collections.ArrayList]@();
+$history = [System.Collections.Stack]::new();
 
 While ($true) {
     $can_undo = $history.Count -gt 0;
@@ -24,14 +24,13 @@ While ($true) {
     If ($move -eq "q") {
         Break;
     } ElseIf ($can_undo -and ($move -eq "u")) {
-        $position = $history[$history.Count - 1];
-        $history.RemoveAt($history.Count - 1);
+        $position = $history.Pop();
 
         Write-Host "";
         Write-Host "Undid last move";
         Show-ChessPosition -fen $position;
     } Else {
-        $history.Add($position) | Out-Null;
+        $history.Push($position);
 
         Write-Host "";
         $position = Add-MoveToChessPosition -fen $position -move $move;
