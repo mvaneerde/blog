@@ -24,9 +24,6 @@ $test_cases | ForEach-Object {
         $new_castling_options = "-";
     }
 
-    Write-Host "new castling options", $new_castling_options;
-    Write-Host "expected castling options", $test_case.End;
-
     $test_result = "Pass";
     If ($new_castling_options -cne $test_case.End) {
         $test_result = "Fail";

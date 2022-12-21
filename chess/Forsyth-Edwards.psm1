@@ -354,41 +354,24 @@ Function Remove-CastlingOptions {
         [Parameter(Mandatory)][int]$column_to
     );
 
-    $new_castling_options = [char[]]@();
-    $disallowed = [char[]]@();
+    $involved_squares = @(
+        @{ Row = 1; Column = 5; Disallowed = @("K", "Q"); }, # White King moved
+        @{ Row = 8; Column = 5; Disallowed = @("k", "q"); }, # Black King moved
+        @{ Row = 1; Column = 1; Disallowed = @("Q"); }, # White Queen Rook moved or captured
+        @{ Row = 8; Column = 1; Disallowed = @("q"); }, # Black Queen Rook moved or captured
+        @{ Row = 1; Column = 8; Disallowed = @("K"); }, # White King Rook moved or captured
+        @{ Row = 8; Column = 8; Disallowed = @("k"); } # Black King Rook moved or captured
+    );
 
-    # Moving from e1 disallows both castling options for White
-    If (($row_from -eq 1) -and ($column_from -eq 5)) {
-        $disallowed += @("K", "Q");
-    }
+    $disallowed = $involved_squares | ForEach-Object {
+        $square = $_;
 
-    # Moving from e8 disallows both castling options for Black
-    If (($row_from -eq 8) -and ($column_from -eq 5)) {
-        $disallowed += @("k", "q");
-    }
-
-    # Moving from or to a1 disallows Queen-side castling for White
-    If ((($row_from -eq 1) -and ($column_from -eq 1)) -or
-        (($row_to -eq 1) -and ($column_to -eq 1))) {
-        $disallowed += "Q";
-    }
-
-    # Moving from or to h1 disallows King-side castling for White
-    If ((($row_from -eq 1) -and ($column_from -eq 8)) -or
-        (($row_to -eq 1) -and ($column_to -eq 8))) {
-        $disallowed += "K";
-    }
-
-    # Moving from or to a8 disallows Queen-side castling for Black
-    If ((($row_from -eq 8) -and ($column_from -eq 1)) -or
-        (($row_to -eq 8) -and ($column_to -eq 1))) {
-        $disallowed += "q";
-    }
-
-    # Moving from or to h8 disallows Queen-side castling for Black
-    If ((($row_from -eq 8) -and ($column_from -eq 8)) -or
-        (($row_to -eq 8) -and ($column_to -eq 8))) {
-        $disallowed += "k";
+        If ((($row_from -eq $square.Row) -and ($column_from -eq $square.Column)) -or
+            (($row_to -eq $square.Row) -and ($column_to -eq $square.Column))) {
+            Return $square.Disallowed;
+        } Else {
+            Return;
+        }
     }
 
     $new_castling_options = $castling_options | ForEach-Object {
@@ -410,7 +393,7 @@ Function Remove-CastlingOptions {
             Return $castling_option;
         }
     }
-    
+
     Return $new_castling_options;
 }
 Export-ModuleMember -Function "Remove-CastlingOptions";
