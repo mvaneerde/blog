@@ -27,10 +27,11 @@ While ($true) {
         $position = $history[$history.Count - 1];
         $history.RemoveAt($history.Count - 1);
 
+        Write-Host "";
         Write-Host "Undid last move";
         Show-ChessPosition -fen $position;
     } Else {
-        $history.Add($position);
+        $history.Add($position) | Out-Null;
 
         Write-Host "";
         $position = Add-MoveToChessPosition -fen $position -move $move;
