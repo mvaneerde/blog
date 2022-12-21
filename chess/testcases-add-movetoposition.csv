@@ -4,3 +4,4 @@ Pawn promotion,8/8/4k3/8/4K3/8/P7/8 w - - 0 1,"a2a4,e6f6,a4a5,f6e6,a5a6,e6f6,a6a
 Castle,r3k2n/8/8/8/8/8/8/4K2R w Kq - 0 1,e1g1,r3k2n/8/8/8/8/8/8/5RK1 b q - 1 1
 Before en passant,4k3/4p3/8/3P1P2/8/8/8/4K3 b - - 0 1,e7e5,4k3/8/8/3PpP2/8/8/8/4K3 w - e6 0 2
 After en passant,4k3/8/8/4pP2/8/8/8/4K3 w - e6 0 3,f5e6,4k3/8/4P3/8/8/8/8/4K3 b - - 0 3
+No en passant,4k3/8/8/8/8/8/4P3/4K3 w - - 0 1,e2e4,4k3/8/8/8/4P3/8/8/4K3 b - - 0 1

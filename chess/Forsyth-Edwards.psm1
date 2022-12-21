@@ -42,7 +42,7 @@ Function Add-MoveToChessPosition {
     $pawn_move = ($moving_piece -eq "p");
     $captured_piece = $position.board[($row_to - 1) * 8 + ($column_to - 1)];
 
-    # if we just captured en passant, the captured piece is on the en passant square
+    # if we just captured en passant, the destination square is the en passant square
     If (($moving_piece -eq "p") -and
         (Compress-ChessCoordinates -row $row_to -column $column_to) -eq $position.en_passant) {
         # the pawn we just captured is on the ROW we moved FROM
@@ -157,11 +157,31 @@ Function Add-MoveToChessPosition {
             -column_to $column_to;
 
     # set the en passant indicator according to whether we just moved a pawn two squares
-    If (($moving_piece -eq "p") -and
+    # and there is an enemy pawn in capturing position
+    If (
+        # White pawn
         (
-            ($row_from -eq 2 -and $row_to -eq 4) -or
-            ($row_from -eq 7 -and $row_to -eq 5)
-        )) {
+            ($moving_piece -ceq "P") -and
+            # two squares
+            (($row_from -eq 2) -and ($row_to -eq 4)) -and
+            # enemy pawn in capturing position
+            (
+                (($column_to -gt 1) -and ($position.board[(4 - 1) * 8 + ($column_to - 1 - 1)] -ceq "p")) -or
+                (($column_to -lt 8) -and ($position.board[(4 - 1) * 8 + ($column_to + 1 - 1)] -ceq "p"))
+            )
+        ) -or
+        # Black pawn
+        (
+            ($moving_piece -ceq "p") -and
+            # two squares
+            (($row_from -eq 7) -and ($row_to -eq 5)) -and
+            # enemy pawn in capturing position
+            (
+                (($column_to -gt 1) -and ($position.board[(5 - 1) * 8 + ($column_to - 1 - 1)] -ceq "P")) -or
+                (($column_to -lt 8) -and ($position.board[(5 - 1) * 8 + ($column_to + 1 - 1)] -ceq "P"))
+            )
+        )
+    ) {
         $position.en_passant = Compress-ChessCoordinates -row (([int]$row_from + [int]$row_to)/2) -column $column_to;
     } Else {
         $position.en_passant = "-";
