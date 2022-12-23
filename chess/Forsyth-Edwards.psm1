@@ -13,6 +13,12 @@ Function Add-MoveToChessPosition {
         [Parameter(Mandatory)][string]$move
     );
 
+    ($legal, $reason) = Test-ChessMoveLegal -fen $fen -move $move;
+
+    If (-not $legal) {
+        Throw $reason;
+    }
+
     $position = Expand-ChessPosition -fen $fen;
 
     (
@@ -21,16 +27,7 @@ Function Add-MoveToChessPosition {
         $promote
     ) = Expand-UniversalChessInterfaceMove -move $move;
 
-    # check to see whether there is a piece on the "from" square
     $moving_piece = $position.board[($row_from - 1) * 8 + ($column_from - 1)];
-    If ($moving_piece -eq " ") {
-        Throw "There is no piece on the `"from`" square for that move";
-    }
-
-    # check to see whether that piece is the right color
-    If ($position.to_move -ne (Get-ChessPieceColor -piece $moving_piece)) {
-        Throw "Moving piece is the wrong color";
-    }
 
     # move the piece from the old square to the new square in three steps
 
@@ -62,30 +59,12 @@ Function Add-MoveToChessPosition {
     } Else {
         $position.half_move++;
     }
-    If (
-        $captured_piece -ne " " -and
-        (Get-ChessPieceColor -piece $captured_piece) -eq $position.to_move) {
-        Throw "You cannot capture your own piece";
-    }
-    If ($captured_piece -eq "k") {
-        Throw "You cannot capture the enemy King";
-    }
     If ($promote -ne "") {
-        If (-not $pawn_move) {
-            Throw "Only pawns can promote, and the moving piece is a $moving_piece";
-        }
-
         # UCI uses lowercase for promotions - make sure White promotes to a White piece!
         If ((Get-ChessPieceColor -piece $moving_piece) -eq "w") {
             $moving_piece = $promote.ToUpperInvariant();
-            If ($row_to -ne "8") {
-                Throw "White can only promote on the eighth rank";
-            }
         } Else {
             $moving_piece = $promote;
-            If ($row_to -ne "1") {
-                Throw "Black can only promote on the first rank";
-            }
         }
     }
     
@@ -97,50 +76,22 @@ Function Add-MoveToChessPosition {
         ($column_from -eq 5) -and
         (($column_to -eq 3) -or ($column_to -eq 7))) {
         If ($moving_piece -ceq "K") {
-            If ($row_from -ne 1 -or $row_to -ne 1) {
-                Throw "The White King needs to stay on the first row when castling";
-            }
-
             If ($column_to -eq 3) {
-                # White Queen-side castling
-                If (-not ($position.castling_options -ccontains "Q")) {
-                    Throw "White has lost the privilege to castle Queen-side";
-                }
-
-                # move the Rook
+                # White Queen-side castling, move the Rook
                 $position.board[(1 - 1) * 8 + (1 - 1)] = [char]" ";
                 $position.board[(1 - 1) * 8 + (4 - 1)] = [char]"R";
             } Else {
-                # White King-side castling
-                If (-not ($position.castling_options -ccontains "K")) {
-                    Throw "White has lost the privilege to castle King-side";
-                }
-
-                # move the Rook
+                # White King-side castling, move the Rook
                 $position.board[(1 - 1) * 8 + (8 - 1)] = [char]" ";
                 $position.board[(1 - 1) * 8 + (6 - 1)] = [char]"R";
             }
         } Else {
-            If ($row_from -ne 8 -or $row_to -ne 8) {
-                Throw "The Black King needs to stay on the eighth row when castling";
-            }
-
             If ($column_to -eq 3) {
-                # Black Queen-side castling
-                If (-not ($position.castling_options -ccontains "q")) {
-                    Throw "Black has lost the privilege to castle Queen-side";
-                }
-
-                # move the Rook
+                # Black Queen-side castling, move the Rook
                 $position.board[(8 - 1) * 8 + (1 - 1)] = [char]" ";
                 $position.board[(8 - 1) * 8 + (4 - 1)] = [char]"r";
             } Else {
-                # Black King-side castling
-                If (-not ($position.castling_options -ccontains "k")) {
-                    Throw "Black has lost the privilege to castle King-side";
-                }
-
-                # move the Rook
+                # Black King-side castling, move the Rook
                 $position.board[(8 - 1) * 8 + (8 - 1)] = [char]" ";
                 $position.board[(8 - 1) * 8 + (6 - 1)] = [char]"r";
             }
@@ -544,3 +495,105 @@ Function Show-ChessPosition {
     Write-Host "Half-move(s) since the last pawn move or capture:", $position.half_move, "(100 is a draw)";
 }
 Export-ModuleMember -Function "Show-ChessPosition";
+
+# given a chess game position in Forsyth-Edwards Notation (FEN)
+# and a chess move in Universal Chess Interface (UCI) notation
+# determine whether that move is legal in that position
+Function Test-ChessMoveLegal {
+    Param(
+        [Parameter(Mandatory)][string]$fen,
+        [Parameter(Mandatory)][string]$move
+    );
+
+    $position = Expand-ChessPosition -fen $fen;
+
+    (
+        $row_from, $column_from,
+        $row_to, $column_to,
+        $promote
+    ) = Expand-UniversalChessInterfaceMove -move $move;
+
+    # check to see whether there is a piece on the "from" square
+    $moving_piece = $position.board[($row_from - 1) * 8 + ($column_from - 1)];
+    If ($moving_piece -eq " ") {
+        Return ($false, "$move is illegal because there is no piece on the `"from`" square");
+    }
+
+    # check to see whether that piece is the right color
+    If ($position.to_move -ne (Get-ChessPieceColor -piece $moving_piece)) {
+        Return ($false, "$moving_piece is the wrong color");
+    }
+
+    # check to see whether we are capturing a piece
+    $captured_piece = $position.board[($row_to - 1) * 8 + ($column_to - 1)];
+    If (
+        $captured_piece -ne " " -and
+        (Get-ChessPieceColor -piece $captured_piece) -eq $position.to_move) {
+        Return ($false, "You cannot capture your own piece");
+    }
+
+    If ($captured_piece -eq "k") {
+        Return ($false, "You cannot capture the enemy King");
+    }
+
+    # promotion
+    $pawn_move = ($moving_piece -eq "p");
+    If ($promote -ne "") {
+        If (-not $pawn_move) {
+            Return ($false, "Only pawns can promote, and the moving piece is a $moving_piece");
+        }
+
+        If ((Get-ChessPieceColor -piece $moving_piece) -eq "w") {
+            If ($row_to -ne "8") {
+                Return ($false, "White can only promote on the eighth rank");
+            }
+        } Else {
+            If ($row_to -ne "1") {
+                Return ($false, "Black can only promote on the first rank");
+            }
+        }
+    }
+
+    # castling
+    If (($moving_piece -eq "k") -and
+        ($column_from -eq 5) -and
+        (($column_to -eq 3) -or ($column_to -eq 7))) {
+        If ($moving_piece -ceq "K") {
+            If ($row_from -ne 1 -or $row_to -ne 1) {
+                Return ($false, "The White King needs to stay on the first row when castling");
+            }
+
+            If ($column_to -eq 3) {
+                # White Queen-side castling
+                If (-not ($position.castling_options -ccontains "Q")) {
+                    Return ($false, "White has lost the privilege to castle Queen-side");
+                }
+            } Else {
+                # White King-side castling
+                If (-not ($position.castling_options -ccontains "K")) {
+                    Return ($false, "White has lost the privilege to castle King-side");
+                }
+            }
+        } ElseIf ($moving_piece -ceq "k") {
+            If ($row_from -ne 8 -or $row_to -ne 8) {
+                Return ($false, "The Black King needs to stay on the eighth row when castling");
+            }
+
+            If ($column_to -eq 3) {
+                # Black Queen-side castling
+                If (-not ($position.castling_options -ccontains "q")) {
+                    Return ($false, "Black has lost the privilege to castle Queen-side");
+                }
+            } Else {
+                # Black King-side castling
+                If (-not ($position.castling_options -ccontains "k")) {
+                    Return ($false, "Black has lost the privilege to castle King-side");
+                }
+            }
+        }
+    }
+
+    # move passes all our checks, call it legal
+    Return ($true, "");
+}
+Export-ModuleMember -Function "Test-ChessMoveLegal";

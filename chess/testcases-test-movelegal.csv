@@ -1,0 +1,14 @@
+Name,Position,Move,Legal,Reason
+Empty from square,4k3/8/8/8/8/8/8/4K3 w - - 0 1,h1h2,FALSE,"h1h2 is illegal because there is no piece on the ""from"" square"
+Wrong color piece,4k3/8/8/8/8/8/8/4K3 w - - 0 1,e8e7,FALSE,k is the wrong color
+Take your own piece,4k3/8/8/8/8/8/8/4K2R w - - 0 1,e1h1,FALSE,You cannot capture your own piece
+Take enemy king,4k3/8/8/8/8/8/8/4K3 w - - 0 1,e1e8,FALSE,You cannot capture the enemy King
+Promote non-pawn,4k3/8/8/8/8/8/8/4K3 w - - 0 1,e1a8q,FALSE,"Only pawns can promote, and the moving piece is a K"
+White promote off of eighth rank,4k3/7p/8/8/8/8/7P/4K3 w - - 0 1,h2h7q,FALSE,White can only promote on the eighth rank
+Black promote off of first rank,4k3/7p/8/8/8/8/7P/4K3 b - - 0 1,h7h2q,FALSE,Black can only promote on the first rank
+White cannot castle King-side,4k2r/8/8/8/8/8/8/4K2R w - - 0 1,e1g1,FALSE,White has lost the privilege to castle King-side
+Black cannot castle King-side,4k2r/8/8/8/8/8/8/4K2R b - - 0 1,e8g8,FALSE,Black has lost the privilege to castle King-side
+White cannot castle Queen-side,r3k3/8/8/8/8/8/8/R3K3 w - - 0 1,e1c1,FALSE,White has lost the privilege to castle Queen-side
+Black cannot castle Queen-side,r3k3/8/8/8/8/8/8/R3K3 b - - 0 1,e8c8,FALSE,Black has lost the privilege to castle Queen-side
+Castle off first rank,4k2r/8/8/8/8/8/8/4K2R w K - 0 1,e1g2,FALSE,The White King needs to stay on the first row when castling
+Castle off eighth rank,4k2r/8/8/8/8/8/8/4K2R b k - 0 1,e8g7,FALSE,The Black King needs to stay on the eighth row when castling

@@ -32,8 +32,14 @@ While ($true) {
     } Else {
         $history.Push($position);
 
-        Write-Host "";
-        $position = Add-MoveToChessPosition -fen $position -move $move;
-        Show-ChessPosition -fen $position;
+        ($legal, $reason) = Test-ChessMoveLegal -fen $position -move $move;
+
+        If ($legal) {
+            Write-Host "";
+            $position = Add-MoveToChessPosition -fen $position -move $move;
+            Show-ChessPosition -fen $position;
+        } Else {
+            Write-Host $reason;
+        }
     }
 }
