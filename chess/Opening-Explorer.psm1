@@ -62,6 +62,11 @@ Function Get-ChessOpeningExplorer {
         };
 
         $response = Invoke-WebRequest -Uri $masters_database -Body $parameters;
+
+        If (-not $response.Content) {
+            Throw "Did not get any response from the web server";
+        }
+
         $response.Content | Out-File -FilePath $cache;
         $results = ConvertFrom-Json $response.Content;
     }
