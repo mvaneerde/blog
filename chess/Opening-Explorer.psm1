@@ -124,8 +124,8 @@ Function Get-ChessOpeningExplorerPlayer {
         };
         
         $json = $chars -join "";
-        $json | Out-File -FilePath $cache;
         $results = ConvertFrom-Json $json;
+        $json | Out-File -FilePath $cache;
     }
 
     Return $results;

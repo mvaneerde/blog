@@ -59,7 +59,6 @@ While ($move_lists.Count -gt 0) {
 
                 $variation = Add-MoveToChessPosition -fen $variation -move $move;
             }
-            # Show-ChessPosition $variation;
 
             If ($results.opening.name) {
                 Write-Host "Opening:", $results.opening.name;
