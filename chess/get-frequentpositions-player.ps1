@@ -1,7 +1,14 @@
 # given a percentage, e.g. 10%
+# and a player
+# and a color (white or black)
 # find all positions in the opening database
-# that occur in at least that percent of master games
-Param([Parameter(Mandatory)][double]$percent);
+# that occur in at least that percent of games
+# where the given player plays the given color
+Param(
+    [Parameter(Mandatory)][string]$player,
+    [Parameter(Mandatory)][string]$color,
+    [Parameter(Mandatory)][double]$percent
+);
 
 Import-Module ".\Forsyth-Edwards.psm1";
 Import-Module ".\Opening-Explorer.psm1";
@@ -18,7 +25,7 @@ While ($move_lists.Count -gt 0) {
     $move_lists = $move_lists | ForEach-Object {
         $move_list = $_;
 
-        $results = Get-ChessOpeningExplorer -fen $initial_position -play $move_list;
+        $results = Get-ChessOpeningExplorerPlayer -player $player -color $color -fen $initial_position -play $move_list;
         $white = [int]$results.white;
         $draws = [int]$results.draws;
         $black = [int]$results.black;
@@ -28,7 +35,10 @@ While ($move_lists.Count -gt 0) {
             # calculate the number of games sufficient to meet the given percent
             $total_initial = $total;
             $threshold = $total * $percent / 100;
-            Write-Host "Looking for positions that occur in at least $threshold ($percent% of $total) master games";
+            Write-Host `
+                "Looking for positions that occur",
+                "in at least $threshold ($percent% of $total) games",
+                "where $player played $color";
         }
 
         If ($total -ge $threshold) {
@@ -58,7 +68,7 @@ While ($move_lists.Count -gt 0) {
                 Write-Host "ECO:", $results.opening.eco;
             }
             $percent = (100.0 * $total / $total_initial).ToString("#.#");
-            Write-Host "Master games:", $total, "($percent%)";
+            Write-Host "$player ($color) games:", $total, "($percent%)";
             Write-Host "Results (White/Draw/Black):", (@($white, $draws, $black) -join "/");
 
             Return $results.moves | ForEach-Object {
@@ -68,7 +78,7 @@ While ($move_lists.Count -gt 0) {
                 Return ($move_list_array + $move.uci) -join ",";
             }
         } Else {
-            # ignoring this variation because it is too low of a percentage of master games
+            # ignoring this variation because it is too low of a percentage of total games
             Return;
         }
     }

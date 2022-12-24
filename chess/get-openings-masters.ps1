@@ -18,7 +18,7 @@ If ($play.Count) {
 
 Show-ChessPosition -fen $display_position;
 
-$results = Get-ChessOpeningExplorer -fen $position -play ($play -join ",");
+$results = Get-ChessOpeningExplorerMasters -fen $position -play ($play -join ",");
 
 $white = [int]$results.white;
 $draws = [int]$results.draws;

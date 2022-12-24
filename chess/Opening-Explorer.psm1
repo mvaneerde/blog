@@ -4,7 +4,10 @@ Import-Module ".\Forsyth-Edwards.psm1";
 # given a position in Forsyth-Edwards Notation,
 # returns a filename suitable for caching information about that position
 Function Get-ChessOpeningCacheFilename {
-    Param([string]$fen);
+    Param(
+        [string]$who,
+        [string]$fen
+    );
 
     $userprofile = [Environment]::GetFolderPath("UserProfile");
 
@@ -19,6 +22,7 @@ Function Get-ChessOpeningCacheFilename {
     $position = Expand-ChessPosition -fen $fen;
 
     $filename = (@(
+        $who,
         $fen_board.Replace("/", "_"),
         ($position.castling_options -join ""),
         $position.en_passant,
@@ -33,7 +37,7 @@ Export-ModuleMember -Function "Get-ChessOpeningCacheFilename";
 
 # given a starting position and an optional list of moves,
 # returns statistics about the resulting position after making those moves
-Function Get-ChessOpeningExplorer {
+Function Get-ChessOpeningExplorerMasters {
     Param(
         [string]$fen,
         [string]$play
@@ -50,15 +54,15 @@ Function Get-ChessOpeningExplorer {
         }
     }
 
-    $cache = Get-ChessOpeningCacheFilename -fen $resulting_fen;
+    $cache = Get-ChessOpeningCacheFilename -who "masters" -fen $resulting_fen;
 
     If (Test-Path -Path $cache) {
         $results = ConvertFrom-Json (Get-Content $cache -Raw);
     } Else {
         $masters_database = "https://explorer.lichess.ovh/masters";
-        $parameters = @{ `
-            fen = $fen; `
-            play = $play; `
+        $parameters = @{
+            fen = $fen;
+            play = $play;
         };
 
         $response = Invoke-WebRequest -Uri $masters_database -Body $parameters;
@@ -73,4 +77,57 @@ Function Get-ChessOpeningExplorer {
 
     Return $results;
 }
-Export-ModuleMember -Function "Get-ChessOpeningExplorer";
+Export-ModuleMember -Function "Get-ChessOpeningExplorerMasters";
+
+Function Get-ChessOpeningExplorerPlayer {
+    Param(
+        [string]$player,
+        [string]$color,
+        [string]$fen,
+        [string]$play
+    );
+
+    # calculate the FEN of the resulting position
+    $resulting_fen = $fen;
+
+    If ($play) {
+        $play.Split(",") | ForEach-Object {
+            $move = $_;
+
+            $resulting_fen = Add-MoveToChessPosition -fen $resulting_fen -move $move;
+        }
+    }
+
+    $cache = Get-ChessOpeningCacheFilename -who (@($player, $color) -join "-") -fen $resulting_fen;
+
+    If (Test-Path -Path $cache) {
+        $results = ConvertFrom-Json (Get-Content $cache -Raw);
+    } Else {
+        $player_database = "https://explorer.lichess.ovh/player";
+        $parameters = @{
+            player = $player;
+            color = $color;
+            fen = $fen;
+            play = $play;
+            recentGames = 0;
+        };
+
+        $response = Invoke-WebRequest -Uri $player_database -Body $parameters;
+
+        If (-not $response.Content) {
+            Throw "Did not get any response from the web server";
+        }
+
+        $chars = $response.Content | ForEach-Object {
+            # for some reason we get an array of bytes, turn them into characters
+            Return [char]$_;
+        };
+        
+        $json = $chars -join "";
+        $json | Out-File -FilePath $cache;
+        $results = ConvertFrom-Json $json;
+    }
+
+    Return $results;
+}
+Export-ModuleMember -Function "Get-ChessOpeningExplorerPlayer";
