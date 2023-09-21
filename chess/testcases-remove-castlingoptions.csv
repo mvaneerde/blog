@@ -1,0 +1,16 @@
+﻿Name,Start,FromRow,FromColumn,ToRow,ToColumn,End
+None,-,5,4,5,5,-
+White King moved,KQkq,1,5,2,5,kq
+Black King moved,KQkq,8,5,7,5,KQ
+White Queen Rook moved,KQkq,1,1,2,1,Kkq
+White King Rook moved,KQkq,1,8,2,8,Qkq
+Black Queen Rook moved,KQkq,8,1,7,1,KQk
+Black King Rook moved,KQkq,8,8,7,8,KQq
+White Queen Rook captured,KQkq,2,1,1,1,Kkq
+White King Rook captured,KQkq,2,8,1,8,Qkq
+Black Queen Rook captured,KQkq,7,1,8,1,KQk
+Black King Rook captured,KQkq,7,8,8,8,KQq
+White Queen Rook captured Black Queen Rook,KQkq,1,1,8,1,Kk
+Black Queen Rook captured White Queen Rook,KQkq,8,1,1,1,Kk
+White King Rook captured Black King Rook,KQkq,1,8,8,8,Qq
+Black King Rook captured White King Rook,KQkq,8,8,1,8,Qq

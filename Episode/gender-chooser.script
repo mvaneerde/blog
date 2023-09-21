@@ -1,0 +1,44 @@
+INT. BLACK - NIGHT
+        NARRATOR
+    You can choose your gender and your love interest's gender, but there is a pregnancy subplot, so precisely one of you must have a uterus.
+
+        NARRATOR
+    What would you like to play as?
+
+choice
+"Cisgender man" {
+} "Transgender man" {
+gain mc_has_uterus
+} "Cisgender woman" {
+gain mc_is_woman
+gain mc_has_uterus
+} "Transgender woman" {
+gain mc_is_woman
+}
+
+if (mc_has_uterus) {
+        NARRATOR
+    Okay, you have the uterus.
+}
+
+        NARRATOR
+    And for your love interest?
+
+choice
+"Cisgender man" if (mc_has_uterus) {
+} "Transgender man" if (NOT mc_has_uterus) {
+gain li_has_uterus
+} "Cisgender woman" if (NOT mc_has_uterus) {
+gain li_has_uterus
+gain li_is_woman
+} "Transgender woman" if (mc_has_uterus) {
+gain li_is_woman
+}
+
+if (li_has_uterus) {
+        NARRATOR
+    Okay, your love interest has the uterus.
+}
+
+        NARRATOR
+    Thanks for clearing that up for me!

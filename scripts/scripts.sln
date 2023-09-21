@@ -20,6 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		extract-guids.bat = extract-guids.bat
 		extract-guids.pl = extract-guids.pl
 		guid.bat = guid.bat
+		mirror-phone.bat = mirror-phone.bat
 		mpegaudioheader.pl = mpegaudioheader.pl
 		name.bat = name.bat
 		name.ps1 = name.ps1

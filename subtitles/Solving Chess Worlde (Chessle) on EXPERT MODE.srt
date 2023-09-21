@@ -1,0 +1,1316 @@
+﻿1
+00:00:00,406 --> 00:00:03,139
+Okay. PowerShell is no use to me here.
+
+2
+00:00:04,800 --> 00:00:11,740
+Let's start out with this opening
+that I made up...
+
+3
+00:00:15,626 --> 00:00:17,490
+where we just move out all the Knights...
+
+4
+00:00:18,780 --> 00:00:21,960
+and all four center pawns.
+
+5
+00:00:28,770 --> 00:00:30,690
+And what should we do next?
+
+6
+00:00:33,081 --> 00:00:35,020
+Let's bring out the Bishops.
+
+7
+00:00:37,560 --> 00:00:40,360
+I don't like that.
+It's too helpful.
+
+8
+00:00:43,050 --> 00:00:44,830
+Okay. Let's do 1. e4 e5;
+
+9
+00:00:45,564 --> 00:00:46,564
+2. d4 d5;
+
+10
+00:00:47,520 --> 00:00:50,890
+3. Nf3 Nf6;
+
+11
+00:00:51,480 --> 00:00:52,560
+bring out the Bishops;
+
+12
+00:00:53,760 --> 00:00:54,760
+and we castle.
+
+13
+00:00:59,253 --> 00:01:00,326
+Okay!
+
+14
+00:01:03,590 --> 00:01:08,530
+So we have Green, we have Yellow,
+and we have Gray.
+
+15
+00:01:09,447 --> 00:01:13,200
+So we know there's no e4,
+we know there's no Nf6,
+
+16
+00:01:13,563 --> 00:01:16,484
+and there's no Bc4,
+and there's no Bc5,
+
+17
+00:01:16,509 --> 00:01:17,670
+and we know there's no O-O.
+
+18
+00:01:22,023 --> 00:01:24,052
+We're kind of done with PowerShell for this.
+
+19
+00:01:26,287 --> 00:01:27,694
+Let me add Chessle here.
+
+20
+00:01:29,649 --> 00:01:31,823
+Eh... I still need to adjust this scene.
+
+21
+00:01:37,330 --> 00:01:38,677
+Let's move that down a little...
+
+22
+00:01:39,810 --> 00:01:40,723
+... there we are.
+
+23
+00:01:46,981 --> 00:01:48,575
+Let's add more text here.
+
+24
+00:02:03,390 --> 00:02:06,330
+Okay!
+For Yellow we have an e5...
+
+25
+00:02:07,440 --> 00:02:08,670
+... and a d4...
+
+26
+00:02:11,949 --> 00:02:13,346
+Rearrange the order in a minute.
+
+27
+00:02:13,371 --> 00:02:15,180
+e5, d4, d5,
+
+28
+00:02:15,891 --> 00:02:17,031
+Nf3.
+
+29
+00:02:17,670 --> 00:02:18,670
+We have no Greens.
+
+30
+00:02:19,836 --> 00:02:23,080
+One, two, three, four...
+we have four Yellows.
+
+31
+00:02:23,356 --> 00:02:26,100
+One, two, three, four, five...
+we have five Grays.
+
+32
+00:02:26,183 --> 00:02:29,160
+We count O-O as Gray because
+it's the same...
+
+33
+00:02:30,737 --> 00:02:31,963
+(okay, cool...)
+
+34
+00:02:32,970 --> 00:02:36,430
+like, we can't tell whether
+it's Black or White that castles...
+
+35
+00:02:36,780 --> 00:02:40,080
+so this gray O-O means that
+neither side castles during the opening.
+
+36
+00:02:46,493 --> 00:02:49,990
+Okay, d4 is very probably White's move.
+
+37
+00:02:51,757 --> 00:02:52,783
+So, Guess.
+
+38
+00:02:53,056 --> 00:02:54,520
+So, I think pretty...
+
+39
+00:02:54,963 --> 00:02:56,550
+I'm going to guess that it's 1. d4
+
+40
+00:02:57,600 --> 00:02:58,900
+and then 1. ... d5.
+
+41
+00:03:01,056 --> 00:03:02,469
+Although e5?
+
+42
+00:03:03,390 --> 00:03:06,540
+Having e5 and d4 in the same opening is
+a little weird. Maybe it's a French?
+
+43
+00:03:08,130 --> 00:03:09,330
+No because there's no e4.
+
+44
+00:03:10,560 --> 00:03:13,260
+So how can there be an e5?
+It must be...
+
+45
+00:03:13,920 --> 00:03:15,807
+Black that plays ... e5,
+
+46
+00:03:17,640 --> 00:03:20,453
+because otherwise White would have
+had to play e4 first. Okay.
+
+47
+00:03:20,646 --> 00:03:21,910
+So 1. d4
+
+48
+00:03:24,120 --> 00:03:25,418
+1. ... d5
+
+49
+00:03:27,710 --> 00:03:29,229
+and then 2. c4 maybe.
+
+50
+00:03:30,250 --> 00:03:31,610
+Let me just draw them out here.
+
+51
+00:03:31,800 --> 00:03:35,230
+So I think it's going to be like this.
+I'm not going to make this my submission.
+
+52
+00:03:36,661 --> 00:03:38,580
+And then I think
+it's e5 HERE.
+
+53
+00:03:41,790 --> 00:03:42,790
+Maybe not right away.
+
+54
+00:03:48,140 --> 00:03:51,870
+Like the ... e5 must happen before
+White plays the Knight.
+
+55
+00:03:53,703 --> 00:03:54,870
+So maybe right away?
+
+56
+00:03:58,072 --> 00:03:59,710
+And then, takes...
+
+57
+00:04:20,496 --> 00:04:21,769
+and then here...
+
+58
+00:04:22,522 --> 00:04:23,860
+and then here...
+
+59
+00:04:28,480 --> 00:04:29,660
+and then ... c5...
+
+60
+00:04:37,460 --> 00:04:41,320
+here. I've covered e5,
+d4 and d5, and Nf3.
+
+61
+00:04:47,510 --> 00:04:50,003
+Okay. So my guess is that it's...
+
+62
+00:04:50,913 --> 00:04:52,633
+1. d4 d5
+
+63
+00:04:53,810 --> 00:04:55,080
+2. c4 c5...
+
+64
+00:04:56,700 --> 00:04:59,650
+no. 1. d4 d5 2. c4 e5
+
+65
+00:05:01,380 --> 00:05:02,853
+3. dxe5
+
+66
+00:05:03,720 --> 00:05:05,339
+No this can't be it,
+because there's a d4.
+
+67
+00:05:11,493 --> 00:05:13,290
+So how do you play this opening...
+
+68
+00:05:17,360 --> 00:05:19,830
+without d5-d4...
+
+69
+00:05:22,183 --> 00:05:23,843
+given that it's White to move?
+
+70
+00:05:55,416 --> 00:05:56,680
+Okay, material's even.
+
+71
+00:05:59,700 --> 00:06:00,840
+There's no Nf6.
+
+72
+00:06:03,330 --> 00:06:04,330
+4. ... c5?
+
+73
+00:06:11,046 --> 00:06:12,730
+Let's go here.
+
+74
+00:06:14,593 --> 00:06:15,670
+There's no d4.
+
+75
+00:06:31,580 --> 00:06:33,520
+5. ... d4 seems like such
+a natural move here.
+
+76
+00:06:37,593 --> 00:06:40,384
+There might be a ... d4!
+BOTH sides could play d4.
+
+77
+00:06:47,226 --> 00:06:49,299
+Okay, so what are the
+unique moves in my guess?
+
+78
+00:06:50,460 --> 00:06:51,630
+d4 and d5...
+
+79
+00:06:52,890 --> 00:06:55,598
+we already knew about.
+c4 and e5 we already,
+
+80
+00:06:55,622 --> 00:06:58,875
+well, e5 we already knew about,
+Nf3 we already knew about, so the unique
+
+81
+00:06:59,508 --> 00:07:02,275
+elements of this guess are c4.
+
+82
+00:07:04,204 --> 00:07:07,170
+So I w... - so I want to try c4,
+
+83
+00:07:10,846 --> 00:07:14,788
+I want to try exd4,
+I want to try Nxd4
+
+84
+00:07:14,940 --> 00:07:18,252
+I want to try c4...
+I want to try c5,
+
+85
+00:07:18,746 --> 00:07:20,490
+I want to try Nb5,
+
+86
+00:07:20,546 --> 00:07:22,290
+and I kind of wanna
+try d4 twice.
+
+87
+00:07:24,270 --> 00:07:25,538
+Some of these are more
+natural than others.
+
+88
+00:07:25,562 --> 00:07:27,350
+So I'm going to go all the way
+back to the beginning,
+
+89
+00:07:28,416 --> 00:07:29,850
+and I'm going to guess 1. c4.
+
+90
+00:07:35,087 --> 00:07:36,180
+Okay.
+
+91
+00:07:36,810 --> 00:07:39,938
+Now, I can't really try exd4 or Nxd4
+because they rely on d4
+
+92
+00:07:39,962 --> 00:07:42,703
+which I don't want to bother with,
+
+93
+00:07:42,871 --> 00:07:44,040
+but there is 1. ... c5.
+
+94
+00:07:48,596 --> 00:07:50,850
+Now, let's try 2. Nc3.
+We haven't tried that.
+
+95
+00:07:54,193 --> 00:07:55,873
+And I'm going to try 2. ... e6.
+
+96
+00:07:57,850 --> 00:07:59,103
+Keep the Knight out.
+
+97
+00:08:01,140 --> 00:08:02,600
+And I want to try 3. g3.
+
+98
+00:08:07,296 --> 00:08:09,909
+I know it's NOT 3. ... d5,
+so I'm going to try 3. ... g6,
+
+99
+00:08:11,063 --> 00:08:13,030
+and fianchetto both Bishops.
+
+100
+00:08:16,040 --> 00:08:17,691
+I don't want to bother with Nf3.
+
+101
+00:08:19,350 --> 00:08:21,803
+I know there's a d4 so I
+don't want to bother with d5 -
+
+102
+00:08:22,776 --> 00:08:25,680
+I mean, I know there's a d4 so
+I don't want to bother with d3.
+
+103
+00:08:28,200 --> 00:08:29,521
+Hey therock_dwayne,
+thanks for the follow!
+
+104
+00:08:30,696 --> 00:08:31,720
+Welcome to Chessle.
+
+105
+00:08:37,073 --> 00:08:38,380
+I could try 5. b3.
+
+106
+00:08:43,649 --> 00:08:46,562
+What do I know about e-pushes?
+We know e5 is a move.
+
+107
+00:08:48,783 --> 00:08:51,750
+Oh, well if I know e5 is a move
+then I don't want to bother with e6.
+
+108
+00:08:55,400 --> 00:08:57,600
+Okay. So I'll do 2. ... g6
+right away and 3. g3
+
+109
+00:08:57,647 --> 00:08:59,107
+and we'll fianchetto,
+
+110
+00:09:03,145 --> 00:09:05,440
+and then let's do the b-pawns,
+
+111
+00:09:07,090 --> 00:09:08,536
+and we'll fianchetto this way too.
+
+112
+00:09:12,800 --> 00:09:14,040
+Okay.
+
+113
+00:09:16,899 --> 00:09:19,540
+So we got another yellow!
+This is good.
+
+114
+00:09:19,859 --> 00:09:22,005
+Let me rearrange these
+alphabetically.
+
+115
+00:09:22,460 --> 00:09:23,500
+d4 d5
+
+116
+00:09:24,731 --> 00:09:25,731
+e5
+
+117
+00:09:26,511 --> 00:09:27,511
+Nf3.
+
+118
+00:09:28,483 --> 00:09:29,828
+We know c4 is a yellow,
+
+119
+00:09:30,720 --> 00:09:33,300
+and we know g3 is a yellow.
+Oh, it's looking like a Catalan.
+
+120
+00:09:36,486 --> 00:09:37,766
+Okay.
+
+121
+00:09:40,584 --> 00:09:44,212
+Uh, let's try our other grays.
+We know there's no c5.
+
+122
+00:09:44,236 --> 00:09:46,050
+Let me put these in
+alphabetical order too.
+
+123
+00:09:47,676 --> 00:09:49,023
+Knight comes here.
+
+124
+00:09:53,783 --> 00:09:55,978
+c5, there's no c5.
+
+125
+00:09:56,250 --> 00:09:57,510
+We know there's no Nc3.
+
+126
+00:09:59,925 --> 00:10:01,326
+We know there's no g6.
+
+127
+00:10:17,017 --> 00:10:20,376
+How far can you see?
+You can see up to O-O. Okay.
+
+128
+00:10:27,393 --> 00:10:31,166
+All right, so let's cut this off here
+and do a new line. Okay.
+
+129
+00:10:33,060 --> 00:10:34,793
+Actually, let's cut it off here.
+
+130
+00:10:37,666 --> 00:10:41,170
+Okay, c5, Nc3, g6,
+
+131
+00:10:42,223 --> 00:10:43,936
+Bg7,
+
+132
+00:10:47,326 --> 00:10:49,030
+Bg2,
+
+133
+00:10:52,320 --> 00:10:53,320
+b6,
+
+134
+00:10:57,673 --> 00:10:58,839
+b3,
+
+135
+00:11:09,180 --> 00:11:10,533
+(I don't have any greens!)
+
+136
+00:11:11,933 --> 00:11:14,286
+and Bb7. Okay.
+
+137
+00:11:20,392 --> 00:11:23,940
+Okay, so we do know, one
+two three four five six,
+
+138
+00:11:23,965 --> 00:11:26,108
+we know six yellow moves.
+We know c4,
+
+139
+00:11:26,460 --> 00:11:28,590
+e5, d4, d5, Nf3, g3.
+
+140
+00:11:29,760 --> 00:11:32,472
+It's probably in this order:
+
+141
+00:11:32,497 --> 00:11:35,050
+1. d4 d5
+
+142
+00:11:35,417 --> 00:11:36,570
+2. c4...
+
+143
+00:11:39,150 --> 00:11:40,150
+it's Black's move...
+
+144
+00:11:40,830 --> 00:11:43,350
+Black does, something,
+I dunno, let's do...
+
+145
+00:11:43,375 --> 00:11:46,140
+uh, we know it's NOT 2. ... Nf6...
+
+146
+00:11:47,656 --> 00:11:48,870
+we know... let's try 2. ... c6.
+
+147
+00:11:49,440 --> 00:11:50,440
+Caro-Kann.
+
+148
+00:11:51,120 --> 00:11:52,760
+Well, not a Caro-Kann. A Slav.
+
+149
+00:11:53,670 --> 00:11:56,130
+Caro-Kann is with the e-pawn
+instead of the c-pawn.
+
+150
+00:11:57,364 --> 00:12:00,456
+And then let's do 3. g3,
+
+151
+00:12:01,202 --> 00:12:03,301
+and let's do 3. ... takes.
+
+152
+00:12:03,933 --> 00:12:06,240
+We know he doesn't play
+the Knight - 4. Bg2,
+
+153
+00:12:08,223 --> 00:12:09,480
+and we know he doesn't do 4. e4.
+
+154
+00:12:14,746 --> 00:12:16,060
+What does he do?
+
+155
+00:12:20,406 --> 00:12:23,641
+4. Qc2 maybe? 4. Qc2 is a terrible idea,
+because you take the...
+
+156
+00:12:28,200 --> 00:12:31,100
+Pbbt.
+All right, let's back it up.
+
+157
+00:12:32,707 --> 00:12:35,134
+Okay, we think it's 1. d4 d5.
+
+158
+00:12:36,302 --> 00:12:38,610
+And we know there's a c4,
+so it might as well be here.
+
+159
+00:12:39,930 --> 00:12:41,611
+We think the next move is
+going to be 3. g3.
+
+160
+00:12:41,790 --> 00:12:43,807
+No, the next move isn't 3. g3.
+g3 comes later.
+
+161
+00:12:46,260 --> 00:12:47,700
+Or it could be on move 2.
+
+162
+00:12:55,789 --> 00:12:58,290
+Let's do 2. ... take, 3. Nf3.
+
+163
+00:13:07,816 --> 00:13:09,810
+We know there's a d5.
+Maybe it's here.
+
+164
+00:13:10,331 --> 00:13:12,384
+Oh, it's White's - Black's move.
+
+165
+00:13:25,383 --> 00:13:28,150
+There's no e4. It could be a ... c-takes.
+
+166
+00:13:38,727 --> 00:13:41,300
+So, Black is up a pawn here.
+
+167
+00:13:47,380 --> 00:13:48,948
+Okay, so what moves do I want to try?
+
+168
+00:13:49,968 --> 00:13:52,410
+d4, d5, c4; those are on the yellow list.
+
+169
+00:13:52,435 --> 00:13:55,065
+I want to try dxc4. That seems
+like a reasonable try.
+
+170
+00:13:57,667 --> 00:13:59,754
+Nf3 is on my yellow list.
+
+171
+00:14:01,100 --> 00:14:04,691
+I want to try e5. e5's on my yellow list.
+Good, I got that in there.
+
+172
+00:14:05,730 --> 00:14:07,560
+g3. g3 is on the yellow list.
+
+173
+00:14:09,435 --> 00:14:12,155
+I want to try exd4, Qxd4, Qxd4.
+
+174
+00:14:20,983 --> 00:14:24,698
+Okay. So let's go back and
+let's try those moves
+
+175
+00:14:24,722 --> 00:14:30,160
+WITHOUT duplicating the moves
+that we already know are yellow.
+
+176
+00:14:32,187 --> 00:14:33,300
+Okay.
+
+177
+00:14:34,950 --> 00:14:37,950
+Well I have to get
+a Pawn to c4.
+
+178
+00:14:47,560 --> 00:14:49,140
+There's only one yellow Knight move!
+
+179
+00:14:53,210 --> 00:14:54,850
+Let's do it this way.
+
+180
+00:15:08,285 --> 00:15:10,138
+I want to get the Knight there.
+
+181
+00:15:27,243 --> 00:15:31,366
+Have I tried Nc6?
+I have not.
+
+182
+00:15:33,903 --> 00:15:35,663
+And I want to try this.
+
+183
+00:15:38,010 --> 00:15:41,430
+One, two three; one, two three. Okay.
+Three attackers, three defenders.
+
+184
+00:15:48,947 --> 00:15:50,693
+Let's try that.
+
+185
+00:15:51,820 --> 00:15:54,731
+Okay, good! We got green.
+Got some greens.
+
+186
+00:16:00,237 --> 00:16:03,091
+We got 1. d4 d5 2. c4.
+
+187
+00:16:11,160 --> 00:16:15,253
+And, we know that they
+don't take: that's gray.
+
+188
+00:16:19,927 --> 00:16:21,147
+Okay.
+
+189
+00:16:22,213 --> 00:16:24,941
+And we know there's no Nc3 -
+oh, I DID know there was no Nc3!
+
+190
+00:16:24,966 --> 00:16:26,767
+Why did I play Nc3?
+
+191
+00:16:27,776 --> 00:16:30,790
+That was a waste.
+Idiot!
+
+192
+00:16:31,558 --> 00:16:33,901
+Okay, I know e5 is not THERE.
+
+193
+00:16:35,673 --> 00:16:39,091
+It's probably on the 2nd move, then.
+
+194
+00:16:39,231 --> 00:16:43,291
+There's no e3.
+e3 comes before e4.
+
+195
+00:16:46,690 --> 00:16:48,293
+Let me make this a little smaller.
+
+196
+00:16:54,021 --> 00:16:55,021
+There we go.
+
+197
+00:16:58,902 --> 00:17:01,271
+Uh, we now know where Nc6 is.
+
+198
+00:17:16,219 --> 00:17:17,364
+Okay.
+
+199
+00:17:19,191 --> 00:17:21,300
+We're narrowing it
+down very well here,
+
+200
+00:17:22,354 --> 00:17:25,265
+but we have to get everything right
+in order to win.
+
+201
+00:17:25,290 --> 00:17:26,944
+So this is tricky.
+
+202
+00:17:28,641 --> 00:17:29,787
+Okay.
+
+203
+00:17:30,310 --> 00:17:32,650
+So, we - let's try 2. ... e5 right away.
+
+204
+00:17:33,051 --> 00:17:35,126
+This is a move.
+It's not a very good move,
+
+205
+00:17:35,151 --> 00:17:36,541
+but you do see it.
+
+206
+00:17:39,543 --> 00:17:40,791
+And...
+
+207
+00:17:40,823 --> 00:17:43,665
+it's actually quite common
+for White to take here.
+
+208
+00:17:48,021 --> 00:17:50,528
+We know that the
+Knight comes to c6,
+
+209
+00:17:51,051 --> 00:17:55,231
+So that makes it unlikely
+that he takes on d5.
+
+210
+00:18:02,496 --> 00:18:04,429
+There could be a second d4.
+
+211
+00:18:11,921 --> 00:18:18,565
+Uh, we haven't tried this move,
+have we? Nd7? No. I mean, Ne7?
+
+212
+00:18:25,731 --> 00:18:27,221
+NOW 4. g3.
+
+213
+00:18:32,361 --> 00:18:33,857
+4. ... Nc6.
+
+214
+00:18:35,579 --> 00:18:38,141
+And we know there's no Bg2.
+
+215
+00:18:41,686 --> 00:18:42,934
+Maybe take here?
+
+216
+00:18:45,997 --> 00:18:47,543
+And then Queen takes?
+
+217
+00:18:49,011 --> 00:18:51,998
+Okay, so this fits with all our greens.
+d4, d5, c4 -
+
+218
+00:18:52,023 --> 00:18:54,822
+Nbc6! Okay, it does NOT. Okay.
+
+219
+00:18:56,626 --> 00:18:59,225
+Nbc6 is not the same as Nc6.
+
+220
+00:19:05,897 --> 00:19:07,649
+Okay, so 3. ... d4.
+
+221
+00:19:12,448 --> 00:19:16,054
+We know there's a g3.
+Let's do HERE.
+
+222
+00:19:17,241 --> 00:19:19,284
+NOW the 4. ... Nc6.
+
+223
+00:19:23,038 --> 00:19:24,668
+Let's do 5. f4,
+
+224
+00:19:29,323 --> 00:19:31,650
+and let's do 5. ... Bc5.
+
+225
+00:19:34,130 --> 00:19:38,932
+Okay.
+"1. d4 d5 2. c4 ?"? Yes.
+
+226
+00:19:39,734 --> 00:19:44,094
+2. ... e5 - that's a yellow.
+I'll get to the yellows.
+
+227
+00:19:44,781 --> 00:19:53,161
+"?", another d4.
+Okay. 4 g3 Nc6.
+
+228
+00:19:53,284 --> 00:19:56,096
+Okay, so it matches all of our greens.
+Let's check all the yellows.
+
+229
+00:19:56,331 --> 00:20:00,076
+Is there a c4? Yes, on move 2.
+This does not...
+
+230
+00:20:01,791 --> 00:20:04,256
+This is not conflict with
+1. c4 on move 1. Cool.
+
+231
+00:20:04,911 --> 00:20:08,461
+d4. 1. d4 is on move 1. Yes.
+
+232
+00:20:09,423 --> 00:20:11,974
+This is not yellow anymore.
+This is green.
+
+233
+00:20:12,907 --> 00:20:15,751
+d5. Yes. Also not yellow anymore.
+
+234
+00:20:19,512 --> 00:20:21,125
+In fact, c4 isn't yellow
+anymore either.
+
+235
+00:20:21,381 --> 00:20:25,981
+Is there an e5? Yes we have
+the 2. ... e5 as Black's move two.
+
+236
+00:20:26,271 --> 00:20:29,963
+Is there a g3? Yes.
+Is there a Nf3?
+
+237
+00:20:30,411 --> 00:20:32,655
+No, I did not ever move Nf3!
+
+238
+00:20:33,682 --> 00:20:35,040
+Okay, so let's back it up.
+
+239
+00:20:35,661 --> 00:20:38,982
+Instead of 5. f4
+let's do 5. Nf3,
+
+240
+00:20:39,006 --> 00:20:44,281
+and then 5. ... Bb- Bc5.
+Okay. Overprotecting.
+
+241
+00:20:45,591 --> 00:20:48,199
+We could also do 5. ... Bg4.
+
+242
+00:20:49,761 --> 00:20:50,912
+I think maybe I will.
+
+243
+00:20:54,988 --> 00:20:59,552
+The idea is to threaten to take
+the Knight and then to take the Pawn,
+
+244
+00:20:59,577 --> 00:21:01,190
+and then White can pin.
+Let's try that.
+
+245
+00:21:02,710 --> 00:21:07,426
+Oh, so close!
+Okay, we got the first few moves!
+
+246
+00:21:07,501 --> 00:21:10,058
+We got 1. d4 d5 2. c4 e5!
+
+247
+00:21:11,303 --> 00:21:13,079
+e5 is no longer yellow.
+
+248
+00:21:14,687 --> 00:21:16,422
+We have 3. dxe5!
+
+249
+00:21:18,741 --> 00:21:21,961
+And then we have a second d4!
+They did a double letter!
+
+250
+00:21:23,741 --> 00:21:24,785
+Good-good-good-good-good.
+
+251
+00:21:27,141 --> 00:21:30,850
+Okay. So the g3 is in
+the puzzle somewhere.
+
+252
+00:21:30,874 --> 00:21:34,649
+It's not move 1, it's not move 2, it's not
+move 3, it's not move 4. It MUST be move 5.
+
+253
+00:21:36,486 --> 00:21:38,993
+So I'm guessing this is 5. g3.
+
+254
+00:21:42,651 --> 00:21:46,105
+So now all we need to do is
+figure out what White's move is here.
+
+255
+00:21:48,411 --> 00:21:50,283
+Okay, so what are our grays?
+We got another gray.
+
+256
+00:21:50,308 --> 00:21:53,120
+We got another Bg4 here.
+
+257
+00:21:54,980 --> 00:21:58,288
+Let me just check that we have
+all the grays. We have e4,
+
+258
+00:21:59,141 --> 00:22:00,844
+we have Nf6,
+
+259
+00:22:02,201 --> 00:22:08,486
+yes; we have Bc4, Bc5; O-O;
+we have c5;
+
+260
+00:22:08,511 --> 00:22:11,366
+we have Nc3; g6;
+
+261
+00:22:11,391 --> 00:22:15,296
+Bg7, of course, we can't
+do Bg7 if there's no g6;
+
+262
+00:22:15,321 --> 00:22:18,326
+Bg2, of course;
+
+263
+00:22:18,351 --> 00:22:21,075
+b6; b3; Bb7;
+
+264
+00:22:21,100 --> 00:22:23,005
+no fianchettoing at all;
+
+265
+00:22:23,030 --> 00:22:28,889
+the dxc4 is gray; Nc3,
+
+266
+00:22:28,914 --> 00:22:31,586
+we knew that twice (stupid!);
+
+267
+00:22:31,616 --> 00:22:34,708
+e3; Nge2; okay;
+
+268
+00:22:40,317 --> 00:22:43,808
+Bb4, also gray;
+
+269
+00:22:45,678 --> 00:22:47,387
+okay; okay-okay-okay;
+
+270
+00:22:48,741 --> 00:22:52,049
+and Bg4! Good. So that's all of our grays.
+
+271
+00:22:53,808 --> 00:22:56,486
+Okay, so we know it's
+all right up to this point.
+
+272
+00:22:56,511 --> 00:23:01,772
+Now what moves does White have that we
+haven't tried yet? We haven't tried Bb4.
+
+273
+00:23:05,452 --> 00:23:07,937
+I can't highlight on this board.
+
+274
+00:23:07,971 --> 00:23:09,903
+But, like this is the idea.
+
+275
+00:23:15,561 --> 00:23:19,421
+So, we know 4. g3 and 5. Nf3 are the right
+moves - they're just in the wrong order!
+
+276
+00:23:19,461 --> 00:23:24,656
+Okay so it's  4. Nf3 right away,
+and then 4. ... Nc6,
+
+277
+00:23:24,681 --> 00:23:31,434
+and then 5. g3, and now we know
+every move except for Black's last.
+
+278
+00:23:31,459 --> 00:23:34,706
+We know it's not 5. ... Bg4, even
+though that seems like a sensible move.
+
+279
+00:23:34,731 --> 00:23:37,646
+Could it be 5. ... Bb4+?
+
+280
+00:23:37,671 --> 00:23:45,159
+We know that it's not Bb4, but this
+would be WITH A CHECK and that changes
+
+281
+00:23:45,184 --> 00:23:50,891
+the symbol, which means it's not quite
+the same move from a Chessle sense.
+
+282
+00:23:57,585 --> 00:23:59,222
+Okay, let's try that.
+
+283
+00:24:00,667 --> 00:24:03,030
+Oh, so close!
+
+284
+00:24:11,426 --> 00:24:13,873
+Okay, so we know everything
+except the last move!
+
+285
+00:24:16,641 --> 00:24:18,359
+What is Black's move here?
+
+286
+00:24:31,876 --> 00:24:36,416
+It's not 5. ... Bc5, we tried that
+already. We have a gray.
+
+287
+00:24:36,441 --> 00:24:39,536
+It's not 5. ... Bb4+.
+
+288
+00:24:39,561 --> 00:24:42,416
+Could be 5. ... Be7?
+
+289
+00:24:42,441 --> 00:24:49,325
+We know it's not 5. ... Nge7 - or -
+Nge2 or Nge7?
+
+290
+00:24:51,141 --> 00:24:55,706
+It could be 5. ... Nge7.
+It could very well be this.
+
+291
+00:24:55,731 --> 00:24:58,226
+We have not tried that.
+
+292
+00:24:58,251 --> 00:25:01,681
+Okay, the idea being to go to g6.
+
+293
+00:25:01,706 --> 00:25:03,432
+Okay, let's try that.
+
+294
+00:25:04,371 --> 00:25:08,638
+Oh yeah!
+Oh yeah!
+
+295
+00:25:10,534 --> 00:25:12,843
+38% of people got it right today.
+
+296
+00:25:14,661 --> 00:25:16,261
+Six tries.
+
+297
+00:25:17,301 --> 00:25:21,345
+I need to be careful about
+not reusing greens.
+
+298
+00:25:21,370 --> 00:25:25,166
+Like, I reused a lot of greens in this
+puzzle and that really slowed me down.
+
+299
+00:25:25,191 --> 00:25:28,129
+But it took me:
+one, two, three, four, five, six.
+
+300
+00:25:35,481 --> 00:25:37,175
+Chessle: six!
+

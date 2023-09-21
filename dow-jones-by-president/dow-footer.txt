@@ -1,0 +1,5 @@
+<!-- BEGIN FOOTER -->
+    </tbody>
+<table>
+<p>* Mean time to record high</p>
+<!-- END FOOTER -->

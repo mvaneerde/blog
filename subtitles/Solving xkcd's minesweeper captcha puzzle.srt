@@ -1,0 +1,312 @@
+﻿1
+00:00:08,987 --> 00:00:12,494
+So, hold on.
+
+2
+00:00:16,576 --> 00:00:22,570
+So, todays xkcd has this CAPTCHA where
+you have to figure out where the mines are,
+
+3
+00:00:24,304 --> 00:00:27,921
+and so I thought I would try to
+take a hand at solving it.
+
+4
+00:00:30,870 --> 00:00:37,056
+So this is a take-off on the game
+Minesweeper, where you're given all these
+
+5
+00:00:37,081 --> 00:00:42,515
+numbers, and then blank squares,
+and you have to try to figure out
+
+6
+00:00:42,540 --> 00:00:45,666
+what numbers belong
+in the blank squares.
+
+7
+00:00:48,368 --> 00:00:53,500
+The number tells you how many
+mines are in adjacent squares.
+
+8
+00:00:54,001 --> 00:00:59,720
+So of the three squares that
+are adjacent to the corner -
+
+9
+00:00:59,760 --> 00:01:03,520
+and diagonal counts -
+two of them have mines;
+
+10
+00:01:06,390 --> 00:01:15,455
+and of the four squares that are
+adjacent to this one over here,
+
+11
+00:01:15,480 --> 00:01:19,870
+only one of them has a mine;
+
+12
+00:01:20,951 --> 00:01:26,735
+and so we should be able to do,
+with some logic, figure out
+
+13
+00:01:26,760 --> 00:01:29,536
+which the question marks
+are mines, and which are not.
+
+14
+00:01:31,050 --> 00:01:36,000
+So I will use M for Mine;
+and I will use C = Clear;
+
+15
+00:01:37,259 --> 00:01:39,713
+? = Unknown.
+
+16
+00:01:46,350 --> 00:01:52,085
+Okay, so let's start
+with this 3 here:
+
+17
+00:01:52,110 --> 00:01:58,950
+three of these are mines,
+but of these two squares -
+
+18
+00:01:58,980 --> 00:02:02,363
+B3 and A4 - they
+can't BOTH be mines,
+
+19
+00:02:02,396 --> 00:02:05,255
+because if they were
+both mines, then this
+
+20
+00:02:05,280 --> 00:02:08,645
+square would have at least
+two mines adjacent to it.
+
+21
+00:02:08,670 --> 00:02:12,815
+So only one of these is a
+mine, and the other one is clear:
+
+22
+00:02:12,840 --> 00:02:15,935
+that is to say, between these two squares -
+there's only one mine between them,
+
+23
+00:02:15,960 --> 00:02:19,731
+which means that both
+of these have to be mines.
+
+24
+00:02:19,756 --> 00:02:23,740
+M, M.
+Okay.
+
+25
+00:02:29,206 --> 00:02:35,239
+I still don't know which one of these
+is the mine, and which one is clear,
+
+26
+00:02:35,280 --> 00:02:38,980
+but now that I look at this 2, I can see
+that there's already two mines next to it
+
+27
+00:02:39,005 --> 00:02:40,805
+so this one must be clear,
+
+28
+00:02:40,830 --> 00:02:43,475
+and in fact, if I look
+at this 1 here,
+
+29
+00:02:43,500 --> 00:02:48,822
+of these four, I know that three of
+them are clear and the other one's a mine.
+
+30
+00:02:48,847 --> 00:02:54,125
+So this is clear, this is
+clear, and this is clear.
+
+31
+00:02:54,150 --> 00:02:55,947
+Okay.
+
+32
+00:02:59,280 --> 00:03:03,335
+In fact I know that
+not only is this clear,
+
+33
+00:03:03,360 --> 00:03:06,575
+but this is a 2.
+
+34
+00:03:06,600 --> 00:03:11,160
+When you normally play Minesweeper,
+and you click on a box (that's NOT a mine)
+
+35
+00:03:11,190 --> 00:03:13,686
+it'll give you the number;
+
+36
+00:03:13,711 --> 00:03:17,255
+but we're not playing that
+kind of Minesweeper; we're doing
+
+37
+00:03:17,280 --> 00:03:19,773
+"xkcd CAPTCHA" Minesweeper.
+
+38
+00:03:32,863 --> 00:03:34,057
+Okay.
+
+39
+00:03:34,920 --> 00:03:38,806
+So this guy here has three
+mines next to it, which means that
+
+40
+00:03:38,831 --> 00:03:46,203
+two of these are mines,
+and the third one is clear;
+
+41
+00:03:46,230 --> 00:03:50,707
+and, by a very similar exercise,
+
+42
+00:03:50,732 --> 00:03:54,935
+these two are both next
+to this number 1 here,
+
+43
+00:03:54,960 --> 00:04:02,363
+which means only one of these can
+be clear, and the other one's a mine;
+
+44
+00:04:02,400 --> 00:04:04,835
+so to get this all the
+way up to three, we need
+
+45
+00:04:04,859 --> 00:04:09,452
+one of these, AND this
+one. So this one is a mine.
+
+46
+00:04:11,880 --> 00:04:17,975
+I don't know which one of these it
+is, but now that I had put this M here,
+
+47
+00:04:18,000 --> 00:04:20,910
+this 3 is full; so I
+know this guy is clear,
+
+48
+00:04:20,940 --> 00:04:27,545
+and this 1 is clear, so I know
+that all of these three are clear.
+
+49
+00:04:27,570 --> 00:04:33,095
+I could also use the same logic
+between this 3 and this 1,
+
+50
+00:04:33,120 --> 00:04:37,235
+to prove that only one of these is a
+mine, and therefore THIS is a mine,
+
+51
+00:04:37,260 --> 00:04:42,010
+but I don't need it. So I can
+use a C here, and a C here,
+
+52
+00:04:43,138 --> 00:04:46,394
+and a C here (because of this 1.)
+
+53
+00:04:46,419 --> 00:04:49,625
+Okay, and now there's
+only one square left,
+
+54
+00:04:49,650 --> 00:04:51,575
+and we know it's a
+mine because of this,
+
+55
+00:04:51,600 --> 00:04:55,220
+and we know it's the
+third mine for this guy.
+
+56
+00:04:58,290 --> 00:05:01,563
+Okay, and so the answers are -
+
+57
+00:05:16,197 --> 00:05:18,390
+ah! -
+
+58
+00:05:35,196 --> 00:05:37,336
+"Shapes;" okay -
+
+59
+00:05:41,616 --> 00:05:52,950
+answers are: here,
+here, here, and here.
+
+60
+00:05:55,043 --> 00:05:58,145
+And let's just do a last check:
+
+61
+00:05:58,170 --> 00:06:01,236
+the 2 has two mines next to it;
+
+62
+00:06:01,261 --> 00:06:03,845
+the 1 has one mine next to it;
+
+63
+00:06:03,870 --> 00:06:07,265
+the 3 has three mines next to it;
+the 3 has three mines next to it;
+
+64
+00:06:07,290 --> 00:06:09,905
+the 1 has one;
+and the 1 has one:
+
+65
+00:06:09,930 --> 00:06:12,365
+so, this checks out!
+
+66
+00:06:12,390 --> 00:06:17,616
+Thank you for watching me
+solve xkcd's Minesweeper puzzle.
+

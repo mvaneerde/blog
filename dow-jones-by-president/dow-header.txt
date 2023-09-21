@@ -1,0 +1,9 @@
+<!-- BEGIN HEADER -->
+<table>
+    <thead>
+        <th>Return</th>
+        <th>Record highs</th>
+        <th>MTTRH*</th>
+    </thead>
+    <tbody>
+<!-- END HEADER -->

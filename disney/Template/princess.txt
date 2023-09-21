@@ -1,0 +1,10 @@
+        <tr>
+            <td style="vertical-align: top;"><img height="#HEIGHT#" src="#IMAGE#" width="#WIDTH#" /></td>
+            <td style="vertical-align: top;">
+                <a href="#LINK#">#NAME#</a>
+                <br />
+                #COMMENT#
+                <br />
+                <strong>#PRINCESS#</strong>
+            </td>
+        </tr>

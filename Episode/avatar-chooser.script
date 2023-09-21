@@ -1,0 +1,51 @@
+INT. BASIC OFFICE - DAY
+
+@LOLA enters from left to screen center
+
+label choose_mc_appearance
+
+        NARRATOR
+    What do you look like?
+
+choice
+"Let my customize my appearance" {
+
+@LOLA goes to character avatar
+goto choose_mc_appearance
+
+} "Just use my Episode avatar" {
+
+@LOLA becomes female profile
+goto choose_mc_appearance
+
+} "That's me!" {
+
+}
+
+@LOLA exits right
+
+@CHARLIE enters from left to screen center
+
+label choose_li_appearance
+
+        NARRATOR
+    What does your love interest look like?
+
+choice
+"Let my customize my appearance" {
+
+@CHARLIE goes to character avatar
+goto choose_li_appearance
+
+} "Just use my Episode avatar" {
+
+@CHARLIE becomes male profile
+goto choose_li_appearance
+
+} "That's him!" {
+
+}
+
+@CHARLIE exits right
+
+@transition fade out black 1

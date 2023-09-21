@@ -1,11 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.539
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B62AEC7F-473E-4B17-B4F9-6436B7136F4D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EA6C550-6FFE-43A4-B2F4-30583B93867C}"
 	ProjectSection(SolutionItems) = preProject
-		CollectAudioLogs.zip = CollectAudioLogs.zip
+		Forsyth-Edwards.psm1 = Forsyth-Edwards.psm1
+		Show-ChessPosition.ps1 = Show-ChessPosition.ps1
 	EndProjectSection
 EndProject
 Global
@@ -13,6 +14,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {6AC349B8-5591-4E19-82DE-FA4565CB804A}
+		SolutionGuid = {4B34966B-A2CC-4A0D-A386-F33D6B3E3E1D}
 	EndGlobalSection
 EndGlobal

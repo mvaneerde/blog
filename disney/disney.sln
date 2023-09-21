@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{520CCF8A-C6FE-426D-99E5-21A39607E9CA}"
+	ProjectSection(SolutionItems) = preProject
+		format-data.ps1 = format-data.ps1
+		ReadMe.md = ReadMe.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{BA31E9C4-9551-43AD-B41C-80B8F8EA8EF3}"
+	ProjectSection(SolutionItems) = preProject
+		Data\cast.csv = Data\cast.csv
+		Data\characters.csv = Data\characters.csv
+		Data\movies.csv = Data\movies.csv
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Template", "Template", "{E9919C80-B969-4FB2-BD58-9CB5DAD2CBA4}"
+	ProjectSection(SolutionItems) = preProject
+		Template\footer.txt = Template\footer.txt
+		Template\header.txt = Template\header.txt
+		Template\movie-footer.txt = Template\movie-footer.txt
+		Template\movie-header.txt = Template\movie-header.txt
+		Template\princess.txt = Template\princess.txt
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BA31E9C4-9551-43AD-B41C-80B8F8EA8EF3} = {520CCF8A-C6FE-426D-99E5-21A39607E9CA}
+		{E9919C80-B969-4FB2-BD58-9CB5DAD2CBA4} = {520CCF8A-C6FE-426D-99E5-21A39607E9CA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DAAB4C0F-C22A-41C9-BE6E-4B81BC64598E}
+	EndGlobalSection
+EndGlobal

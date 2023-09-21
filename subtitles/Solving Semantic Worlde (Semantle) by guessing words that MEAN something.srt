@@ -1,0 +1,283 @@
+﻿1
+00:00:01,012 --> 00:00:03,600
+So what is Semantle?
+Semantle is a game
+
+2
+00:00:07,080 --> 00:00:11,940
+where you try to guess the secret word,<br />
+and it has nothing to do with how it is spelled,
+
+3
+00:00:11,940 --> 00:00:13,950
+it has everything to
+do with what it means.
+
+4
+00:00:20,430 --> 00:00:21,660
+For example
+
+5
+00:00:25,350 --> 00:00:26,550
+If the word
+
+6
+00:00:26,670 --> 00:00:27,839
+is "GRAPE"
+
+7
+00:00:28,950 --> 00:00:31,920
+Then "ORANGE" will be very
+similar because they're both fruit.
+
+8
+00:00:34,298 --> 00:00:35,298
+Let me adjust this...
+
+9
+00:00:42,846 --> 00:00:45,960
+Okay! So I'm gonna guess
+something generic... I'm gonna guess...
+
+10
+00:00:53,910 --> 00:00:55,140
+"HUMAN" is very very cold.
+
+11
+00:01:00,929 --> 00:01:01,929
+Let me rearrange things a little.
+
+12
+00:01:14,071 --> 00:01:15,660
+Okay! So "HUMAN" is
+extremely UN-similar.
+
+13
+00:01:17,137 --> 00:01:18,850
+Let's try "CAR."
+
+14
+00:01:20,220 --> 00:01:22,577
+Still cold. Okay.
+
+15
+00:01:23,190 --> 00:01:24,869
+Let's try "KITCHEN."
+
+16
+00:01:27,003 --> 00:01:28,897
+Still very cold. Okay.
+
+17
+00:01:29,377 --> 00:01:32,643
+Let's try "LOVE."
+
+18
+00:01:36,190 --> 00:01:39,337
+Let's try...
+
+19
+00:01:47,198 --> 00:01:48,198
+"NATION."
+
+20
+00:01:59,797 --> 00:02:02,079
+Let's try "LAUNDRY."
+
+21
+00:02:06,780 --> 00:02:07,780
+"CAT."
+
+22
+00:02:20,163 --> 00:02:22,723
+"ELEPHANT."
+
+23
+00:02:26,083 --> 00:02:29,137
+"PLANET."
+
+24
+00:02:33,627 --> 00:02:35,707
+"POLITICS."
+
+25
+00:02:37,613 --> 00:02:39,200
+Closer.
+
+26
+00:02:40,110 --> 00:02:41,656
+"POLITICS" but not "NATION."
+
+27
+00:02:44,270 --> 00:02:46,256
+Uh, "GEOGRAPHY."
+
+28
+00:02:53,723 --> 00:02:55,617
+"DEMOCRACY."
+
+29
+00:02:58,123 --> 00:03:01,683
+Okay, "POLITICS" but not "DEMOCRACY."
+How about "EMOTION?"
+
+30
+00:03:01,708 --> 00:03:03,525
+No, "LOVE" would be very close.
+
+31
+00:03:06,390 --> 00:03:07,930
+How about "ARGUE?"
+
+32
+00:03:12,510 --> 00:03:14,283
+"COMPETITION."
+
+33
+00:03:14,883 --> 00:03:19,803
+Ooo! Okay, so "POLITICS"
+has a competitive element.
+
+34
+00:03:19,828 --> 00:03:21,310
+How about a sport?
+
+35
+00:03:22,470 --> 00:03:24,136
+How about "TENNIS?"
+
+36
+00:03:27,843 --> 00:03:29,936
+How about "BATTLE?"
+
+37
+00:03:32,790 --> 00:03:33,790
+Competition...
+
+38
+00:03:35,630 --> 00:03:36,963
+"GAME."
+
+39
+00:03:39,603 --> 00:03:41,750
+Okay, "GAME" is the closest I've got so far.
+
+40
+00:03:44,313 --> 00:03:45,760
+How about "CHESS?"
+
+41
+00:03:48,337 --> 00:03:49,990
+"CARDS?"
+
+42
+00:03:51,643 --> 00:03:53,390
+"POKER?"
+
+43
+00:03:55,893 --> 00:03:57,610
+Tepid! Woo!
+
+44
+00:03:59,415 --> 00:04:00,415
+Gettin' there...
+
+45
+00:04:02,341 --> 00:04:03,690
+We can try other card games...
+
+46
+00:04:05,261 --> 00:04:07,154
+How about "TAROT?"
+
+47
+00:04:12,506 --> 00:04:15,458
+What other competitive games are
+there that don't use cards?
+
+48
+00:04:17,556 --> 00:04:20,463
+"FOOTBALL."
+
+49
+00:04:40,240 --> 00:04:41,960
+Why are the numbers out of order?
+
+50
+00:04:42,080 --> 00:04:44,129
+Oh, I see. These are
+the ones that are closest.
+
+51
+00:04:53,950 --> 00:04:55,420
+How about "BLACKJACK?"
+
+52
+00:05:08,670 --> 00:05:10,920
+Okay, "POKER..." "BLACKJACK..."
+
+53
+00:05:13,123 --> 00:05:15,123
+What other games do you
+play with cards? "BRIDGE?"
+
+54
+00:05:18,990 --> 00:05:20,150
+Hmm...
+
+55
+00:05:22,470 --> 00:05:24,203
+A blackjack is a weapon.
+
+56
+00:05:24,450 --> 00:05:26,860
+You can hit somebody over the
+head with it, like a club.
+
+57
+00:05:50,560 --> 00:05:51,850
+How about "CASINO?"
+
+58
+00:05:56,218 --> 00:05:58,120
+"BLACKJACK" is closer.
+"GAMBLE?"
+
+59
+00:06:09,230 --> 00:06:10,470
+"LUCK?"
+
+60
+00:06:22,737 --> 00:06:24,697
+"CARDSHARK?"
+
+61
+00:06:25,301 --> 00:06:27,350
+"I don't know the word
+'CARDSHARK.'" Okay.
+
+62
+00:06:28,097 --> 00:06:29,150
+"DEALER?"
+
+63
+00:06:38,400 --> 00:06:39,960
+Okay, "BLACKJACK" is quite close.
+
+64
+00:06:52,080 --> 00:06:53,627
+"SLOT?"
+
+65
+00:06:57,030 --> 00:06:58,030
+Wow!
+
+66
+00:06:58,993 --> 00:07:04,333
+Okay it's... "BLACKJACK" is close to "SLOT"
+because you play slot machines in a casino.
+
+67
+00:07:16,167 --> 00:07:18,367
+(exhales)
+

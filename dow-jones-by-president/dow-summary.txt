@@ -1,0 +1,13 @@
+<!-- BEGIN SUMMARY -->
+        <tr>
+            <td colspan="3">
+                <strong>Overall</strong>
+                <div style="float: right;">#FIRSTDATEPRETTY# to #LASTDATEPRETTY#</div>
+            </td>
+        </tr>
+        <tr>
+            <td style="text-align: right">#RETURN#</td>
+            <td style="text-align: right">#TOTALRECORDHIGHS#</td>
+            <td style="text-align: right">#DAYSBETWEENHIGHS#</td>
+        </tr>
+<!-- END SUMMARY -->
