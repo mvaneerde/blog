@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20DE4757-82C9-4734-AE8D-3C99A3C4D9E0}"
+	ProjectSection(SolutionItems) = preProject
+		constitution-dates.csv = constitution-dates.csv
+		bill-of-rights.csv = bill-of-rights.csv
+		readme.md = readme.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F40A02B1-BAF2-4512-967F-1B372669DEEF}
+	EndGlobalSection
+EndGlobal
