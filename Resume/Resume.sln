@@ -16,6 +16,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{AB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{3C8F327D-A725-430A-A898-754FAA4B51D2}"
 	ProjectSection(SolutionItems) = preProject
+		data\links.csv = data\links.csv
 		data\variables.json = data\variables.json
 	EndProjectSection
 EndProject

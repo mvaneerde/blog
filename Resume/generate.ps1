@@ -1,8 +1,13 @@
-$variables = Get-Content -Path ".\data\variables.json" | ConvertFrom-Json;
 $template = Get-Content -Path ".\template\resume.md";
+
+$links = Get-Content -Path ".\data\links.csv" | ConvertFrom-Csv;
+
+$variables = Get-Content -Path ".\data\variables.json" | ConvertFrom-Json;
+$filename = ".\" + $variables.Name.ToLowerInvariant().Replace(" ", "-") + ".md";
 
 $replacements = @{};
 
+# pull from variables.json
 $variables | Get-Member -MemberType "NoteProperty" | ForEach-Object {
     $name = $_.Name;
     $value = $variables.$name;
@@ -21,6 +26,22 @@ $variables | Get-Member -MemberType "NoteProperty" | ForEach-Object {
     }
 }
 
+# pull from links.csv
+$links | ForEach-Object {
+    $name = $_.Name;
+    $url = $_.Link;
+    $text = $url;
+
+    If ($text -Match "^https://(.+?)/?$") {
+        $text = $Matches[1];
+    }
+
+    $key = "LINK-" + $name.ToUpperInvariant();
+    $value = "[$text]($url)";
+
+    $replacements.$key = $value;
+}
+
 $replacements.GetEnumerator() | ForEach-Object {
     $key = $_.Name;
     $value = $_.Value;
@@ -30,4 +51,4 @@ $replacements.GetEnumerator() | ForEach-Object {
     $template = $template.Replace($key, $value);
 }
 
-$template | Out-File -FilePath ".\matthew-van-eerde.md";
+$template | Out-File -FilePath $filename;

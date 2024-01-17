@@ -2,7 +2,7 @@
 
 =PHONE= -
 =EMAIL= -
-[=BLOG-DISPLAY=](=BLOG-LINK=) -
-[=GITHUB-DISPLAY=](=GITHUB-LINK=)
+=LINK-BLOG= -
+=LINK-GITHUB=
 
 TODO - rest of resume

@@ -1,13 +1,5 @@
 {
-    "Blog": {
-        "Display":"matthewvaneerde.wordpress.com",
-        "Link":"https://matthewvaneerde.wordpress.com/"
-    },
     "Email":"mvaneerde@gmail.com",
-    "GitHub": {
-        "Display":"github.com/mvaneerde",
-        "Link":"https://github.com/mvaneerde/"
-    },
     "Name":"Matthew van Eerde",
     "Phone":"206.356.0096"
 }
