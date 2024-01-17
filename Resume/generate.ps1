@@ -1,13 +1,31 @@
-$template = Get-Content -Path ".\template\resume.md";
+$template = Get-Content -Path ".\template\resume.md" -Raw;
 
-$links = Get-Content -Path ".\data\links.csv" | ConvertFrom-Csv;
+# pull from positions.csv
+$position_template = Get-Content -Path ".\template\position.md" -Raw;
+$position_text = @();
+$positions = Get-Content -Path ".\data\positions.csv" | ConvertFrom-Csv;
+$positions | ForEach-Object {
+    $position = $_;
 
-$variables = Get-Content -Path ".\data\variables.json" | ConvertFrom-Json;
-$filename = ".\" + $variables.Name.ToLowerInvariant().Replace(" ", "-") + ".md";
+    $text = $position_template;
+
+    $position | Get-Member -MemberType "NoteProperty" | ForEach-Object {
+        $name = $_.Name;
+        $value = $position.$name;
+
+        $key = "=" + $name.ToUpperInvariant() + "=";
+        $text = $text.Replace($key, $value);
+    }
+
+    $position_text += $text;
+}
+$resume = $template.Replace("=POSITIONS=", $position_text -join [Environment]::NewLine);
 
 $replacements = @{};
 
 # pull from variables.json
+$variables = Get-Content -Path ".\data\variables.json" | ConvertFrom-Json;
+$filename = ".\" + $variables.Name.ToLowerInvariant().Replace(" ", "-") + ".md";
 $variables | Get-Member -MemberType "NoteProperty" | ForEach-Object {
     $name = $_.Name;
     $value = $variables.$name;
@@ -27,6 +45,7 @@ $variables | Get-Member -MemberType "NoteProperty" | ForEach-Object {
 }
 
 # pull from links.csv
+$links = Get-Content -Path ".\data\links.csv" | ConvertFrom-Csv;
 $links | ForEach-Object {
     $name = $_.Name;
     $url = $_.Link;
@@ -48,7 +67,7 @@ $replacements.GetEnumerator() | ForEach-Object {
 
     $key = "=" + $key + "=";
 
-    $template = $template.Replace($key, $value);
+    $resume = $resume.Replace($key, $value);
 }
 
-$template | Out-File -FilePath $filename;
+$resume | Out-File -FilePath $filename;
