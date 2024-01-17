@@ -3,6 +3,6 @@
 =PHONE= -
 =EMAIL= -
 [=BLOG-DISPLAY=](=BLOG-LINK=) -
-[=GITHUB-DISPLAY=](=GITHUB-NAME=)
+[=GITHUB-DISPLAY=](=GITHUB-LINK=)
 
 TODO - rest of resume
