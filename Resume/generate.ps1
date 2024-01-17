@@ -3,9 +3,11 @@ $template = Get-Content -Path ".\template\resume.md" -Raw;
 # pull from positions.csv
 $position_template = Get-Content -Path ".\template\position.md" -Raw;
 $position_text = @();
-$positions = Get-Content -Path ".\data\positions.csv" | ConvertFrom-Csv;
-$positions | ForEach-Object {
-    $position = $_;
+$positions = Get-Content -Path ".\data\positions.csv" -Raw | ConvertFrom-Csv;
+
+# go in backwards order
+For ($i = $positions.Count - 1; $i -ge 0; $i--) {
+    $position = $positions[$i];
 
     $text = $position_template;
 
