@@ -1,0 +1,14 @@
+Start,End,Company,Title,Description
+1998,2000,The Anacapa School,Teacher,"* Taught mathematics, computers, mathematics, and drama to middle school and high school age students"
+2000,2006,Hispanic Business Inc.,Software Engineer,"* IT operations for a 60-person company
+* Built and managed file servers, email servers, web servers, etc.
+* Designed data backend and built reports for Sales, Accounting, and other departments"
+2006,present,Microsoft,various,"**Senior Software Engineer** 2014-present
+* Added code to Windows to track audio performance and report telemetry
+* Designed backend for telemetry data storage
+* Built reports and dashboards to track performance of Insider builds of Windows
+* Connected to Windows Update to automatically pause deployment of new audio drivers that performed poorly
+
+**Software Design Engineer in Test** (2006-2008), **Software Design Engineer in Test II** (2008-2014), **Senior SDET** (2014)
+* Wrote automated tests to verify Windows features
+* Wrote automated and manual tests for OEMs and IHVs to verify audio on their drivers and system designs"
