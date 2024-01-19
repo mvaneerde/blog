@@ -1,3 +1,3 @@
-## =COMPANY= / =TITLE= / =START=-=END= ##
+**=TITLE=** (=TIME=)
 
-=DESCRIPTION=
+=POSITION-DETAILS=

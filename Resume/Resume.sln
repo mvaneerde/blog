@@ -11,13 +11,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{AB7994C4-6C15-4402-970C-56E1065BEB31}"
 	ProjectSection(SolutionItems) = preProject
+		template\employer.md = template\employer.md
+		template\position-detail.md = template\position-detail.md
 		template\position.md = template\position.md
 		template\resume.md = template\resume.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{3C8F327D-A725-430A-A898-754FAA4B51D2}"
 	ProjectSection(SolutionItems) = preProject
+		data\employers.csv = data\employers.csv
 		data\links.csv = data\links.csv
+		data\position-details.csv = data\position-details.csv
 		data\positions.csv = data\positions.csv
 		data\variables.json = data\variables.json
 	EndProjectSection
