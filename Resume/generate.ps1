@@ -71,7 +71,7 @@ $resume = Get-Template -name "resume";
 
 $replacements = [PSCustomObject[]]@();
 
-# pull from employers.csv and positions.csv
+# pull from employers.csv, positions.csv, and position-details.csv
 $employer_texts = @();
 $employers = Get-Csv -name "employers";
 $positions = Get-Csv -name "positions";
@@ -83,8 +83,8 @@ $detail_template = Get-Template -name "position-detail";
 # the data files are old => new
 # but we want to build the employment history new => old
 # so go in reverse order
-[Array]::Reverse($employers);
-[Array]::Reverse($positions);
+[Array]::Reverse(@($employers));
+[Array]::Reverse(@($positions));
 $employers | ForEach-Object {
     $employer = $_;
 
@@ -131,6 +131,68 @@ $employers | ForEach-Object {
 $replacements += [PSCustomObject]@{
     Name = "Employers";
     Value = $employer_texts -join [Environment]::NewLine;
+};
+
+# pull from schools.csv, programs.csv, and program-details.csv
+$school_texts = @();
+$schools = Get-Csv -name "schools";
+$programs = Get-Csv -name "programs";
+$details = Get-Csv -name "program-details";
+$school_template = Get-Template -name "school";
+$program_template = Get-Template -name "program";
+$detail_template = Get-Template -name "program-detail";
+
+# the data files are old => new
+# but we want to build the employment history new => old
+# so go in reverse order
+[Array]::Reverse(@($schools));
+[Array]::Reverse(@($programs));
+$schools | ForEach-Object {
+    $school = $_;
+
+    # grab the school information
+    $school_replacements = Get-ReplacementArray -object $school;
+
+    # grab matching programs
+    $program_texts = @();
+    $programs |
+    Where-Object -Property "School" -EQ $school.School |
+    ForEach-Object {
+        $program = $_;
+
+        $program_replacements = Get-ReplacementArray -object $program;
+        
+        $detail_texts = @();
+        $details |
+        Where-Object -Property "School" -EQ $school.School |
+        Where-Object -Property "Program" -EQ $program.Program |
+        ForEach-Object {
+            $detail = $_;
+
+            $detail_replacements = Get-ReplacementArray -object $detail;
+
+            $detail_texts += Get-ReplacedText -template $detail_template -replacements $detail_replacements;
+        }
+
+        $program_replacements += [PSCustomObject]@{
+            Name = "Program Details";
+            Value = $detail_texts -join [Environment]::NewLine;
+        };
+
+        $program_texts += Get-ReplacedText -template $program_template -replacements $program_replacements;
+    }
+
+    $school_replacements += [PSCustomObject]@{
+        Name = "Programs";
+        Value = $program_texts -join [Environment]::NewLine;
+    };
+
+    $school_texts += Get-ReplacedText -template $school_template -replacements $school_replacements;
+}
+
+$replacements += [PSCustomObject]@{
+    Name = "SCHOOLS";
+    Value = $school_texts -join [Environment]::NewLine;
 };
 
 # pull from variables.json

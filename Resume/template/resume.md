@@ -5,5 +5,8 @@
 =LINK-BLOG= -
 =LINK-GITHUB=
 
-## Employment history ##
+## Employment ##
 =EMPLOYERS=
+
+## Education ##
+=SCHOOLS=

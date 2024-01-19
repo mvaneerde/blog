@@ -14,7 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "template", "template", "{AB
 		template\employer.md = template\employer.md
 		template\position-detail.md = template\position-detail.md
 		template\position.md = template\position.md
+		template\program-detail.md = template\program-detail.md
+		template\program.md = template\program.md
 		template\resume.md = template\resume.md
+		template\school.md = template\school.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{3C8F327D-A725-430A-A898-754FAA4B51D2}"
@@ -23,6 +26,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "data", "data", "{3C8F327D-A
 		data\links.csv = data\links.csv
 		data\position-details.csv = data\position-details.csv
 		data\positions.csv = data\positions.csv
+		data\program-details.csv = data\program-details.csv
+		data\programs.csv = data\programs.csv
+		data\schools.csv = data\schools.csv
 		data\variables.json = data\variables.json
 	EndProjectSection
 EndProject
