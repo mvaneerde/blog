@@ -83,8 +83,12 @@ $detail_template = Get-Template -name "position-detail";
 # the data files are old => new
 # but we want to build the employment history new => old
 # so go in reverse order
-[Array]::Reverse(@($employers));
-[Array]::Reverse(@($positions));
+If ($employers -is [Array]) {
+    [Array]::Reverse($employers);
+}
+If ($positions -is [Array]) {
+    [Array]::Reverse($positions);
+}
 $employers | ForEach-Object {
     $employer = $_;
 
@@ -145,8 +149,12 @@ $detail_template = Get-Template -name "program-detail";
 # the data files are old => new
 # but we want to build the employment history new => old
 # so go in reverse order
-[Array]::Reverse(@($schools));
-[Array]::Reverse(@($programs));
+If ($schools -is [Array]) {
+    [Array]::Reverse($schools);
+}
+If ($programs -is [Array]) {
+    [Array]::Reverse($programs);
+}
 $schools | ForEach-Object {
     $school = $_;
 
