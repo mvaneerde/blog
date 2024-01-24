@@ -11,4 +11,5 @@ Microsoft,Software Design Engineer in Test,Wrote automated and manual tests for 
 Microsoft,Senior Software Engineer,Added code to Windows to track audio performance and report telemetry
 Microsoft,Senior Software Engineer,Designed backend for telemetry data storage
 Microsoft,Senior Software Engineer,Built reports and dashboards to track performance of Insider builds of Windows
+Microsoft,Senior Software Engineer,Wrote audio log collectors for Feedback Hub and PowerShell
 Microsoft,Senior Software Engineer,Connected to Windows Update to automatically pause deployment of new audio drivers that performed poorly
