@@ -63,7 +63,7 @@ Function Get-DigitsPattern {
         $maxDigits = $maxDigits - 1;
     }
 
-    If ($maxDigits -gt 0) {
+    If ($maxDigits -ge 1) {
         $pattern += "[0-9]";
 
         If ($maxDigits -eq 1) {
@@ -88,18 +88,19 @@ Function Show-Ranges {
             Return $range.Min.ToString() + "-" + $range.Max.ToString();
         }) -join "; ";
 
-        Write-Host "Unprocessed ranges:", $ranges_string;
+        Write-Verbose ("Unprocessed ranges: " + $ranges_string);
     } Else {
-        Write-Host "All ranges processed";
+        Write-Verbose "All ranges processed";
     }
 }
 
 # dump the patterns to the console
 Function Show-Patterns {
+    Write-Verbose "Patterns so far:"
     $patterns | Sort-Object -Property "Smallest" | ForEach-Object {
         $pattern = $_;
 
-        Write-Host $pattern.Smallest, "to", $pattern.Largest, "matches", $pattern.Pattern;
+        Write-Verbose ("    " + $pattern.Pattern + " for " + $pattern.Smallest + " to " + $pattern.Largest);
     }
 }
 
@@ -174,18 +175,15 @@ Function Convert-Range {
         }
 
         # break into at most three ranges:
-        Write-Host "splitting $min to $max on $ten_a to $b_9s";
 
         # 1. if min < 10^a: min to 10^a - 1. Note these are the same length
         If ($min -lt $ten_a) {
-            Write-Host "    new range $min to $ten_a - 1";
             $newRanges.Value += [PSCustomObject]@{ Min = $min; Max = ($ten_a - [bigint]1); };
         }
 
         # 2. if 10^a < 10^b - 1: 10^a to 10^b - 1. We can convert this to a pattern immediately
         If ($ten_a -lt $b_9s) {
             $pattern = Get-DigitsPattern -minDigits ($a + 1) -maxDigits $b;
-            Write-Host "    $ten_a to $b_9s match $pattern";
             $newPatterns.Value += @{
                 Smallest = $ten_a;
                 Largest = $b_9s;
@@ -195,7 +193,6 @@ Function Convert-Range {
 
         # 3. if 10^b - 1 < max: 10^b to max. Note these are the same length
         If ($b_9s -lt $max) {
-            Write-Host "    new range $b_9s + 1 to $max";
             $newRanges.Value += [PSCustomObject]@{ Min = ($b_9s + [bigint]1); Max = $max; };
         }
 
@@ -268,10 +265,7 @@ Function Convert-Range {
         $b -= [bigint]($one_s);
     }
 
-    Write-Host "$min and $max first differ in place $p; splitting on $a to $b";
-
     If ($a_add_one) {
-        Write-Host "    new range: $min to $a - 1";
         $newRanges.Value += [PSCustomObject]@{ Min = $min; Max = ($a - [bigint]1); };
     }
 
@@ -284,8 +278,6 @@ Function Convert-Range {
         $pattern += Get-DigitsPattern -minDigits ($min_arr.Length - $p - 1) -maxDigits ($min_arr.Length - $p - 1) -allowLeadingZeros;
     }
 
-    Write-Host "    $a to $b match $pattern";
-
     $newPatterns.Value += @{
         Smallest = $a;
         Largest = $b;
@@ -293,14 +285,11 @@ Function Convert-Range {
     };
 
     If ($b_subtract_one) {
-        Write-Host "    new range: $b + 1 to $max";
         $newRanges.Value += [PSCustomObject]@{ Min = ($b + [bigint]1); Max = $max; };
     }
 }
 
 $patterns = [PSCustomObject[]]@();
-
-Write-Host "patterns:", $patterns;
 
 $ranges = @();
 $ranges += [PSCustomObject]@{ Min = $min; Max = $max; };
@@ -308,7 +297,7 @@ $ranges += [PSCustomObject]@{ Min = $min; Max = $max; };
 Show-Ranges;
 
 While ($ranges.Count) {
-    Write-Host;
+    Write-Verbose "";
 
     $ranges = $ranges | ForEach-Object {
         $range = $_;
@@ -331,7 +320,7 @@ While ($ranges.Count) {
     Show-Ranges;
 }
 
-Write-Host;
+Write-Verbose "";
 
 $pattern = ($patterns | Sort-Object -Property "Smallest" | ForEach-Object { return $_.Pattern }) -join "|";
 
