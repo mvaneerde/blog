@@ -16,10 +16,17 @@ If (!(Test-Path -Path $expanded -PathType Container)) {
 # Connections.csv - established connections (1st degree network)
 # Invitations.csv - pending incoming and outgoing connection requests
 # messages.csv - direct messages
+
+# the first three lines of Connections.csv are instructions,
+# the actual data doesn't begin until line 4
+# this requires special handling to skip them
 $connectionsPath = "{0}\{1}" -f $expanded, "Connections.csv";
+$documentationLines = 3;
+$connections = Get-Content -Path $connectionsPath -Encoding UTF8 |
+    Select-Object -Skip $documentationLines |
+    ConvertFrom-Csv;
 
-# the first three lines of Connections.csv are instructions, skip them
-$connections = Get-Content $connectionsPath | Select-Object -Skip 3 | ConvertFrom-Csv;
-$connections | Format-Table | Out-Host;
+$invitationsPath = "{0}\{1}" -f $expanded, "Invitations.csv";
+$invitations = Import-Csv -Path $invitationsPath -Encoding UTF8;
 
-Throw "TODO: process $expanded";
+Throw "TODO: combine connections and pending invitations";
