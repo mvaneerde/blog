@@ -102,7 +102,7 @@ Function Export-ChatLog {
             $line = $_;
 
             # match URL in text form
-            If ($line -Match "(linkedin\.com/in/\S+?)[$|\s|/|\?]" ) {
+            If ($line -Match "(linkedin\.com/in/\S+?)(/|\?|[\.]?[$|\s])" ) {
                 $url = "https://www.{0}" -f $Matches[1];
                 If (!($urls.ContainsKey($url))) {
                     $urls.Add($url, 1);
