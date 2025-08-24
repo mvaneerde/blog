@@ -126,7 +126,89 @@ $new_urls | ForEach-Object {
     Write-Host ("    {0}" -f $_);
 }
 
-
 # -- chat names --
+$names = $chat.names;
+Write-Host "Names:";
+$names | ForEach-Object {
+    Write-Host ("    {0}" -f $_);
+}
+
+# subtract myself
+If ($data.Invitations) {
+    $firstInvite = $data.Invitations[0];
+
+    Switch ($firstInvite.Direction) {
+        "INCOMING" {
+            $my_name = $firstInvite.To;
+        }
+        "OUTGOING" {
+            $my_name = $firstInvite.From;
+        }
+        Default {
+            Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
+        }
+    }
+
+    $names = Get-AMinusB -a $names -b @( $my_name);
+}
+
+# subtract established connections
+$connected = $data.Connections |
+    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name", $_."Last Name"} } |
+    Select-Object -ExpandProperty "Full Name" |
+    Sort-Object;
+$connected = Get-AIntersectB -a $names -b $connected;
+If ($connected) {
+    Write-Host "I am connected to these already:";
+    $connected | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+    $new_urls = Get-AMinusB -a $new_urls -b $connected;
+}
+
+# subtract outgoing invitations
+$i_invited = $data.Invitations |
+    Where-Object -Property Direction -Eq "OUTGOING" |
+    Select-Object -ExpandProperty To | 
+    Sort-Object;
+$i_invited = Get-AIntersectB -a $names -b $i_invited;
+If ($i_invited) {
+    Write-Host "I have pending invitations to these:";
+    $i_invited | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+    $names = Get-AMinusB -a $names -b $i_invited;
+}
+
+# subtract incoming invitations
+$invited_me = $data.Invitations |
+    Where-Object -Property Direction -Eq "INCOMING" |
+    Select-Object -ExpandProperty From | 
+    Sort-Object;
+$invited_me = Get-AIntersectB -a $names -b $invited_me;
+If ($invited_me) {
+    Write-Host "These people have invited me:";
+    $invited_me | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+    $names = Get-AMinusB -a $names -b $invited_me;
+}
+
+# send invites to the remainder
+Write-Host "Send invitations to these:";
+$names | ForEach-Object {
+    Write-Host ("    {0}" -f $_);
+}
 
 # -- chat maybe-names --
+$maybe_names = $chat.maybe_names;
+Write-Host "Maybe names:";
+$maybe_names | ForEach-Object {
+    Write-Host ("    {0}" -f $_);
+}
+
+Write-Host "TODO: do string suffix matching for maybe-names";
+# subtract established connections
+# subtract outgoing invitations
+# subtract incoming invitations
+# send invites to the remainder
