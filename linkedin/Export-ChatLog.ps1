@@ -31,46 +31,6 @@ Param(
     [string]$folder
 )
 
-$urls = @{};
-$names = @{};
-$maybe_names = @{};
+Import-Module ".\LinkedIn.psm1";
 
-Get-ChildItem -Path $folder -File | ForEach-Object {
-    $chat = $_;
-
-    Write-Host "Parsing", $chat;
-
-    Get-Content -Path $chat.FullName -Encoding UTF8 | ForEach-Object {
-        $line = $_;
-
-        # match URL in text form
-        If ($line -Match "(linkedin\.com/in/\S+?)[$|\s|/|\?]" ) {
-            $url = "https://www.{0}" -f $Matches[1];
-            If (!($urls.ContainsKey($url))) {
-                $urls.Add($url, 1);
-            }
-
-        # if it's a rich text link, the chat log doesn't have the URL
-        # if they have pending messages, we can get the name
-        } ElseIf ($line -Match "\([\d]+\) (.*) \| LinkedIn") {
-            $name = $Matches[1];
-            If (!($names.ContainsKey($name))) {
-                $names.Add($name, 1);
-            }
-
-        # if they don't have pending messages, we can get a string that might be the name
-        # or it might just end with the name
-        } ElseIf ($line -Match "\s*(.*) \| LinkedIn") {
-            $maybe_name = $Matches[1];
-            If (!($maybe_names.ContainsKey($maybe_name))) {
-                $maybe_names.Add($maybe_name, 1);
-            }
-        }
-    }
-}
-
-Return @{
-    maybe_names = ($maybe_names.Keys | Sort-Object);
-    names = ($names.Keys.Where({ $_ -ne "Feed" }) | Sort-Object);
-    urls = ($urls.Keys | Sort-Object);
-};
+Return Export-ChatLog -folder $folder;
