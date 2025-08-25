@@ -32,27 +32,7 @@ Param(
 );
 
 Import-Module ".\LinkedIn.psm1";
-
-Function Get-AMinusB {
-    Param(
-        [string[]]$a,
-        [string[]]$b
-    );
-
-    Return Compare-Object -ReferenceObject $a -DifferenceObject $b |
-        Where-object -Property SideIndicator -eq "<=" |
-        Select-Object -ExpandProperty InputObject;
-}
-
-Function Get-AIntersectB {
-    Param(
-        [string[]]$a,
-        [string[]]$b
-    );
-
-    Return Compare-Object -ReferenceObject $a -DifferenceObject $b -IncludeEqual -ExcludeDifferent |
-        Select-Object -ExpandProperty InputObject;
-}
+Import-Module ".\SetUtilities.psm1";
 
 $data = Expand-LinkedInDataArchive -zip $linkedindata;
 $chat = Export-ChatLog -folder $chatlogs;
