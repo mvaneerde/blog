@@ -76,7 +76,7 @@ If ($data.Invitations) {
         }
     }
 
-    $new_urls = Get-AMinusB -a $new_urls -b @( $my_url);
+    $new_urls = Get-AMinusB -a $new_urls -b @( $my_url );
 }
 
 # subtract established connections
@@ -89,6 +89,7 @@ If ($connected) {
     $connected | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
+
     $new_urls = Get-AMinusB -a $new_urls -b $connected;
 }
 
@@ -103,6 +104,7 @@ If ($i_invited) {
     $i_invited | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
+
     $new_urls = Get-AMinusB -a $new_urls -b $i_invited;
 }
 
@@ -117,6 +119,7 @@ If ($inviting_me) {
     $inviting_me | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
+
     $new_urls = Get-AMinusB -a $new_urls -b $inviting_me;
 }
 
@@ -163,7 +166,8 @@ If ($connected) {
     $connected | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
-    $new_urls = Get-AMinusB -a $new_urls -b $connected;
+
+    $names = Get-AMinusB -a $names -b $connected;
 }
 
 # subtract outgoing invitations
@@ -177,6 +181,7 @@ If ($i_invited) {
     $i_invited | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
+
     $names = Get-AMinusB -a $names -b $i_invited;
 }
 
@@ -191,6 +196,7 @@ If ($invited_me) {
     $invited_me | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
+
     $names = Get-AMinusB -a $names -b $invited_me;
 }
 
@@ -207,8 +213,110 @@ $maybe_names | ForEach-Object {
     Write-Host ("    {0}" -f $_);
 }
 
-Write-Host "TODO: do string suffix matching for maybe-names";
 # subtract established connections
+$connected = $data.Connections |
+    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name", $_."Last Name"} } |
+    Select-Object -ExpandProperty "Full Name" |
+    Sort-Object;
+
+$known = @();
+$unknown = @();
+$maybe_names | ForEach-Object {
+    $maybe_name = $_;
+
+    $seen = $false;
+    $connected | ForEach-Object {
+        $connection = $_;
+        If ($maybe_name.EndsWith($connection)) {
+            $seen = $true;
+            $known += $connection;
+        }
+    }
+
+    If (!$seen) {
+        $unknown += $maybe_name;
+    }
+}
+
+If ($known) {
+    Write-Host "I am connected to these already:";
+    $known | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+}
+
+$maybe_names = $unknown;
+
 # subtract outgoing invitations
+$i_invited = $data.Invitations |
+    Where-Object -Property Direction -Eq "OUTGOING" |
+    Select-Object -ExpandProperty To | 
+    Sort-Object;
+
+$known = @();
+$unknown = @();
+$maybe_names | ForEach-Object {
+    $maybe_name = $_;
+
+    $seen = $false;
+    $i_invited | ForEach-Object {
+        $invitee = $_;
+        If ($maybe_name.EndsWith($invitee)) {
+            $seen = $true;
+            $known += $invitee;
+        }
+    }
+
+    If (!$seen) {
+        $unknown += $maybe_name;
+    }
+}
+
+If ($known) {
+    Write-Host "I have pending invitations to these:";
+    $known | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+}
+
+$maybe_names = $unknown;
+
 # subtract incoming invitations
+$invited_me = $data.Invitations |
+    Where-Object -Property Direction -Eq "INCOMING" |
+    Select-Object -ExpandProperty From | 
+    Sort-Object;
+
+$known = @();
+$unknown = @();
+$maybe_names | ForEach-Object {
+    $maybe_name = $_;
+
+    $seen = $false;
+    $invited_me | ForEach-Object {
+        $inviter = $_;
+        If ($maybe_name.EndsWith($inviter)) {
+            $seen = $true;
+            $known += $inviter;
+        }
+    }
+
+    If (!$seen) {
+        $unknown += $maybe_name;
+    }
+}
+
+If ($known) {
+    Write-Host "These people have invited me:";
+    $known | ForEach-Object {
+        Write-Host ("    {0}" -f $_);
+    }
+}
+
+$maybe_names = $unknown;
+
 # send invites to the remainder
+Write-Host "Send invitations to these:";
+$maybe_names | ForEach-Object {
+    Write-Host ("    {0}" -f $_);
+}
