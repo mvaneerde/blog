@@ -193,9 +193,28 @@ $maybe_names | ForEach-Object {
     Write-Host ("    {0}" -f $_);
 }
 
+# subtract myself
+If ($data.Invitations) {
+    $firstInvite = $data.Invitations[0];
+
+    Switch ($firstInvite.Direction) {
+        "INCOMING" {
+            $my_name = $firstInvite.To;
+        }
+        "OUTGOING" {
+            $my_name = $firstInvite.From;
+        }
+        Default {
+            Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
+        }
+    }
+
+    $maybe_names = Get-AMinusSuffix -a $maybe_names -suffix @( $my_name );
+}
+
 # subtract established connections
 $connected = $data.Connections |
-    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name", $_."Last Name"} } |
+    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name".Trim(), $_."Last Name".Trim()} } |
     Select-Object -ExpandProperty "Full Name" |
     Sort-Object;
 $connected = Get-AIntersectSuffix -a $maybe_names -suffix $connected; 
@@ -215,7 +234,7 @@ $i_invited = $data.Invitations |
     Sort-Object;
 $i_invited = Get-AIntersectSuffix -a $maybe_names -suffix $i_invited; 
 If ($i_invited) {
-    Write-Host "I have outgoing invitatiosn to these already:";
+    Write-Host "I have outgoing invitations to these already:";
     $i_invited | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }

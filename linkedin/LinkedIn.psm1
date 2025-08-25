@@ -89,6 +89,11 @@ Export-ModuleMember -Function "Expand-LinkedInDataArchive";
 # $data.names is a list of LinkedIn names from rich-text links whose URL is lost
 # $data.maybe_names is a list of strings the end of which is a LinkedIn name
 Function Export-ChatLog {
+    Param(
+        [Parameter(Mandatory)]
+        [string]$folder
+    );
+
     $urls = @{};
     $names = @{};
     $maybe_names = @{};
@@ -102,7 +107,22 @@ Function Export-ChatLog {
             $line = $_;
 
             # match URL in text form
-            If ($line -Match "(linkedin\.com/in/\S+?)(/|\?|[\.]?[$|\s])" ) {
+            # (
+            #     linkedin\.com/in/        <-- the https://www. part at the beginning is optional
+            #     \S+?                     <-- this is the interesting part
+            # )
+            # (
+            #     \?|                      <-- a question mark indicates the end of the interesting part
+            #     /|                       <-- so does a slash
+            #     (
+            #         \.?                  <-- ignore period after the URL, if present
+            #         (
+            #             \s|              <-- a space is a definite stop
+            #             `$               <-- so is the end of the line
+            #         )
+            #     )
+            # )
+            If ($line -Match "(linkedin\.com/in/\S+?)(\?|/|(\.?(\s|`$)))") {
                 $url = "https://www.{0}" -f $Matches[1];
                 If (!($urls.ContainsKey($url))) {
                     $urls.Add($url, 1);
