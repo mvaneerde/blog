@@ -2,8 +2,8 @@
 # return the elements of A that are NOT elements of B
 Function Get-AMinusB {
     Param(
-        [string[]]$a,
-        [string[]]$b
+        [Parameter(Mandatory)][string[]]$a,
+        [Parameter(Mandatory)][string[]]$b
     );
 
     [string[]]$c = @();
@@ -33,8 +33,8 @@ Export-ModuleMember -Function "Get-AMinusB";
 # return the elements of A that are also elements of B
 Function Get-AIntersectB {
     Param(
-        [string[]]$a,
-        [string[]]$b
+        [Parameter(Mandatory)][string[]]$a,
+        [Parameter(Mandatory)][string[]]$b
     );
 
     [string[]]$c = @();
@@ -60,12 +60,12 @@ Function Get-AIntersectB {
 }
 Export-ModuleMember -Function "Get-AIntersectB";
 
-# given arrays A and B,
-# return the elements of A which do not have a suffix that is an element of B
-Function Get-AMinusBSuffix {
+# given arrays A and Suffix,
+# return the elements of A which do not end in element of Suffix
+Function Get-AMinusSuffix {
     Param(
-        [string[]]$a,
-        [string[]]$b
+        [Parameter(Mandatory)][string[]]$a,
+        [Parameter(Mandatory)][string[]]$suffix
     );
 
     [string[]]$c = @();
@@ -74,10 +74,10 @@ Function Get-AMinusBSuffix {
         $x = $_;
 
         $seen = $false;
-        $b | ForEach-Object {
-            $y = $_;
+        $suffix | ForEach-Object {
+            $s = $_;
 
-            If ($x.EndsWith($y)) {
+            If ($x.EndsWith($s)) {
                 $seen = $true;
             }
         }
@@ -89,14 +89,14 @@ Function Get-AMinusBSuffix {
 
     Return $c;
 }
-Export-ModuleMember -Function "Get-AMinusBSuffix";
+Export-ModuleMember -Function "Get-AMinusSuffix";
 
-# given arrays A and B,
-# return the elements of A which do not have a suffix that is an element of B
-Function Get-AIntersectBSuffix {
+# given arrays A and Suffix,
+# return the elements of A which end in an element of Suffix
+Function Get-AIntersectSuffix {
     Param(
-        [string[]]$a,
-        [string[]]$b
+        [Parameter(Mandatory)][string[]]$a,
+        [Parameter(Mandatory)][string[]]$suffix
     );
 
     [string[]]$c = @();
@@ -105,9 +105,9 @@ Function Get-AIntersectBSuffix {
         $x = $_;
 
         $seen = $false;
-        $b | ForEach-Object {
-            $y = $_;
-            If ($x.EndsWith($y)) {
+        $suffix | ForEach-Object {
+            $s = $_;
+            If ($x.EndsWith($s)) {
                 $seen = $true;
             }
         }
@@ -119,4 +119,4 @@ Function Get-AIntersectBSuffix {
 
     Return $c;
 }
-Export-ModuleMember -Function "Get-AIntersectBSuffix";
+Export-ModuleMember -Function "Get-AIntersectSuffix";
