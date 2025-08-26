@@ -28,7 +28,10 @@ Param(
     [string]$chatlogs,
 
     [Parameter(Mandatory)]
-    [string]$linkedindata
+    [string]$linkedindata,
+
+    [Parameter(Mandatory)]
+    [string]$url_aliases
 );
 
 Import-Module ".\LinkedIn.psm1";
@@ -40,225 +43,277 @@ $chat = Export-ChatLog -folder $chatlogs;
 # -- chat URLS --
 $new_urls = $chat.urls;
 
-# subtract myself
-If ($data.Invitations) {
-    $firstInvite = $data.Invitations[0];
+if ($new_urls) {
+    # replace each URL that is an alias with its unique form
+    $aliases = @{};
+    Import-Csv -Path $url_aliases | ForEach-Object {
+        $alias = $_;
 
-    Switch ($firstInvite.Direction) {
-        "INCOMING" {
-            $my_url = $firstInvite.inviteeProfileUrl;
-        }
-        "OUTGOING" {
-            $my_url = $firstInvite.inviterProfileUrl;
-        }
-        Default {
-            Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
-        }
+        $aliases[$alias.Alias] = $alias.Canonical;
     }
 
-    $new_urls = Get-AMinusB -a $new_urls -b @( $my_url );
+    $new_urls = $new_urls | ForEach-Object {
+        $url = $_;
+        If ($aliases.ContainsKey($url)) {
+            Write-Host ("    Replacing {0} with {1}" -f $url, $aliases[$url]);
+            Return $aliases[$url];
+        } Else {
+            Return $url;
+        }
+    } | Sort-Object -Unique;
+
+    Write-Host $urls;
 }
 
-# subtract established connections
-$connected = $data.Connections |
-    Select-Object -ExpandProperty URL |
-    Sort-Object;
-$connected = Get-AIntersectB -a $new_urls -b $connected;
-If ($connected) {
-    Write-Host "I am connected to these already:";
-    $connected | ForEach-Object {
+if ($new_urls) {
+    # subtract myself
+    If ($data.Invitations) {
+        $firstInvite = $data.Invitations[0];
+
+        Switch ($firstInvite.Direction) {
+            "INCOMING" {
+                $my_url = $firstInvite.inviteeProfileUrl;
+            }
+            "OUTGOING" {
+                $my_url = $firstInvite.inviterProfileUrl;
+            }
+            Default {
+                Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
+            }
+        }
+
+        $new_urls = Get-AMinusB -a $new_urls -b @( $my_url );
+    }
+}
+
+if ($new_urls) {
+    # subtract established connections
+    $connected = $data.Connections |
+        Select-Object -ExpandProperty URL |
+        Sort-Object;
+    $connected = Get-AIntersectB -a $new_urls -b $connected;
+    If ($connected) {
+        Write-Host "I am connected to these already:";
+        $connected | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $new_urls = Get-AMinusB -a $new_urls -b $connected;
+    }
+}
+
+if ($new_urls) {
+    # subtract outgoing invitations
+    $i_invited = $data.Invitations |
+        Where-Object -Property Direction -Eq "OUTGOING" |
+        Select-Object -ExpandProperty inviteeProfileUrl | 
+        Sort-Object;
+    $i_invited = Get-AIntersectB -a $new_urls -b $i_invited;
+    If ($i_invited) {
+        Write-Host "I have outgoing invitations to these already:";
+        $i_invited | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $new_urls = Get-AMinusB -a $new_urls -b $i_invited;
+    }
+}
+
+if ($new_urls) {
+    # subtract incoming invitations
+    $inviting_me = $data.Invitations |
+        Where-Object -Property Direction -Eq "INCOMING" |
+        Select-Object -ExpandProperty inviterProfileUrl |
+        Sort-Object;
+    $inviting_me = Get-AIntersectB -a $new_urls -b $inviting_me;
+    If ($inviting_me) {
+        Write-Host "I have incoming invitations from these already:";
+        $inviting_me | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $new_urls = Get-AMinusB -a $new_urls -b $inviting_me;
+    }
+}
+
+if ($new_urls) {
+    # send invites to the remainder
+    Write-Host "Send invitations to these:";
+    $new_urls | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
-
-    $new_urls = Get-AMinusB -a $new_urls -b $connected;
-}
-
-# subtract outgoing invitations
-$i_invited = $data.Invitations |
-    Where-Object -Property Direction -Eq "OUTGOING" |
-    Select-Object -ExpandProperty inviteeProfileUrl | 
-    Sort-Object;
-$i_invited = Get-AIntersectB -a $new_urls -b $i_invited;
-If ($i_invited) {
-    Write-Host "I have outgoing invitatioms to these already:";
-    $i_invited | ForEach-Object {
-        Write-Host ("    {0}" -f $_);
-    }
-
-    $new_urls = Get-AMinusB -a $new_urls -b $i_invited;
-}
-
-# subtract incoming invitations
-$inviting_me = $data.Invitations |
-    Where-Object -Property Direction -Eq "INCOMING" |
-    Select-Object -ExpandProperty inviterProfileUrl |
-    Sort-Object;
-$inviting_me = Get-AIntersectB -a $new_urls -b $inviting_me;
-If ($inviting_me) {
-    Write-Host "I have incoming invitations from these already:";
-    $inviting_me | ForEach-Object {
-        Write-Host ("    {0}" -f $_);
-    }
-
-    $new_urls = Get-AMinusB -a $new_urls -b $inviting_me;
-}
-
-# send invites to the remainder
-Write-Host "Send invitations to these:";
-$new_urls | ForEach-Object {
-    Write-Host ("    {0}" -f $_);
 }
 
 # -- chat names --
 $names = $chat.names;
-Write-Host "Names:";
-$names | ForEach-Object {
-    Write-Host ("    {0}" -f $_);
-}
-
-# subtract myself
-If ($data.Invitations) {
-    $firstInvite = $data.Invitations[0];
-
-    Switch ($firstInvite.Direction) {
-        "INCOMING" {
-            $my_name = $firstInvite.To;
-        }
-        "OUTGOING" {
-            $my_name = $firstInvite.From;
-        }
-        Default {
-            Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
-        }
-    }
-
-    $names = Get-AMinusB -a $names -b @( $my_name );
-}
-
-# subtract established connections
-$connected = $data.Connections |
-    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name", $_."Last Name"} } |
-    Select-Object -ExpandProperty "Full Name" |
-    Sort-Object;
-$connected = Get-AIntersectB -a $names -b $connected;
-If ($connected) {
-    Write-Host "I am connected to these already:";
-    $connected | ForEach-Object {
+if ($names) {
+    Write-Host "Names:";
+    $names | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
 
-    $names = Get-AMinusB -a $names -b $connected;
+    # subtract myself
+    If ($data.Invitations) {
+        $firstInvite = $data.Invitations[0];
+
+        Switch ($firstInvite.Direction) {
+            "INCOMING" {
+                $my_name = $firstInvite.To;
+            }
+            "OUTGOING" {
+                $my_name = $firstInvite.From;
+            }
+            Default {
+                Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
+            }
+        }
+
+        $names = Get-AMinusB -a $names -b @( $my_name );
+    }
 }
 
-# subtract outgoing invitations
-$i_invited = $data.Invitations |
-    Where-Object -Property Direction -Eq "OUTGOING" |
-    Select-Object -ExpandProperty To | 
-    Sort-Object;
-$i_invited = Get-AIntersectB -a $names -b $i_invited;
-If ($i_invited) {
-    Write-Host "I have outgoing invitatioms to these already:";
-    $i_invited | ForEach-Object {
+if ($names) {
+    # subtract established connections
+    $connected = $data.Connections |
+        Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name", $_."Last Name"} } |
+        Select-Object -ExpandProperty "Full Name" |
+        Sort-Object;
+    $connected = Get-AIntersectB -a $names -b $connected;
+    If ($connected) {
+        Write-Host "I am connected to these already:";
+        $connected | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $names = Get-AMinusB -a $names -b $connected;
+    }
+}
+
+if ($names) {
+    # subtract outgoing invitations
+    $i_invited = $data.Invitations |
+        Where-Object -Property Direction -Eq "OUTGOING" |
+        Select-Object -ExpandProperty To | 
+        Sort-Object;
+    $i_invited = Get-AIntersectB -a $names -b $i_invited;
+    If ($i_invited) {
+        Write-Host "I have outgoing invitations to these already:";
+        $i_invited | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $names = Get-AMinusB -a $names -b $i_invited;
+    }
+}
+
+if ($names) {
+    # subtract incoming invitations
+    $invited_me = $data.Invitations |
+        Where-Object -Property Direction -Eq "INCOMING" |
+        Select-Object -ExpandProperty From | 
+        Sort-Object;
+    $invited_me = Get-AIntersectB -a $names -b $invited_me;
+    If ($invited_me) {
+        Write-Host "I have incoming invitations from these already:";
+        $invited_me | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $names = Get-AMinusB -a $names -b $invited_me;
+    }
+}
+
+if ($names) {
+    # send invites to the remainder
+    Write-Host "Send invitations to these:";
+    $names | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
-
-    $names = Get-AMinusB -a $names -b $i_invited;
-}
-
-# subtract incoming invitations
-$invited_me = $data.Invitations |
-    Where-Object -Property Direction -Eq "INCOMING" |
-    Select-Object -ExpandProperty From | 
-    Sort-Object;
-$invited_me = Get-AIntersectB -a $names -b $invited_me;
-If ($invited_me) {
-    Write-Host "I have incoming invitations from these already:";
-    $invited_me | ForEach-Object {
-        Write-Host ("    {0}" -f $_);
-    }
-
-    $names = Get-AMinusB -a $names -b $invited_me;
-}
-
-# send invites to the remainder
-Write-Host "Send invitations to these:";
-$names | ForEach-Object {
-    Write-Host ("    {0}" -f $_);
 }
 
 # -- chat maybe-names --
 $maybe_names = $chat.maybe_names;
-Write-Host "Maybe names:";
-$maybe_names | ForEach-Object {
-    Write-Host ("    {0}" -f $_);
-}
-
-# subtract myself
-If ($data.Invitations) {
-    $firstInvite = $data.Invitations[0];
-
-    Switch ($firstInvite.Direction) {
-        "INCOMING" {
-            $my_name = $firstInvite.To;
-        }
-        "OUTGOING" {
-            $my_name = $firstInvite.From;
-        }
-        Default {
-            Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
-        }
-    }
-
-    $maybe_names = Get-AMinusSuffix -a $maybe_names -suffix @( $my_name );
-}
-
-# subtract established connections
-$connected = $data.Connections |
-    Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name".Trim(), $_."Last Name".Trim()} } |
-    Select-Object -ExpandProperty "Full Name" |
-    Sort-Object;
-$connected = Get-AIntersectSuffix -a $maybe_names -suffix $connected; 
-If ($connected) {
-    Write-Host "I am connected to these already:";
-    $connected | ForEach-Object {
+if ($maybe_names) {
+    Write-Host "Maybe names:";
+    $maybe_names | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
 
-    $maybe_names = Get-AMinusB -a $maybe_names -b $connected;
+    # subtract myself
+    If ($data.Invitations) {
+        $firstInvite = $data.Invitations[0];
+
+        Switch ($firstInvite.Direction) {
+            "INCOMING" {
+                $my_name = $firstInvite.To;
+            }
+            "OUTGOING" {
+                $my_name = $firstInvite.From;
+            }
+            Default {
+                Throw ("Unexpected invite direction {0}" -f $firstInvite.Direction);
+            }
+        }
+
+        $maybe_names = Get-AMinusSuffix -a $maybe_names -suffix @( $my_name );
+    }
 }
 
-# subtract outgoing invitations
-$i_invited = $data.Invitations |
-    Where-Object -Property Direction -Eq "OUTGOING" |
-    Select-Object -ExpandProperty To | 
-    Sort-Object;
-$i_invited = Get-AIntersectSuffix -a $maybe_names -suffix $i_invited; 
-If ($i_invited) {
-    Write-Host "I have outgoing invitations to these already:";
-    $i_invited | ForEach-Object {
+if ($maybe_names) {
+    # subtract established connections
+    $connected = $data.Connections |
+        Select-Object -Property @{ Name="Full Name"; Expression={"{0} {1}" -f $_."First Name".Trim(), $_."Last Name".Trim()} } |
+        Select-Object -ExpandProperty "Full Name" |
+        Sort-Object;
+    $connected = Get-AIntersectSuffix -a $maybe_names -suffix $connected; 
+    If ($connected) {
+        Write-Host "I am connected to these already:";
+        $connected | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $maybe_names = Get-AMinusB -a $maybe_names -b $connected;
+    }
+}
+
+if ($maybe_names) {
+    # subtract outgoing invitations
+    $i_invited = $data.Invitations |
+        Where-Object -Property Direction -Eq "OUTGOING" |
+        Select-Object -ExpandProperty To | 
+        Sort-Object;
+    $i_invited = Get-AIntersectSuffix -a $maybe_names -suffix $i_invited; 
+    If ($i_invited) {
+        Write-Host "I have outgoing invitations to these already:";
+        $i_invited | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $maybe_names = Get-AMinusB -a $maybe_names -b $i_invited;
+    }
+}
+
+if ($maybe_names) {
+    # subtract incoming invitations
+    $invited_me = $data.Invitations |
+        Where-Object -Property Direction -Eq "INCOMING" |
+        Select-Object -ExpandProperty From | 
+        Sort-Object;
+    $invited_me = Get-AIntersectSuffix -a $maybe_names -suffix $invited_me; 
+    If ($invited_me) {
+        Write-Host "I have incoming invitations from these already:";
+        $invited_me | ForEach-Object {
+            Write-Host ("    {0}" -f $_);
+        }
+
+        $maybe_names = Get-AMinusB -a $maybe_names -b $invited_me;
+    }
+}
+
+if ($maybe_names) {
+    # send invites to the remainder
+    Write-Host "Send invitations to these:";
+    $maybe_names | ForEach-Object {
         Write-Host ("    {0}" -f $_);
     }
-
-    $maybe_names = Get-AMinusB -a $maybe_names -b $i_invited;
-}
-
-# subtract incoming invitations
-$invited_me = $data.Invitations |
-    Where-Object -Property Direction -Eq "INCOMING" |
-    Select-Object -ExpandProperty From | 
-    Sort-Object;
-$invited_me = Get-AIntersectSuffix -a $maybe_names -suffix $invited_me; 
-If ($invited_me) {
-    Write-Host "I have incoming invitations from these already:";
-    $invited_me | ForEach-Object {
-        Write-Host ("    {0}" -f $_);
-    }
-
-    $maybe_names = Get-AMinusB -a $maybe_names -b $invited_me;
-}
-
-# send invites to the remainder
-Write-Host "Send invitations to these:";
-$maybe_names | ForEach-Object {
-    Write-Host ("    {0}" -f $_);
 }
