@@ -89,6 +89,7 @@ if ($new_urls) {
 if ($new_urls) {
     # subtract established connections
     $connected = $data.Connections |
+        Where-Object -Property "URL" -ne "" |
         Select-Object -ExpandProperty URL |
         Sort-Object;
     $connected = Get-AIntersectB -a $new_urls -b $connected;
