@@ -44,25 +44,25 @@ $chat = Export-ChatLog -folder $chatlogs;
 $new_urls = $chat.urls;
 
 if ($new_urls) {
-    # replace each URL that is an alias with its unique form
-    $aliases = @{};
-    Import-Csv -Path $url_aliases | ForEach-Object {
-        $alias = $_;
-
-        $aliases[$alias.Alias] = $alias.Canonical;
-    }
+    # some URLs are aliases, and others require special handling of other sorts
+    $aliases = Import-Csv -Path $url_aliases;
 
     $new_urls = $new_urls | ForEach-Object {
         $url = $_;
-        If ($aliases.ContainsKey($url)) {
-            Write-Host ("    Replacing {0} with {1}" -f $url, $aliases[$url]);
-            Return $aliases[$url];
+
+        # check for special handling
+        $alias = $aliases | Where-Object -Property "Alias" -Eq $url;
+        If ($alias) {
+            Write-Host ("    Replacing `"{0}`" with `"{1}`" ({2})" -f $url, $alias.Canonical, $alias.Comment);
+            If ($alias.Canonical) {
+                Return $alias.Canonical;
+            } Else {
+                Return;
+            }
         } Else {
             Return $url;
         }
     } | Sort-Object -Unique;
-
-    Write-Host $urls;
 }
 
 if ($new_urls) {
