@@ -29,7 +29,7 @@ If ($bruteforce) {
     $count = 0;
 
     # there are 2^n subsequences
-    For ($i = 0; $i -lt (1 -shl $n); $i++) {
+    For ($i = [long]0; $i -lt ([long]1 -shl $n); $i++) {
         $subsequence = "";
         For ($j = 0; $j -lt $n; $j++) {
             # subsequence i contains character j
@@ -48,6 +48,9 @@ If ($bruteforce) {
 
     Write-Host "Total: $count";
 } Else {
+    # the numbers get real big so we mod by 1,000,000,007
+    $m = [long]1000000007;
+
     # use dynamic programming
     # start with the end of the needle and add a new character at every point
     # "" => "b" => "ab"
@@ -59,8 +62,8 @@ If ($bruteforce) {
     # and which are bigger than the truncated needle
     #
     $n = $haystack.Length;
-    $new_counts = [int[]]::new($n + 1);
-    $t = 0;
+    $new_counts = [long[]]::new($n + 1);
+    $t = [long]0;
    
     # first pass: needle = ""
     # a b b 0
@@ -72,7 +75,7 @@ If ($bruteforce) {
         $new_counts[$i] = $t;
         # at each stage we add 2^(i - 1) to [n - i]
 
-        $t = 2 * $t + 1;
+        $t = (2 * $t + 1) % $m;
     }
 
     # second pass: needle = "b"
@@ -106,9 +109,11 @@ If ($bruteforce) {
     # ? 3 1 0 (don't include: 1 from new[3]) + (include: 2^1)
     # 4 1 0 0 (don't include: 3 from new[2]) + (include: 1 from previous[1])
 
+    # we can probably save memory by using a single array instead of two, plus a couple of locals
+    # we only need to remember one of the previous values at a time since we overwrite it just before we use it
 
     For ($i = $needle.Length - 1; $i -ge 0; $i--) {
-        $previous_counts = @() + $new_counts;
+        $previous_counts = [long[]]@() + $new_counts;
 
         $new_counts[$n] = 0;
         $t = 1;
@@ -121,15 +126,15 @@ If ($bruteforce) {
             # depending on how $haystack[$j] compares to $needle[$i]
             If ($haystack[$j] -gt $needle[$i]) {
                 # all 2^(n - j - 1) following subsequences are greater
-                $new_counts[$j] += $t;
+                $new_counts[$j] = ($new_counts[$j] + $t) % $m;
             } ElseIf ($haystack[$j] -eq $needle[$i]) {
                 # precisely $previous_counts[$j + 1] subsequences are greater
-                $new_counts[$j] += $previous_counts[$j + 1];
+                $new_counts[$j] = ($new_counts[$j] + $previous_counts[$j + 1]) % $m;
             } Else {
                 # no subsequence starting with $haystack[$i] is > $needle[$i]
             }
 
-            $t = 2 * $t;
+            $t = (2 * $t) % $m;
         }
     }
 
