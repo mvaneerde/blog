@@ -1,2 +1,9 @@
 # Visual Studio has a nasty habit of creating .vs directories
 .vs/
+
+# Visual Studio Code has a nasty habit of creating .vscode directories
+.vscode/
+
+# don't include build directories
+bin/
+obj/
