@@ -13,6 +13,12 @@ Archive of personal LinkedIn data
 .PARAMETER chatlogs
 Folder where all the chat logs are stored
 
+.PARAMETER url_aliases
+CSV tracking all the URL changes since the logs were captured
+
+.PARAMETER name_aliases
+CSV tracking all the name changes since the logs were captured
+
 .OUTPUTS
 
 .EXAMPLE
@@ -31,7 +37,10 @@ Param(
     [string]$linkedindata,
 
     [Parameter(Mandatory)]
-    [string]$url_aliases
+    [string]$url_aliases,
+
+    [Parameter(Mandatory)]
+    [string]$name_aliases
 );
 
 Import-Module ".\LinkedIn.psm1";
@@ -45,7 +54,7 @@ $new_urls = $chat.urls;
 
 if ($new_urls) {
     # some URLs are aliases, and others require special handling of other sorts
-    $aliases = Import-Csv -Path $url_aliases;
+    $aliases = Import-Csv -Path $url_aliases -Encoding UTF8;
 
     $new_urls = $new_urls | ForEach-Object {
         $url = $_;
@@ -147,6 +156,29 @@ if ($new_urls) {
 
 # -- chat names --
 $names = $chat.names;
+
+if ($names) {
+    # some names are aliases, and others require special handling of other sorts
+    $aliases = Import-Csv -Path $name_aliases -Encoding UTF8;
+
+    $names = $names | ForEach-Object {
+        $name = $_;
+
+        # check for special handling
+        $alias = $aliases | Where-Object -Property "Alias" -Eq $name;
+        If ($alias) {
+            Write-Host ("    Replacing `"{0}`" with `"{1}`" ({2})" -f $name, $alias.Canonical, $alias.Comment);
+            If ($alias.Canonical) {
+                Return $alias.Canonical;
+            } Else {
+                Return;
+            }
+        } Else {
+            Return $name;
+        }
+    } | Sort-Object -Unique;
+}
+
 if ($names) {
     Write-Host "Names:";
     $names | ForEach-Object {
