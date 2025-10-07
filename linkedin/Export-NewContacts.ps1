@@ -267,6 +267,31 @@ if ($names) {
 # -- chat maybe-names --
 $maybe_names = $chat.maybe_names;
 if ($maybe_names) {
+    # some names are aliases, and others require special handling of other sorts
+    $aliases = Import-Csv -Path $name_aliases -Encoding UTF8;
+
+    $maybe_names = $maybe_names | ForEach-Object {
+        $maybe_name = $_;
+
+        # check for special handling
+        $alias = $aliases | Where-Object { $maybe_name.EndsWith($_.Alias)};
+        If ($alias) {
+            Write-Host (
+                "    In `"{0}`" replacing `"{1}`" with `"{2}`" ({3})" -f
+                    $maybe_name, $alias.Alias, $alias.Canonical, $alias.Comment
+            );
+            If ($alias.Canonical) {
+                Return $maybe_name.Replace($alias.Alias, $alias.Canonical);
+            } Else {
+                Return;
+            }
+        } Else {
+            Return $maybe_name;
+        }
+    } | Sort-Object -Unique;
+}
+
+if ($maybe_names) {
     Write-Host "Maybe names:";
     $maybe_names | ForEach-Object {
         Write-Host ("    {0}" -f $_);
