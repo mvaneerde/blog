@@ -17,6 +17,6 @@ private:
         int value;
     };
 
-    static ShowInt_Mapping showInts[4];
+    static ShowInt_Mapping showInts[14];
 };
 

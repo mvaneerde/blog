@@ -13,7 +13,7 @@ int wmain(int argc, LPCWSTR argv[]) {
                 return error;
             }
         } else {
-            return GetLastError();
+            return ERROR_INVALID_PARAMETER;
         }
     }
 

@@ -5,11 +5,11 @@ Prefs::Prefs() {
     fMask = SEE_MASK_DEFAULT;
     hwnd = GetConsoleWindow();
     lpVerb = nullptr;
-    lpFile = nullptr;
+    lpFile = nullptr; // required later
     lpParameters = nullptr;
     lpDirectory = nullptr;
-    nShow = -1;
-    hInstApp = 0;
+    nShow = -1; // required later
+    hInstApp = 0; // output
     lpIDList = nullptr;
     lpClass = nullptr;
     hkeyClass = nullptr;
@@ -22,10 +22,7 @@ Prefs::Prefs() {
 bool Prefs::Parse(int argc, LPCWSTR argv[], bool &run) {
     // TODO
     // fMask = SEE_MASK_DEFAULT;
-    // lpVerb = nullptr;
-    // lpParameters = nullptr;
     // lpDirectory = nullptr;
-    // nShow = -1;
     // hInstApp = 0;
     // lpIDList = nullptr;
     // lpClass = nullptr;
@@ -43,8 +40,28 @@ bool Prefs::Parse(int argc, LPCWSTR argv[], bool &run) {
 
     bool seenFile = false;
     bool seenShow = false;
+    bool seenVerb = false;
+    bool seenParameters = false;
 
     for (int i = 1; i < argc; i++) {
+        // --verb
+        if (0 == _wcsicmp(argv[i], L"--verb")) {
+            if (seenVerb) {
+                LOG(L"%s", L"Multiple --verb arguments passed");
+                return false;
+            }
+            seenVerb = true;
+
+            i++;
+            if (i == argc) {
+                LOG(L"%s", L"--verb requires a value");
+                return false;
+            }
+
+            lpVerb = argv[i];
+            continue;
+        }
+
         // --file
         if (0 == _wcsicmp(argv[i], L"--file")) {
             if (seenFile) {
@@ -60,6 +77,24 @@ bool Prefs::Parse(int argc, LPCWSTR argv[], bool &run) {
             }
 
             lpFile = argv[i];
+            continue;
+        }
+
+        // --parameters
+        if (0 == _wcsicmp(argv[i], L"--parameters")) {
+            if (seenParameters) {
+                LOG(L"%s", L"Multiple --parameters arguments passed");
+                return false;
+            }
+            seenParameters = true;
+
+            i++;
+            if (i == argc) {
+                LOG(L"%s", L"--parameters requires a value");
+                return false;
+            }
+
+            lpParameters = argv[i];
             continue;
         }
 
@@ -85,6 +120,7 @@ bool Prefs::Parse(int argc, LPCWSTR argv[], bool &run) {
             continue;
         }
 
+        // any other argument
         LOG(L"Unrecognized argument %s", argv[i]);
         return false;
     }
@@ -140,7 +176,12 @@ void Prefs::ShowUsage() {
     LOG(L"%s", L"    [--show <show-options>]");
     LOG(L"%s", L"");
     LOG(L"%s", L"mask-options: TODO");
-    LOG(L"%s", L"show-options: TODO");
+    LOG(L"%s", L"show-options:");
+    for (int i = 0; i < _countof(showInts); i++) {
+        LOG(L"    %s%s",
+            showInts[i].name,
+            (i == _countof(showInts) - 1 ? L"" : L" |"));
+    }
 }
 
 void Prefs::LogResult(BOOL result) {
@@ -153,7 +194,7 @@ void Prefs::LogResult(BOOL result) {
 }
 
 int Prefs::ShowInt_From_String(LPCWSTR s, bool &found) {
-    for (int i = 0; i < _countof(Prefs::showInts); i++) {
+    for (int i = 0; i < _countof(showInts); i++) {
         if (0 == _wcsicmp(s, showInts[i].name)) {
             found = true;
             return showInts[i].value;
@@ -169,12 +210,27 @@ Prefs::ShowInt_Mapping::ShowInt_Mapping(LPCWSTR n, int v)
     }
 
 
-Prefs::ShowInt_Mapping Prefs::showInts[4] = {
-    Prefs::ShowInt_Mapping(L"SW_HIDE", SW_HIDE),
+#define SHOWINT_MAPPING_ENTRY(i) Prefs::ShowInt_Mapping(L ## #i, i)
+
+Prefs::ShowInt_Mapping Prefs::showInts[14] = {
+    SHOWINT_MAPPING_ENTRY(SW_HIDE),
 
     // these are equal
-    Prefs::ShowInt_Mapping(L"SW_SHOWNORMAL", SW_SHOWNORMAL),
-    Prefs::ShowInt_Mapping(L"SW_NORMAL", SW_NORMAL),
+    SHOWINT_MAPPING_ENTRY(SW_SHOWNORMAL),
+    SHOWINT_MAPPING_ENTRY(SW_NORMAL),
 
-    Prefs::ShowInt_Mapping(L"SW_SHOWMINIMIZED", SW_SHOWMINIMIZED),
+    SHOWINT_MAPPING_ENTRY(SW_SHOWMINIMIZED),
+
+    // these are equal
+    SHOWINT_MAPPING_ENTRY(SW_SHOWMAXIMIZED),
+    SHOWINT_MAPPING_ENTRY(SW_MAXIMIZE),
+
+    SHOWINT_MAPPING_ENTRY(SW_SHOWNOACTIVATE),
+    SHOWINT_MAPPING_ENTRY(SW_SHOW),
+    SHOWINT_MAPPING_ENTRY(SW_MINIMIZE),
+    SHOWINT_MAPPING_ENTRY(SW_SHOWMINNOACTIVE),
+    SHOWINT_MAPPING_ENTRY(SW_SHOWNA),
+    SHOWINT_MAPPING_ENTRY(SW_RESTORE),
+    SHOWINT_MAPPING_ENTRY(SW_SHOWDEFAULT),
+    SHOWINT_MAPPING_ENTRY(SW_FORCEMINIMIZE),
 };
