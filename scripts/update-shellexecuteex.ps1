@@ -10,7 +10,7 @@ Function Extract-ShellExecuteEx {
 
     If (Test-Path -Path $destination) {
         # check the version of the existing file
-        $existingVersion = (Get-Item -Path $destination).VersionInfo.FileVersion
+        $existingVersion = [Version](Get-Item -Path $destination).VersionInfo.FileVersion
         If ($null -eq $existingVersion) {
             Throw "$destination does not have a version"
         } ElseIf ($existingVersion -lt $version) {
@@ -23,6 +23,7 @@ Function Extract-ShellExecuteEx {
         }
     } Else {
         [System.IO.Compression.ZipFileExtensions]::ExtractToFile($entry, $destination, $False)
+        Write-Host "Installed to $destination"
     }
 }
 
