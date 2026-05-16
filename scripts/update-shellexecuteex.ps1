@@ -12,7 +12,28 @@ Function Get-WebContent {
          $response = Invoke-WebRequest -Uri $url -UseBasicParsing -ErrorAction Stop
          Return $response.Content
     } Catch {
-        Throw "Failed to get content from ${url}: $_"
+        $errorString = "Failed to get content from ${url}: $_"
+
+        # check if we're rate limited
+        $headers = $_.Exception.Response.Headers;
+        $values = [string[]]@();
+        If ($headers.TryGetValues("X-RateLimit-Remaining", [ref]$values) -and
+            $values.Count -eq 1 -and
+            $values[0] -eq "0"
+        ) {
+            # we're rate limited - grab the rate limit reset time
+            $rateLimitReset = [int64]$headers.GetValues("X-RateLimit-Reset")[0]
+            $localDate = [DateTimeOffset]::FromUnixTimeSeconds($rateLimitReset).LocalDateTime
+            $errorString = "We're rate limited. Try -skipDownload or wait until $localDate"
+        } Else {
+            # something else is wrong, dump the headers
+            Write-Host "Response headers:"
+            $headers.GetEnumerator() | ForEach-Object {
+                Write-Host "$($_.Key): $($_.Value)"
+            };
+        }
+
+        Throw $errorString
     }
 }
 
