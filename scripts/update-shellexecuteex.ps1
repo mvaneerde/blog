@@ -48,7 +48,7 @@ Function Get-PathInZip {
     Switch ($architecture) {
         "AMD64" { Return "ShellExecuteEx/x64/ShellExecuteEx.exe" }
         "ARM64" { Return "ShellExecuteEx/arm64/ShellExecuteEx.exe" }
-        Default { Throw "Unsupported architecture: $($env:PROCESSOR_ARCHITECTURE)" }
+        Default { Throw "Unsupported architecture: $architecture" }
     }
 }
 
