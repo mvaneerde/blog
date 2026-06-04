@@ -154,13 +154,16 @@ If ($entry -ne $null) {
         Write-Host "$path does not exist"
     }
 
-    # if Edge - (profile name).exe exists in the user's Start Menu,
-    # put it there
+    # if wrapper executables exist in the user's Start Menu,
+    # refresh them in place
     $startMenu = [Environment]::GetFolderPath('StartMenu')
     $programs = Join-Path -Path $startMenu -ChildPath "Programs"
-    Get-ChildItem -Path $programs -Filter "Edge - *.exe" | ForEach-Object {
-        $destination = $_.FullName
-        Extract-ShellExecuteEx -entry $entry -version $latestVersion -destination $destination
+    @("Edge - *.exe", "VS Code - *.exe") | ForEach-Object {
+        $filter = $_
+        Get-ChildItem -Path $programs -Filter $filter | ForEach-Object {
+            $destination = $_.FullName
+            Extract-ShellExecuteEx -entry $entry -version $latestVersion -destination $destination
+        }
     }
 } Else {
     Write-Host "Could not find $pathInZip in the zip file."
