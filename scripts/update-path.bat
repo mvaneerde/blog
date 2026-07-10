@@ -29,7 +29,11 @@ rem for extensibility we'll set the user "path" variable once, to %userpath% (a 
 rem then we will just maintain the "userpath" variable
 if "%userpath%"=="" (
 	rem this is the first time we've set a user path
-	setx path "%%userpath%%"
+	rem the user "path" variable must reference %userpath% and be re-expanded
+	rem at process launch, so it MUST be stored as REG_EXPAND_SZ.
+	rem setx writes REG_SZ (never re-expanded), so use reg add with an explicit type.
+	rem the following setx userpath at :SET_PATH broadcasts WM_SETTINGCHANGE for both.
+	reg add "HKCU\Environment" /v path /t REG_EXPAND_SZ /d "%%userpath%%" /f >nul
 	set userpath=%*
 	goto :SET_PATH
 )
