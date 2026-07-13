@@ -29,11 +29,10 @@ rem for extensibility we'll set the user "path" variable once, to %userpath% (a 
 rem then we will just maintain the "userpath" variable
 if "%userpath%"=="" (
 	rem this is the first time we've set a user path
-	rem the user "path" variable must reference %userpath% and be re-expanded
-	rem at process launch, so it MUST be stored as REG_EXPAND_SZ.
-	rem setx writes REG_SZ (never re-expanded), so use reg add with an explicit type.
-	rem the following setx userpath at :SET_PATH broadcasts WM_SETTINGCHANGE for both.
-	reg add "HKCU\Environment" /v path /t REG_EXPAND_SZ /d "%%userpath%%" /f >nul
+	rem preserve any pre-existing user "path" (e.g. %USERPROFILE%\...\WindowsApps
+	rem that Windows adds by default) by prepending it; from now on we only
+	rem maintain the "userpath" variable
+	call :INIT_PATH
 	set userpath=%*
 	goto :SET_PATH
 )
@@ -65,4 +64,28 @@ if /i "%*" == "%userpath%" (
 ) else (
 	exit /b 2
 )
+
+:INIT_PATH
+rem the user "path" variable must reference %userpath% (and re-expand any %VAR%
+rem in the pre-existing path) at process launch, so it MUST be stored as
+rem REG_EXPAND_SZ. setx writes REG_SZ (never re-expanded), so use reg add with
+rem an explicit type. the setx userpath at :SET_PATH broadcasts WM_SETTINGCHANGE.
+rem
+rem read the existing user "path" UNEXPANDED (reg query does not expand
+rem REG_EXPAND_SZ) so we don't lose entries Windows puts there by default,
+rem such as %USERPROFILE%\AppData\Local\Microsoft\WindowsApps
+set "existinguserpath="
+for /f "skip=2 tokens=2,*" %%A in ('reg query "HKCU\Environment" /v path 2^>nul') do set "existinguserpath=%%B"
+if not defined existinguserpath (
+	reg add "HKCU\Environment" /v path /t REG_EXPAND_SZ /d "%%userpath%%" /f >nul
+	exit /b
+)
+if /i "%existinguserpath%"=="%%userpath%%" (
+	rem already using the %userpath% indirection; don't double it
+	reg add "HKCU\Environment" /v path /t REG_EXPAND_SZ /d "%%userpath%%" /f >nul
+	exit /b
+)
+reg add "HKCU\Environment" /v path /t REG_EXPAND_SZ /d "%existinguserpath%;%%userpath%%" /f >nul
+exit /b
+
 :END
